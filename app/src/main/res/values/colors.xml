@@ -26,4 +26,6 @@
     <!--搜索view相关-->
     <color name="search_hint_textColor">#808080</color>
     <color name="search_bg">#f1f1f1</color>
+
+    <color name="common_orange">#FF6600</color>
 </resources>
