@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 import com.dchz.newwork.R;
 import com.dchz.newwork.activity.base.BaseActivity;
-import com.dchz.newwork.activity.fragments.FindFragment;
+import com.dchz.newwork.activity.fragments.SearchFragment;
 import com.dchz.newwork.activity.fragments.ReportFragment;
 import com.dchz.newwork.activity.fragments.SettingFragment;
 import com.dchz.newwork.activity.fragments.WorkFragment;
@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity {
     private SettingFragment settingFragment;
     private WorkFragment workFragment;
     private ReportFragment reportFragment;
-    private FindFragment findFragment;
+    private SearchFragment searchFragment;
     private FragmentManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
                 if (checkedId == R.id.tab1) {
                     switchContent(mContent, workFragment);
                 } else if (checkedId == R.id.tab2) {
-                    switchContent(mContent, findFragment);
+                    switchContent(mContent, searchFragment);
                 } else if (checkedId == R.id.tab3) {
                     switchContent(mContent, reportFragment);
                 }else if (checkedId==R.id.tab4){
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
     }
     private void initFragment() {
         workFragment = new WorkFragment();
-        findFragment = new FindFragment();
+        searchFragment = new SearchFragment();
         reportFragment=new ReportFragment();
         settingFragment=new SettingFragment();
         manager = getFragmentManager();
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
                 String flag = "";
                 if (to instanceof WorkFragment)
                     flag = "flag1";
-                if (to instanceof FindFragment)
+                if (to instanceof SearchFragment)
                     flag = "flag2";
                 if (to instanceof ReportFragment)
                     flag = "flag3";

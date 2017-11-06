@@ -1,23 +1,25 @@
 package com.dchz.newwork.activity.fragments;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.dchz.newwork.R;
 import com.dchz.newwork.activity.base.BaseFragment;
 import com.dchz.newwork.component.CommonHeaderView;
+import com.dchz.newwork.util.IntentUtils;
 
 /**
  * Created by yas on 2017/11/6.
  */
 
-public class FindFragment extends BaseFragment implements View.OnClickListener {
+public class SearchFragment extends BaseFragment implements View.OnClickListener {
     private CommonHeaderView mHeader;
     private RelativeLayout layoutItem01;
     private RelativeLayout layoutItem02;
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_find;
+        return R.layout.fragment_search;
     }
 
     @Override
@@ -36,9 +38,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view==layoutItem01){
-
+            IntentUtils.startSearchProjectActivity(getActivity());
         }else if (view==layoutItem02){
-
+            IntentUtils.startSearchContractActivity(getActivity());
         }
     }
 }
