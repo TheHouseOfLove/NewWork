@@ -56,8 +56,10 @@ public class WorkFragment extends BaseFragment {
                     @Override
                     public void run() {
                         xrvVisiting.loadMoreComplete();
+                        mPendingAdapter.appendList(getRightData());
                     }
                 },1000);
+                xrvVisiting.setLoadingMoreEnabled(false);
             }
         });
     }
