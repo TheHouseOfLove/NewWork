@@ -10,28 +10,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
         android:background="@drawable/bg_white"
         android:gravity="center"
-        android:layout_marginBottom="8dp"
-        android:padding="2px" >
+        android:layout_marginBottom="8dp">
 
         <TextView
             android:id="@+id/textView_left"
             android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:background="@drawable/bg_myfocus"
             android:gravity="center"
             android:textColor="@drawable/textcolor_main"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView_right"
             android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:background="@drawable/bg_myfocus"
             android:gravity="center"
             android:textColor="@drawable/textcolor_main"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

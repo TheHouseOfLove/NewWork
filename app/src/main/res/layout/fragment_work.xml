@@ -7,4 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/common_grey"/>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xrv_visiting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
 </LinearLayout>
