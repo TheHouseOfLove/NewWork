@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--header头部相关-->
+    <dimen name="header_height">40dp</dimen>
+    <dimen name="header_item_height">40dp</dimen>
+    <dimen name="header_paddingTop">0dp</dimen>
+    <dimen name="header_item_width">50dp</dimen>
+    <dimen name="header_title_fontSize">18sp</dimen>
+    <dimen name="common_divider">8dp</dimen>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="common_white">#ffffff</color>
+    <color name="common_item_press">#f7f7f7</color>
+    <color name="common_red">#ee0000</color>
+    <color name="common_grey">#909090</color>
+    <color name="common_black">#333333</color>
+    <color name="common_green">#22B573</color>
+
+    <color name="common_font_orange_v2">#ef8200</color>
+    <color name="common_font_green">#22B573</color>
+    <color name="translucent">#00000000</color>
+    <color name="common_bg_color_grey">#eeeeee</color>
+    <color name="common_font_grey">#999999</color>
+    <color name="common_font_black">#505050</color>
+    <color name="common_bg">#E5E7EB</color>
+    <color name="comment_text_hint">#dcdcdc</color>
+
+    <color name="province_line_border">#505050</color>
+</resources>
