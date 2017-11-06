@@ -22,4 +22,8 @@
     <color name="comment_text_hint">#dcdcdc</color>
 
     <color name="province_line_border">#505050</color>
+
+    <!--搜索view相关-->
+    <color name="search_hint_textColor">#808080</color>
+    <color name="search_bg">#f1f1f1</color>
 </resources>
