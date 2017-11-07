@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+    <TextView 
+        android:id="@+id/text_lastYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="12.5dp"
+        android:textSize="14sp"
+        android:textColor="@color/common_blue"
+        android:text="上一年"/>
+<TextView 
+        android:id="@+id/text_thisYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_lastYear"
+        android:layout_marginLeft="12.5dp"
+        android:layout_marginTop="12.5dp"
+        android:textSize="14sp"
+        android:textColor="@color/common_blue"
+        android:text="当前年"/>
+<TextView 
+        android:id="@+id/text_nextYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_thisYear"
+        android:layout_marginLeft="12.5dp"
+        android:layout_marginTop="12.5dp"
+        android:textSize="14sp"
+        android:textColor="@color/common_blue"
+        android:text="下一年"/>
+<TextView 
+        android:id="@+id/text_danwei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12.5dp"
+        android:layout_marginRight="12.5dp"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:text="单位：万元"/>
+<TextView 
+    android:id="@+id/text_info"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/text_danwei"
+    android:layout_marginTop="12.5dp"
+    android:layout_centerHorizontal="true"
+    android:textSize="14sp"
+    android:textColor="#555555"
+    android:text="2014合同信息查勋"
+    android:visibility="gone"/>
+</RelativeLayout>

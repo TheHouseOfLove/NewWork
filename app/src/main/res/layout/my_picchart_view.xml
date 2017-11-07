@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="64dp"
+    android:paddingRight="64dp"
+    android:paddingTop="16dp"
+    android:background="#ffffff">
+
+    <com.dchz.newwork.component.ArcChartView
+        android:id="@+id/charView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/txt_proportion"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="80%"
+        android:layout_centerHorizontal="true"
+        android:textColor="#555555"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/txt_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已完成2222万元"
+        android:layout_toRightOf="@id/charView"
+        android:textColor="#555555"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>
