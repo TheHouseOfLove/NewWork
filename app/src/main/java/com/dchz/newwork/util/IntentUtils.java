@@ -3,6 +3,7 @@ package com.dchz.newwork.util;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dchz.newwork.activity.MainActivity;
 import com.dchz.newwork.activity.SearchContractActivity;
 import com.dchz.newwork.activity.SearchProjectActivity;
 
@@ -11,7 +12,14 @@ import com.dchz.newwork.activity.SearchProjectActivity;
  */
 
 public class IntentUtils {
-
+    /**
+     * 启动主页
+     * @param mContext
+     */
+    public static void startMainActivity(Context mContext){
+        Intent intent=new Intent(mContext, MainActivity.class);
+        mContext.startActivity(intent);
+    }
     /**
      * 启动项目查询页
      * @param mContext

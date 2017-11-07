@@ -7,6 +7,7 @@ import com.dchz.newwork.activity.base.BaseFragment;
 import com.dchz.newwork.component.ChartView;
 import com.dchz.newwork.component.HeaderSelectView;
 import com.dchz.newwork.component.ReportSubView;
+import com.dchz.newwork.listener.IReportSubClickListener;
 import com.dchz.newwork.listener.ITabChangeListener;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -33,9 +34,14 @@ public class ReportFragment extends BaseFragment {
         mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.setPullRefreshEnabled(false);
         mSubView=rootView.findViewById(R.id.subView);
+        mSubView.setClickListener(mReportSubClickListener);
         mChartView=new ChartView(getActivity());
         mRecyclerView.addHeaderView(mChartView);
     }
+
+    /**
+     * 合同、收款tab切换监听
+     */
     private ITabChangeListener mTabChangeListener=new ITabChangeListener() {
         @Override
         public void leftTabClick() {
@@ -47,4 +53,25 @@ public class ReportFragment extends BaseFragment {
 
         }
     };
+    /**
+     * 年份切换回调
+     */
+    private IReportSubClickListener mReportSubClickListener=new IReportSubClickListener() {
+        @Override
+        public void lastYearClickListener() {
+
+        }
+
+        @Override
+        public void thistYearClickListener() {
+
+        }
+
+        @Override
+        public void nextYearClickListener() {
+
+        }
+    };
+
+
 }
