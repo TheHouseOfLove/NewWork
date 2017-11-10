@@ -12,6 +12,7 @@ import com.dchz.newwork.activity.SearchProjectActivity;
  */
 
 public class IntentUtils {
+    public static final String KEY_ENTITY="entity";
     /**
      * 启动主页
      * @param mContext

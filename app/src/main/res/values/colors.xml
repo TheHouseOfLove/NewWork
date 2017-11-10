@@ -28,4 +28,6 @@
     <color name="search_bg">#f1f1f1</color>
 
     <color name="common_orange">#FF6600</color>
+
+    <color name="header_item_textColor">#808080</color>
 </resources>
