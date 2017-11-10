@@ -27,6 +27,12 @@
         <activity android:name=".activity.SearchContractActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.SearchContractDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SearchProjectDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
