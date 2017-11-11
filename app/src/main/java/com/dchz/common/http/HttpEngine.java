@@ -26,11 +26,11 @@ public class HttpEngine extends Thread {
 		// TODO Auto-generated constructor stub
 		super("HttpEnginePool");
 //		//0->正式域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"https://a.menkoudai.com");
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
 		//1->UAT域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://a.uat.menkoudai.com");
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
 		//2->测试域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://a.test.menkoudai.com");
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
 
 
 		setPriority(Thread.MAX_PRIORITY);
