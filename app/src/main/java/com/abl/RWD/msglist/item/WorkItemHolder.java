@@ -18,7 +18,7 @@ public class WorkItemHolder extends BaseViewHolder<PWorkItemEntity>{
     private int mType;
     private TextView tvName;
     private TextView tvType;
-    private TextView tvMoneny;
+//    private TextView tvMoneny;
     private TextView tvTime;
     private ImageView imgIcon;
     public WorkItemHolder(Context mContext, ViewGroup parent, int layoutId) {
@@ -29,7 +29,7 @@ public class WorkItemHolder extends BaseViewHolder<PWorkItemEntity>{
     public void initView() {
         tvName= this.itemView.findViewById(R.id.text_daibanList_name);
         tvType= this.itemView.findViewById(R.id.text_daibanList_type);
-        tvMoneny= this.itemView.findViewById(R.id.text_daibanList_moeny);
+//        tvMoneny= this.itemView.findViewById(R.id.text_daibanList_moeny);
         tvTime= this.itemView.findViewById(R.id.text_daibanList_time);
         imgIcon=this.itemView.findViewById(R.id.image_yiban);
     }
