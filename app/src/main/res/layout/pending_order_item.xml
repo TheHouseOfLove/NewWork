@@ -47,7 +47,8 @@
             android:layout_alignParentRight="true"
             android:textSize="16sp"
             android:textColor="#3B54AB"
-            android:text="¥ 92690.98"/>
+            android:text="¥ 92690.98"
+            android:visibility="gone"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/text_daibanList_time"
