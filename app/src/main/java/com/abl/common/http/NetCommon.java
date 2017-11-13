@@ -2,7 +2,7 @@ package com.abl.common.http;
 
 import android.support.v4.util.ArrayMap;
 
-import com.abl.RWD.http.rsp.RspFinshWorkListEntity;
+import com.abl.RWD.http.rsp.RspFinishWorkListEntity;
 import com.abl.RWD.http.rsp.RspLoginEntity;
 import com.abl.RWD.http.rsp.RspPendingWorkListEntity;
 
@@ -37,7 +37,7 @@ public class NetCommon {
         //待办列表
         mMap.put(URL_PENDING_WORK_LIST, RspPendingWorkListEntity.class);
         //已办列表
-        mMap.put(URL_FINSH_WORK_LIST, RspFinshWorkListEntity.class);
+        mMap.put(URL_FINSH_WORK_LIST, RspFinishWorkListEntity.class);
     }
 
 

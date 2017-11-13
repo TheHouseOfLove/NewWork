@@ -12,6 +12,8 @@ import com.abl.RWD.common.Global;
 import com.abl.RWD.component.HeaderSearchView;
 import com.abl.RWD.component.HeaderSelectView;
 import com.abl.RWD.listener.ITabChangeListener;
+import com.abl.RWD.listener.OnItemClickListener;
+import com.abl.RWD.util.IntentUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -42,6 +44,14 @@ public class WorkFragment extends BaseFragment {
 
         xrvVisiting=rootView.findViewById(R.id.xrv_visiting);
         mPendingAdapter=new AdapterPendingOrder(getActivity(),getLeftData());
+        mPendingAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String str=mPendingAdapter.getItemEntity(position);
+                showToast(str);
+                IntentUtils.startTransactionDetailActivity(getActivity());
+            }
+        });
         xrvVisiting.setAdapter(mPendingAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

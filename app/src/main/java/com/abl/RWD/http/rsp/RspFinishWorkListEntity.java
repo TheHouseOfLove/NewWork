@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * Created by Administrator on 2017/11/11.
  */
 
-public class RspFinshWorkListEntity extends RspBaseEntity {
+public class RspFinishWorkListEntity extends RspBaseEntity {
     @Override
     public void parseData(JSONObject jsonObj, JSONArray jsonArray, boolean isArray) {
 

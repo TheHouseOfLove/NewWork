@@ -10,7 +10,7 @@ import com.abl.RWD.activity.base.BaseNormalActivity;
  * 事务详情页
  */
 
-public class TransactionDetailActivity extends BaseNormalActivity{
+public class WorkDetailActivity extends BaseNormalActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

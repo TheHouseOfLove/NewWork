@@ -42,7 +42,7 @@
         <activity android:name=".activity.SearchProjectDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.TransactionDetailActivity"
+        <activity android:name=".activity.WorkDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>

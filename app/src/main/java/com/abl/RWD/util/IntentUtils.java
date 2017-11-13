@@ -8,7 +8,7 @@ import com.abl.RWD.activity.SearchContractActivity;
 import com.abl.RWD.activity.SearchContractDetailActivity;
 import com.abl.RWD.activity.SearchProjectActivity;
 import com.abl.RWD.activity.SearchProjectDetailActivity;
-import com.abl.RWD.activity.TransactionDetailActivity;
+import com.abl.RWD.activity.WorkDetailActivity;
 
 /**
  * Created by yas on 2017/11/6.
@@ -61,7 +61,7 @@ public class IntentUtils {
      * @param mContext
      */
     public static void startTransactionDetailActivity(Context mContext){
-        Intent intent=new Intent(mContext, TransactionDetailActivity.class);
+        Intent intent=new Intent(mContext, WorkDetailActivity.class);
         mContext.startActivity(intent);
     }
 }
