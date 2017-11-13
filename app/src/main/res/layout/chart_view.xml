@@ -13,10 +13,10 @@
         android:textColor="#555555"
         android:text="2014合同信息查勋"
         />
-    <com.dchz.newwork.component.MyPieChart
+    <com.abl.RWD.component.MyPieChart
         android:id="@+id/mPieChart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.dchz.newwork.component.MyPieChart>
+        android:layout_height="wrap_content"></com.abl.RWD.component.MyPieChart>
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/mLineChart1"
         android:layout_width="match_parent"

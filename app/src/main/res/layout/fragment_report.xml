@@ -3,12 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white">
-    <com.dchz.newwork.component.HeaderSelectView
+    <com.abl.RWD.component.HeaderSelectView
         android:id="@+id/header_report"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/common_grey"/>
-    <com.dchz.newwork.component.ReportSubView
+    <com.abl.RWD.component.ReportSubView
         android:id="@+id/subView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

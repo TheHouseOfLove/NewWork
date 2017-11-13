@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="#EFEFF4">
-    <com.dchz.newwork.component.CommonHeaderView
+    <com.abl.RWD.component.CommonHeaderView
         android:id="@+id/header_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

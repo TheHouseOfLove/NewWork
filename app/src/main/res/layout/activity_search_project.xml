@@ -4,11 +4,11 @@
     android:background="@color/common_white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-   <com.dchz.newwork.component.CommonHeaderView
+   <com.abl.RWD.component.CommonHeaderView
        android:id="@+id/header_searchProject"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
-    <com.dchz.newwork.component.HeaderSearchView
+    <com.abl.RWD.component.HeaderSearchView
         android:id="@+id/header_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

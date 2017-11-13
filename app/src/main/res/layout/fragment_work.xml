@@ -3,12 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white">
-    <com.dchz.newwork.component.HeaderSelectView
+    <com.abl.RWD.component.HeaderSelectView
         android:id="@+id/header_work"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/common_grey"/>
-    <com.dchz.newwork.component.HeaderSearchView
+    <com.abl.RWD.component.HeaderSearchView
         android:id="@+id/header_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

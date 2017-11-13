@@ -8,7 +8,7 @@
     android:paddingTop="16dp"
     android:background="#ffffff">
 
-    <com.dchz.newwork.component.ArcChartView
+    <com.abl.RWD.component.ArcChartView
         android:id="@+id/charView"
         android:layout_width="150dp"
         android:layout_height="150dp"
