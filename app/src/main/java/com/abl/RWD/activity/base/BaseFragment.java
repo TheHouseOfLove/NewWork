@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abl.RWD.http.listener.ICallBack;
+
 
 /**
  * Created by yas on 2017/11/6.
@@ -61,5 +63,23 @@ public abstract class BaseFragment extends Fragment{
         if (getActivity() instanceof BaseActivity){
             ((BaseActivity) getActivity()).hideLoadingDialog();
         }
+    }
+    private ICallBack<Object> mCallBack = new ICallBack<Object>() {
+        @Override
+        public void getResponse(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+            if(!getActivity().isFinishing()){
+                handleRsp(obj,isSucc,errorCode,seqNo,src);
+            }
+        }
+    };
+
+    protected abstract void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src);
+
+    /***
+     * 获取协议回调
+     * @return
+     */
+    protected ICallBack<Object> getCallBack(){
+        return this.mCallBack;
     }
 }

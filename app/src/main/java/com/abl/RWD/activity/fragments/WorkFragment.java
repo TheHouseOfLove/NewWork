@@ -7,10 +7,13 @@ import android.view.View;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseFragment;
-import com.abl.RWD.adapter.AdapterPendingOrder;
-import com.abl.RWD.common.Global;
+import com.abl.RWD.adapter.AdapterWorkList;
+import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.component.HeaderSearchView;
 import com.abl.RWD.component.HeaderSelectView;
+import com.abl.RWD.entity.PWorkItemEntity;
+import com.abl.RWD.http.ProtocalManager;
+import com.abl.RWD.http.rsp.RspWorkListEntity;
 import com.abl.RWD.listener.ITabChangeListener;
 import com.abl.RWD.listener.OnItemClickListener;
 import com.abl.RWD.util.IntentUtils;
@@ -23,10 +26,20 @@ import java.util.ArrayList;
  */
 
 public class WorkFragment extends BaseFragment {
+    private final int TYPE_PENDING=1;
+    private final int TYPE_FINISH=2;
     private HeaderSelectView mHeader;
     private XRecyclerView xrvVisiting;
-    private AdapterPendingOrder mPendingAdapter;
+    private AdapterWorkList mPendingAdapter;
+    private AdapterWorkList mFinishAdapter;
     private HeaderSearchView mSearchView;
+    private int mType=TYPE_PENDING;
+    private int pageIndexLeft = 1;
+    private int pageIndexRight=1;
+    private boolean hasNextLeft = true;
+    private boolean hasNextRight=true;
+    private String strWhereYiBan="";
+    private String strWhereDaiBan="";
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_work;
@@ -43,12 +56,11 @@ public class WorkFragment extends BaseFragment {
         mSearchView.addTextChangeListener(mSearchTextChangeListener);
 
         xrvVisiting=rootView.findViewById(R.id.xrv_visiting);
-        mPendingAdapter=new AdapterPendingOrder(getActivity(),getLeftData());
         mPendingAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String str=mPendingAdapter.getItemEntity(position);
-                showToast(str);
+                PWorkItemEntity entity=mPendingAdapter.getItemEntity(position);
+                showToast(entity.FormName);
                 IntentUtils.startTransactionDetailActivity(getActivity());
             }
         });
@@ -59,16 +71,88 @@ public class WorkFragment extends BaseFragment {
         xrvVisiting.setLoadingListener(mLoadingListener);
     }
 
+    @Override
+    protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+        hideLoading();
+        if (obj instanceof RspWorkListEntity){
+            RspWorkListEntity rsp= (RspWorkListEntity) obj;
+            if (rsp!=null&&isSucc){
+                if (mType==TYPE_PENDING){
+                    if (mPendingAdapter==null){
+                        mPendingAdapter=new AdapterWorkList(getActivity(),rsp.mEntity.daiBan);
+                        xrvVisiting.setAdapter(mPendingAdapter);
+                    }else{
+                        if (pageIndexLeft==1){
+                            mPendingAdapter.reSetList(rsp.mEntity.daiBan);
+                        }else {
+                            mPendingAdapter.appendList(rsp.mEntity.daiBan);
+                        }
+                    }
+                    if (rsp.mEntity.daiBan.size() < MConfiger.PAGE_SIZE) {
+                        hasNextLeft = false;
+                    }
+                }else if (mType==TYPE_FINISH){
+                    if (mFinishAdapter==null){
+                        mFinishAdapter=new AdapterWorkList(getActivity(),rsp.mEntity.daiBan);
+                        xrvVisiting.setAdapter(mFinishAdapter);
+                    }else{
+                        if (pageIndexLeft==1){
+                            mFinishAdapter.reSetList(rsp.mEntity.daiBan);
+                        }else {
+                            mFinishAdapter.appendList(rsp.mEntity.daiBan);
+                        }
+                    }
+                    if (rsp.mEntity.daiBan.size() < MConfiger.PAGE_SIZE) {
+                        hasNextRight = false;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ProtocalManager.getInstance().reqPendingWorkList("","",1,getCallBack());
+        showLoading("正在获取数据。。。");
+    }
+
     /**
      * 下拉刷新，上了加载更多监听
      */
     private XRecyclerView.LoadingListener mLoadingListener=new XRecyclerView.LoadingListener() {
         @Override
         public void onRefresh() {
+            if (mType == TYPE_PENDING) {
+                mPendingAdapter=null;
+                ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,
+                        refreshPage(),getCallBack());
+            } else if (mType == TYPE_FINISH) {
+                mFinishAdapter=null;
+                 ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,
+                        refreshPage(),getCallBack());
+            }
         }
 
         @Override
         public void onLoadMore() {
+            if (mType == TYPE_PENDING) {
+                if (hasNextLeft) {
+                    int page = nextPage();
+                    ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,
+                            page, getCallBack());
+                }else{
+                    showToast("没有更多数据");
+                }
+            } else if (mType == TYPE_FINISH) {
+                if (hasNextRight) {
+                    int page = nextPage();
+                    ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,
+                            page, getCallBack());
+                }else{
+                    showToast("没有更多数据");
+                }
+            }
         }
     };
     /**
@@ -77,14 +161,26 @@ public class WorkFragment extends BaseFragment {
     private ITabChangeListener mTabChangeListener=new ITabChangeListener() {
         @Override
         public void leftTabClick() {
-            mPendingAdapter.reSetList(getLeftData());
-            mSearchView.clear();
+            mType=TYPE_PENDING;
+            if (mPendingAdapter==null){
+                ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,refreshPage(),getCallBack());
+                showLoading("正在获取数据。。。");
+            }else{
+                xrvVisiting.setAdapter(mPendingAdapter);
+            }
+            mSearchView.setText(strWhereDaiBan);
         }
 
         @Override
         public void rightTabClick() {
-            mPendingAdapter.reSetList(getRightData());
-            mSearchView.clear();
+            mType=TYPE_FINISH;
+            if (mFinishAdapter==null){
+                ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,refreshPage(),getCallBack());
+                showLoading("正在获取数据。。。");
+            }else{
+                xrvVisiting.setAdapter(mFinishAdapter);
+            }
+            mSearchView.setText(strWhereYiBan);
         }
     };
     /**
@@ -107,18 +203,27 @@ public class WorkFragment extends BaseFragment {
         }
     };
 
-    private ArrayList<String> getLeftData(){
-        ArrayList<String> mList=new ArrayList<>();
-        for (int i=1;i<11;i++){
-            mList.add("left"+i);
+    private int nextPage() {
+        if (mType==TYPE_PENDING){
+            pageIndexLeft=pageIndexLeft+1;
+            return pageIndexLeft;
+        }else if (mType==TYPE_FINISH){
+            pageIndexRight=pageIndexRight+1;
+            return pageIndexRight;
         }
-        return mList;
+        return 1;
     }
-    private ArrayList<String> getRightData(){
-        ArrayList<String> mList=new ArrayList<>();
-        for (int i=1;i<11;i++){
-            mList.add("right"+i);
+
+    private int refreshPage() {
+        if (mType==TYPE_PENDING){
+            pageIndexLeft=1;
+            hasNextLeft=true;
+            return pageIndexLeft;
+        }else if (mType==TYPE_FINISH){
+            pageIndexRight=1;
+            hasNextRight=true;
+            return pageIndexRight;
         }
-        return mList;
+        return 1;
     }
 }

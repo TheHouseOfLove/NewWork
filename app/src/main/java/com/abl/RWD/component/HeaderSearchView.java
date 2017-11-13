@@ -43,4 +43,7 @@ public class HeaderSearchView extends LinearLayout {
     public void clear(){
         mEdit.setText("");
     }
+    public void setText(String str){
+        mEdit.setText(str);
+    }
 }
