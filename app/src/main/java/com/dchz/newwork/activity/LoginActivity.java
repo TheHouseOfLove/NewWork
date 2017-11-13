@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.dchz.newwork.R;
 import com.dchz.newwork.activity.base.BaseNormalActivity;
+import com.dchz.newwork.file.SharePreLoginUtil;
 import com.dchz.newwork.http.ProtocalManager;
+import com.dchz.newwork.http.rsp.RspLoginEntity;
 import com.dchz.newwork.util.IntentUtils;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
  * @author wys
  *
  */
-public class LoginActivity extends BaseNormalActivity implements OnClickListener, TextWatcher {
+public class LoginActivity extends BaseNormalActivity implements OnClickListener {
 	private final int FLAG_LOAGIN=0x100;
 	private final int FLAG_UPDATE=0x101;
 	private EditText etUserName;
@@ -50,11 +52,8 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 	private void initLayout() {
 		// TODO Auto-generated method stub
 		etUserName=(EditText) findViewById(R.id.edit_userName);
-		etUserName.addTextChangedListener(this);
 		etPwd=(EditText) findViewById(R.id.edit_pwd);
-		etPwd.addTextChangedListener(this);
 		btnLogin=(Button) findViewById(R.id.btn_login);
-		btnLogin.setEnabled(false);
 		btnLogin.setOnClickListener(this);
 		imgReadPwd=(ImageView) findViewById(R.id.img_switch);
 		imgReadPwd.setOnClickListener(this);
@@ -69,14 +68,25 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 
 	@Override
 	protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
-
+		hideLoadingDialog();
+		if (obj instanceof RspLoginEntity){
+			RspLoginEntity rsp= (RspLoginEntity) obj;
+			if (rsp!=null&&isSucc){
+				showToast("登录成功");
+				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
+				IntentUtils.startMainActivity(this);
+			}else{
+				showToast("网络错误!");
+			}
+		}
 	}
 
 	@Override
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		if(view==btnLogin){
-			IntentUtils.startMainActivity(this);
+//			IntentUtils.startMainActivity(this);
+			login();
 		}else if(view==imgReadPwd){
 			ischecked=!ischecked;
 			imgReadPwd.setSelected(ischecked);
@@ -89,23 +99,18 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 		}
 	}
 
-	private void initBtn(){
+	private void login() {
 		String userName=etUserName.getText().toString();
 		String pwd=etPwd.getText().toString();
-		btnLogin.setEnabled(!TextUtils.isEmpty(userName)&&!TextUtils.isEmpty(pwd));
-	}
-	@Override
-	public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+		ProtocalManager.getInstance().login(userName,pwd,getCallBack());
+		showLoading("正在登录...");
 	}
 
-	@Override
-	public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+	private void initBtn(){
+		String userName=etUserName.getText().toString();
+//		String pwd=etPwd.getText().toString();
+//		btnLogin.setEnabled(!TextUtils.isEmpty(userName)&&!TextUtils.isEmpty(pwd));
+		btnLogin.setEnabled(!TextUtils.isEmpty(userName));
 	}
 
-	@Override
-	public void afterTextChanged(Editable editable) {
-		initBtn();
-	}
 }

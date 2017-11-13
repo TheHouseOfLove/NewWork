@@ -5,6 +5,8 @@ import com.dchz.newwork.common.Common;
 import com.dchz.newwork.http.base.ReqBaseEntity;
 import com.dchz.newwork.http.base.TaskCommon;
 import com.dchz.newwork.http.listener.ICallBack;
+import com.dchz.newwork.http.req.ReqLoginEntity;
+import com.dchz.newwork.util.MyLog;
 
 /**
  * Created by diaosi on 2015/12/29.
@@ -36,6 +38,22 @@ public class ProtocalManager {
         reqEntity.seqNo = seqNo;
         TaskCommon task = new TaskCommon(reqEntity, callBack);
         HttpEngine.getInstance().addTask(task);
+        MyLog.debug(TAG,"[addTask]=====================");
         return seqNo;
+    }
+    /**
+     * 登录注册
+     * @param userName
+     * @param pwd
+     * @param callBack
+     * @return
+     */
+    public int login(String userName,String pwd,ICallBack<Object> callBack){
+        ReqLoginEntity req=new ReqLoginEntity();
+        req.UserName=userName;
+        req.UserPwd=pwd;
+        req.mVisitType=ReqBaseEntity.TYPE_JAVA_GET;
+        MyLog.debug(TAG,"[login]=====================");
+        return addTask(req,callBack);
     }
 }

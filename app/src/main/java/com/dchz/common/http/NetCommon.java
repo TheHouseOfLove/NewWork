@@ -2,6 +2,9 @@ package com.dchz.common.http;
 
 import android.support.v4.util.ArrayMap;
 
+import com.dchz.newwork.http.rsp.RspFinshWorkListEntity;
+import com.dchz.newwork.http.rsp.RspPendingWorkListEntity;
+
 import java.util.Map;
 
 /***
@@ -22,25 +25,16 @@ public class NetCommon {
     public static final Map<String,Class<?>> mMap = new ArrayMap<>();
 
     /**登录注册接口*/
-    public static final String URL_LOGIN_BY_TEL="/api/staff/passport/loginWithValidCode.action";
-    public static final String URL_LOGIN_BY_NAME="/api/staff/passport/loginWithPwd.action";
-    /**发送验证码**/
-    public static final String URL_SEND_CODE="/api/staff/passport/sendValidCode.action";
-    /**修改密码**/
-    public static final String URL_MODIFY_PWD="/api/staff/passport/changePwd.action";
-    /**上传外访图片（批量）**/
-    public static final String URL_UPLOAD_VISIT_INFO="/api/loan/batchUploadPicture.action";
-    /**获取外访结果，外访详情筛选项接口**/
-    public static final String URL_GET_VISIT_SELECTOE_LIST="/api/order/getVisitAuditDetailList.action";
-    /**完成外访接口**/
-    public static final String URL_FINISH_VISIT="/api/order/finishVisitOrderAudit.action";
-    /**获取外访信息接口**/
-    public static final String URL_GET_VISIT_INFO="/api/order/getVisitDetail.action";
-
-    public static final String URL_BUSINESS_INDEX="/api/user/business/index.action";
-    public static final String URL_ORDER_LIST="/api/order/listVisits.action";
-    public static final String URL_RECEIVE_ORDER="/api/order/getPendingVisitOrder.action";
+    public static final String URL_LOGIN="/MobileLogin";
+    //待办列表
+    public static final String URL_PENDING_WORK_LIST="/daiBanList";
+    //已办列表
+    public static final String URL_FINSH_WORK_LIST="/yiBanList";
     static {
+        //待办列表
+        mMap.put(URL_PENDING_WORK_LIST, RspPendingWorkListEntity.class);
+        //已办列表
+        mMap.put(URL_FINSH_WORK_LIST, RspFinshWorkListEntity.class);
     }
 
 

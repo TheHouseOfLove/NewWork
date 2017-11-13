@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
@@ -151,6 +152,9 @@ public class HttpUtilsOkHttp {
         try {
             Response response=call.execute();
             return decodeResponse(response);
+        } catch (UnknownHostException exception){
+            exception.printStackTrace();
+            return new byte[] { NetCommon.ERROR_HTTP_IO_EXCEPTION };
         } catch (IOException e) {
             e.printStackTrace();
             return new byte[] { NetCommon.ERROR_HTTP_IO_EXCEPTION };

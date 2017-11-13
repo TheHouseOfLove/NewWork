@@ -52,7 +52,7 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
                 byte[] buffer = null;
                 if (reqBaseEntity.mVisitType == ReqBaseEntity.TYPE_JAVA_GET) {
                     /* Get方式访问 */
-                    String params = getJavaParams(reqBaseEntity.getReqData());
+                    String params = getParams(reqBaseEntity.getReqData());
                     buffer = HttpUtilsOkHttp.getTypeByte(url, params);
 
                 } else if (reqBaseEntity.mVisitType == ReqBaseEntity.TYPE_JAVA_POST) {
@@ -79,19 +79,19 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
                             }
                         }
                     }
-                    if (files.size() > 0) {
+//                    if (files.size() > 0) {
                         //带文件上传的请求
 //                        mMap = putCommonParams(mMap);
-                        buffer = HttpUtilsOkHttp.postTypeByte(url, files, fileNames, putCommonParams(mMap));
-                    } else {
-                        String jsonStr = getPostJavaParams(map);
-                        buffer = HttpUtilsOkHttp.postTypeByte(url, jsonStr);
-                    }
+                        buffer = HttpUtilsOkHttp.postTypeByte(url, files, fileNames, mMap);
+//                    } else {
+//                        String jsonStr = getPostJavaParams(map);
+//                        buffer = HttpUtilsOkHttp.postTypeByte(url, jsonStr);
+//                    }
                 }
 
                 if (buffer != null && buffer.length > 2) {
                     String str = new String(buffer, "utf-8");
-                    JSONObject jsonObj = new JSONObject(str);
+                    JSONObject jsonObj = new JSONObject(getJSOAN(str));
                     if (MyLog.isDebugable()) {
                         String tempStr = jsonObj.toString();
                         if (MyLog.isDebugable()) {
@@ -123,122 +123,12 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
         }
     }
 
-    /**
-     * 上传文件时参数处理
-     * @param map
-     * @return
-     */
-    private Map<String, Object> putCommonParams(Map<String, Object> map) {
-        if (map == null) {
-            map = new HashMap<>();
-        }
-        String sign= getSignParam(map);
-        if (!TextUtils.isEmpty(sign)) {
-            map.put("sign", sign);
-        }
-        //添加fromType
-        map.put("fromType", NetCommon.KEY_FROM_TYPE);
-        //添加时间戳
-        map.put("timestamp", System.currentTimeMillis() + "");
-        //添加渠道号
-        map.put("channel", MConfiger.CHANNEL_ID);
-        //添加设备号
-        String strIMEI = DeviceUtil.getIMEI();
-        if (!TextUtils.isEmpty(strIMEI)) {
-            map.put("deviceSn", strIMEI);
-        }
-        //添加请求ip
-        String deviceIp = DeviceUtil.getHostIP();
-        if (!TextUtils.isEmpty(deviceIp)) {
-            map.put("deviceIp", deviceIp);
-        }
-//
-//           String deviceGps = LBSController.getInstance().getLocInfo();
-//        MyLog.debug(TAG,"[putCommonParams]  deviceGps:"+deviceGps);
-//            map.put("deviceGps", deviceGps);
-        return map;
+    public static String getJSOAN(String str){
+        String[] strs1=str.split(">");
+        String[] strs=strs1[2].split("<");
+        return strs[0];
     }
-    /**
-     * java get请求时参数处理
-     * @param map
-     * @return
-     */
-    private static final String getJavaParams(Map<String, Object> map) {
-        if (map == null) {
-            map = new HashMap<>();
-        }
-        String sign= getSignParam(map);
-        if (!TextUtils.isEmpty(sign)) {
-            map.put("sign", sign);
-        }
 
-        //添加fromType
-        map.put("fromType", NetCommon.KEY_FROM_TYPE);
-        //添加时间戳
-        map.put("timestamp", System.currentTimeMillis());
-        //添加渠道号
-        map.put("channel", MConfiger.CHANNEL_ID);
-        //添加设备号
-        String strIMEI = DeviceUtil.getIMEI();
-        if (!TextUtils.isEmpty(strIMEI)) {
-            map.put("deviceSn", strIMEI);
-        }
-        //添加请求ip
-        String deviceIp = DeviceUtil.getHostIP();
-        if (!TextUtils.isEmpty(deviceIp)) {
-            map.put("deviceIp", deviceIp);
-        }
-
-//        String deviceGps = LBSController.getInstance().getLocInfo() ;
-//            map.put("deviceGps", deviceGps);
-
-        return getParams(map);
-    }
-    /**
-     * java 普通post请求时参数处理
-     * @param map
-     * @return
-     */
-    private static final String getPostJavaParams(Map<String, Object> map) {
-
-        String sign = getSignParam(map);
-        if(!TextUtils.isEmpty(sign)) {
-            map.put("sign", sign);
-        }
-        if (map == null) {
-            map = new HashMap<>();
-        }
-        if (map != null) {
-            //添加fromType
-            map.put("fromType", NetCommon.KEY_FROM_TYPE);
-            //添加时间戳
-            map.put("timestamp", System.currentTimeMillis());
-            //添加渠道号
-            map.put("channel", MConfiger.CHANNEL_ID);
-
-            //添加设备号
-            String strIMEI = DeviceUtil.getIMEI();
-            if (!TextUtils.isEmpty(strIMEI)) {
-                map.put("deviceSn", strIMEI);
-            }
-            //添加请求ip
-            String deviceIp = DeviceUtil.getHostIP();
-            if (!TextUtils.isEmpty(deviceIp)) {
-                map.put("deviceIp", deviceIp);
-            }
-
-//            String deviceGps = LBSController.getInstance().getLocInfo() ;
-//                map.put("deviceGps", deviceGps);
-//            map.put("sign", "xx");
-            Gson gson = new Gson();
-            Type type = new TypeToken<Map<String, Object>>() {
-            }.getType();
-            String str = gson.toJson(map, type);
-            return str;
-        } else {
-            return "";
-        }
-    }
     /**
      * 拼凑参数
      * @param mReqMap
@@ -260,75 +150,6 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
 
         return builder.toString();
     }
-
-    /**
-     * 获取sign签名验证
-     * @param map
-     * @return
-     */
-    private static final String getSignParam(Map<String, Object> map) {
-        StringBuilder builder = new StringBuilder();
-        String sign = "";
-
-        if (map != null && map.size() > 0) {
-            TreeMap<String, Object> treeMap = new TreeMap<>(new Comparator<String>() {
-                @Override
-                public int compare(String s, String t1) {
-                    int compare = 0;
-                    if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(t1)) {
-                        compare = s.compareTo(t1);
-                    }
-
-                    if (compare > 0) {
-                        return 1;
-                    } else if (compare < 0) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                }
-            });
-
-            treeMap.putAll(map);
-//            if (treeMap.containsKey("pageSize"))
-//                treeMap.remove("pageSize");
-//            if (treeMap.containsKey("pageIndex"))
-//                treeMap.remove("pageIndex");
-            if (treeMap.size() > 0) {
-                for (Map.Entry<String, Object> entry : treeMap.entrySet()) {
-                    String key = entry.getKey();
-                    Object val = entry.getValue();
-                    if(val == null){
-                        builder.append(key + "=0&");
-                    } else {
-                        if (val instanceof String){
-                            String str= (String) val;
-                            if (TextUtils.isEmpty(str)){
-                                builder.append(key + "=0&");
-                            }else{
-                                builder.append(key + "=" + val + "&");
-                            }
-                        }else if(val instanceof ArrayList){
-                            //list暂时不参与签名
-                        }else {
-                            builder.append(key + "=" + val + "&");
-                        }
-                    }
-                }
-                if(builder.length()>0) {
-                    builder.append(NetCommon.JAVA_KEY_CODE);
-                }
-            }
-            MyLog.debug("BaseTask", "be sign:" + builder.toString());
-            sign = MD5.getMd5(builder.toString(), "utf-8");
-            if (!TextUtils.isEmpty(sign)) {
-                sign=sign.toLowerCase();
-            }
-            MyLog.debug("BaseTask", "sign:" + sign);
-        }
-        return sign;
-    }
-
     @Override
     public void recyle() {
 
