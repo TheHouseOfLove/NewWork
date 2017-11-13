@@ -53,7 +53,6 @@ public class ProtocalManager {
         req.UserName=userName;
         req.UserPwd=pwd;
         req.mVisitType=ReqBaseEntity.TYPE_JAVA_GET;
-        MyLog.debug(TAG,"[login]=====================");
         return addTask(req,callBack);
     }
 }

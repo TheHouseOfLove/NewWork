@@ -3,6 +3,7 @@ package com.abl.common.http;
 import android.support.v4.util.ArrayMap;
 
 import com.abl.RWD.http.rsp.RspFinshWorkListEntity;
+import com.abl.RWD.http.rsp.RspLoginEntity;
 import com.abl.RWD.http.rsp.RspPendingWorkListEntity;
 
 import java.util.Map;
@@ -31,6 +32,8 @@ public class NetCommon {
     //已办列表
     public static final String URL_FINSH_WORK_LIST="/yiBanList";
     static {
+        //登录
+        mMap.put(URL_LOGIN, RspLoginEntity.class);
         //待办列表
         mMap.put(URL_PENDING_WORK_LIST, RspPendingWorkListEntity.class);
         //已办列表

@@ -25,7 +25,6 @@ import java.util.Map;
         @Override
         public Map<String, Object> getReqData() {
             // TODO Auto-generated method stub
-            MyLog.debug("ReqLoginEntity","[getReqData]=====================");
             Map<String ,Object> mMap=new HashMap<String, Object>();
             mMap.put("UserName", UserName);
             mMap.put("UserPwd", UserPwd);
