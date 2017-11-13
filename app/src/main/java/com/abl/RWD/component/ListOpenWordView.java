@@ -10,14 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
-import com.abl.RWD.entity.PFileEntity;
+import com.abl.RWD.entity.PFuJianEntity;
 import com.abl.RWD.listener.IWordOpenListener;
 
 public class ListOpenWordView extends RelativeLayout implements OnClickListener {
 	private TextView text_desp;
 	private TextView text_open;
 	private IWordOpenListener mListener;
-	private PFileEntity entity;
+	private PFuJianEntity entity;
 	private View viewLine;
 	private TextView text_title;
 	public ListOpenWordView(Context context) {
@@ -47,7 +47,7 @@ public class ListOpenWordView extends RelativeLayout implements OnClickListener 
 		text_title= (TextView) this.findViewById(R.id.text_title);
 	}
 	
-	public void setData(PFileEntity entity){
+	public void setData(PFuJianEntity entity){
 		this.entity=entity;
 		text_desp.setText(entity.FJName);
 	}

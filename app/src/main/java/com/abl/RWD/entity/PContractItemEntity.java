@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class PContractItemEntity implements Serializable{
-    public ArrayList<PFileEntity> FuJian;
+    public ArrayList<PFuJianEntity> FuJian;
     public String HTBianHao;
     public String HTID;
     public String HTJinE;

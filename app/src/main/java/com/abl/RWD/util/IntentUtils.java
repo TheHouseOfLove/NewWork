@@ -8,6 +8,7 @@ import com.abl.RWD.activity.SearchContractActivity;
 import com.abl.RWD.activity.SearchContractDetailActivity;
 import com.abl.RWD.activity.SearchProjectActivity;
 import com.abl.RWD.activity.SearchProjectDetailActivity;
+import com.abl.RWD.activity.TransactionDetailActivity;
 
 /**
  * Created by yas on 2017/11/6.
@@ -53,6 +54,14 @@ public class IntentUtils {
      */
     public static void startSearchProjectDetailActivity(Context mContext){
         Intent intent=new Intent(mContext, SearchProjectDetailActivity.class);
+        mContext.startActivity(intent);
+    }
+    /**
+     * 启动事务详情页
+     * @param mContext
+     */
+    public static void startTransactionDetailActivity(Context mContext){
+        Intent intent=new Intent(mContext, TransactionDetailActivity.class);
         mContext.startActivity(intent);
     }
 }

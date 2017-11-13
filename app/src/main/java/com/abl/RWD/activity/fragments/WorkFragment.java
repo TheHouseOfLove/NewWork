@@ -55,24 +55,10 @@ public class WorkFragment extends BaseFragment {
     private XRecyclerView.LoadingListener mLoadingListener=new XRecyclerView.LoadingListener() {
         @Override
         public void onRefresh() {
-            Global.post2UIDelay(new Runnable() {
-                @Override
-                public void run() {
-                    xrvVisiting.refreshComplete();
-                }
-            },1000);
         }
 
         @Override
         public void onLoadMore() {
-            Global.post2UIDelay(new Runnable() {
-                @Override
-                public void run() {
-                    xrvVisiting.loadMoreComplete();
-                    mPendingAdapter.appendList(getRightData());
-                }
-            },1000);
-            xrvVisiting.setLoadingMoreEnabled(false);
         }
     };
     /**

@@ -42,6 +42,9 @@
         <activity android:name=".activity.SearchProjectDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.TransactionDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
