@@ -1,5 +1,8 @@
 package com.abl.RWD.http;
 
+import com.abl.RWD.common.MConfiger;
+import com.abl.RWD.http.req.ReqFinshWorkListEntity;
+import com.abl.RWD.http.req.ReqPendingWorkListEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.http.base.ReqBaseEntity;
@@ -53,6 +56,39 @@ public class ProtocalManager {
         req.UserName=userName;
         req.UserPwd=pwd;
         req.mVisitType=ReqBaseEntity.TYPE_JAVA_GET;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 待办列表
+     * @param YHID
+     * @param strWhere
+     * @param pageIndex
+     * @param callBack
+     * @return
+     */
+    public int reqPendingWorkList(String YHID,String strWhere,int pageIndex,ICallBack<Object> callBack){
+        ReqPendingWorkListEntity req=new ReqPendingWorkListEntity();
+        req.YHID=YHID;
+        req.strWhere=strWhere;
+        req.pageIndex=pageIndex;
+        req.pageSize= MConfiger.PAGE_SIZE;
+        return addTask(req,callBack);
+    }
+    /**
+     * 已办列表
+     * @param YHID
+     * @param strWhere
+     * @param pageIndex
+     * @param callBack
+     * @return
+     */
+    public int reqFinishWorkList(String YHID,String strWhere,int pageIndex,ICallBack<Object> callBack){
+        ReqFinshWorkListEntity req=new ReqFinshWorkListEntity();
+        req.YHID=YHID;
+        req.strWhere=strWhere;
+        req.pageIndex=pageIndex;
+        req.pageSize= MConfiger.PAGE_SIZE;
         return addTask(req,callBack);
     }
 }

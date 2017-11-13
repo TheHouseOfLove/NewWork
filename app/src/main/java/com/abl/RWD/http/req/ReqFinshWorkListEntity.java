@@ -17,7 +17,7 @@ public class ReqFinshWorkListEntity extends ReqBaseEntity {
     public String strWhere;
     @Override
     public String getReqUrl() {
-        return NetCommon.URL_FINSH_WORK_LIST;
+        return NetCommon.URL_FINISH_WORK_LIST;
     }
 
     @Override
