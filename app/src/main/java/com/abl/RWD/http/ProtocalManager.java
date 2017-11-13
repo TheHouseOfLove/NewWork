@@ -1,8 +1,11 @@
 package com.abl.RWD.http;
 
 import com.abl.RWD.common.MConfiger;
+import com.abl.RWD.file.SharePreLoginUtil;
+import com.abl.RWD.http.req.ReqContractListEntity;
 import com.abl.RWD.http.req.ReqFinshWorkListEntity;
 import com.abl.RWD.http.req.ReqPendingWorkListEntity;
+import com.abl.RWD.http.req.ReqProjectListEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.http.base.ReqBaseEntity;
@@ -89,6 +92,38 @@ public class ProtocalManager {
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;
         req.pageSize= MConfiger.PAGE_SIZE;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 合同查询
+     * @param page
+     * @param strWhere
+     * @param callBack
+     * @return
+     */
+    public int reqContractList(int page,String strWhere,ICallBack<Object> callBack){
+        ReqContractListEntity req=new ReqContractListEntity();
+        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
+        req.pageIndex=page;
+        req.pageSize=MConfiger.PAGE_SIZE;
+        req.strWhere=strWhere;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 项目查询
+     * @param page
+     * @param strWhere
+     * @param callBack
+     * @return
+     */
+    public int reqProjecttList(int page,String strWhere,ICallBack<Object> callBack){
+        ReqProjectListEntity req=new ReqProjectListEntity();
+        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
+        req.pageIndex=page;
+        req.pageSize=MConfiger.PAGE_SIZE;
+        req.strWhere=strWhere;
         return addTask(req,callBack);
     }
 }

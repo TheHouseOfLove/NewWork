@@ -2,7 +2,9 @@ package com.abl.common.http;
 
 import android.support.v4.util.ArrayMap;
 
+import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.http.rsp.RspLoginEntity;
+import com.abl.RWD.http.rsp.RspProjectListEntity;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 
 import java.util.Map;
@@ -30,6 +32,10 @@ public class NetCommon {
     public static final String URL_PENDING_WORK_LIST="/daiBanList";
     //已办列表
     public static final String URL_FINISH_WORK_LIST="/yiBanList";
+    /**项目查询**/
+    public static final String URL_PROJECT_LIST_SEARCH="/GetXiangMuInfo";
+    /**合同查询**/
+    public static final String URL_CONTRACT_LIST_SEARCH="/GetHeTongInfo";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -37,6 +43,10 @@ public class NetCommon {
         mMap.put(URL_PENDING_WORK_LIST, RspWorkListEntity.class);
         //已办列表
         mMap.put(URL_FINISH_WORK_LIST, RspWorkListEntity.class);
+        //项目查询
+        mMap.put(URL_PROJECT_LIST_SEARCH, RspProjectListEntity.class);
+        //合同查询
+        mMap.put(URL_CONTRACT_LIST_SEARCH, RspContractListEntity.class);
     }
 
 
