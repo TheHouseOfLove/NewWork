@@ -35,6 +35,11 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
+    protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         if (view==layoutItem01){
             IntentUtils.startSearchProjectActivity(getActivity());

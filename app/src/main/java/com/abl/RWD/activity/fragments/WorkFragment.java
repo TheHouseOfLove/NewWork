@@ -56,15 +56,6 @@ public class WorkFragment extends BaseFragment {
         mSearchView.addTextChangeListener(mSearchTextChangeListener);
 
         xrvVisiting=rootView.findViewById(R.id.xrv_visiting);
-        mPendingAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                PWorkItemEntity entity=mPendingAdapter.getItemEntity(position);
-                showToast(entity.FormName);
-                IntentUtils.startTransactionDetailActivity(getActivity());
-            }
-        });
-        xrvVisiting.setAdapter(mPendingAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xrvVisiting.setLayoutManager(linearLayoutManager);
@@ -80,6 +71,7 @@ public class WorkFragment extends BaseFragment {
                 if (mType==TYPE_PENDING){
                     if (mPendingAdapter==null){
                         mPendingAdapter=new AdapterWorkList(getActivity(),rsp.mEntity.daiBan);
+                        mPendingAdapter.setOnItemClickListener(itemClickListener);
                         xrvVisiting.setAdapter(mPendingAdapter);
                     }else{
                         if (pageIndexLeft==1){
@@ -94,6 +86,7 @@ public class WorkFragment extends BaseFragment {
                 }else if (mType==TYPE_FINISH){
                     if (mFinishAdapter==null){
                         mFinishAdapter=new AdapterWorkList(getActivity(),rsp.mEntity.daiBan);
+                        mFinishAdapter.setOnItemClickListener(itemClickListener);
                         xrvVisiting.setAdapter(mFinishAdapter);
                     }else{
                         if (pageIndexLeft==1){
@@ -110,6 +103,23 @@ public class WorkFragment extends BaseFragment {
         }
     }
 
+    /**
+     * item点击事件
+     */
+    private OnItemClickListener itemClickListener=new OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            if (mType==TYPE_PENDING) {
+                PWorkItemEntity entity = mPendingAdapter.getItemEntity(position);
+                showToast(entity.FormName);
+                IntentUtils.startTransactionDetailActivity(getActivity());
+            }else if (mType==TYPE_FINISH){
+                PWorkItemEntity entity = mFinishAdapter.getItemEntity(position);
+                showToast(entity.FormName);
+                IntentUtils.startTransactionDetailActivity(getActivity());
+            }
+        }
+    };
     @Override
     public void onResume() {
         super.onResume();

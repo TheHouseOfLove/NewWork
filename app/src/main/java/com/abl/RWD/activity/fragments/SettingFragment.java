@@ -25,4 +25,9 @@ public class SettingFragment extends BaseFragment {
         mHeaderView.setTitle("设置");
 
     }
+
+    @Override
+    protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+
+    }
 }

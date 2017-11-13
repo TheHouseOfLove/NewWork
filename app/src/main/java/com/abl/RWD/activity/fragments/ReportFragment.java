@@ -39,6 +39,11 @@ public class ReportFragment extends BaseFragment {
         mRecyclerView.addHeaderView(mChartView);
     }
 
+    @Override
+    protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+
+    }
+
     /**
      * 合同、收款tab切换监听
      */
