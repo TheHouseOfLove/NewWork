@@ -9,6 +9,8 @@ import com.abl.RWD.activity.SearchContractDetailActivity;
 import com.abl.RWD.activity.SearchProjectActivity;
 import com.abl.RWD.activity.SearchProjectDetailActivity;
 import com.abl.RWD.activity.WorkDetailActivity;
+import com.abl.RWD.entity.PContractItemEntity;
+import com.abl.RWD.entity.PProjectItemEntity;
 
 /**
  * Created by yas on 2017/11/6.
@@ -44,16 +46,18 @@ public class IntentUtils {
      * 启动合同查询页
      * @param mContext
      */
-    public static void startSearchContractDetailActivity(Context mContext){
+    public static void startSearchContractDetailActivity(Context mContext, PContractItemEntity entity){
         Intent intent=new Intent(mContext, SearchContractDetailActivity.class);
+        intent.putExtra(KEY_ENTITY,entity);
         mContext.startActivity(intent);
     }
     /**
      * 启动合同查询页
      * @param mContext
      */
-    public static void startSearchProjectDetailActivity(Context mContext){
+    public static void startSearchProjectDetailActivity(Context mContext, PProjectItemEntity entity){
         Intent intent=new Intent(mContext, SearchProjectDetailActivity.class);
+        intent.putExtra(KEY_ENTITY,entity);
         mContext.startActivity(intent);
     }
     /**

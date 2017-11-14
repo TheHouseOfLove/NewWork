@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.common.Common;
+import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.ListOpenWordView;
 import com.abl.RWD.component.ListTopItemView;
 import com.abl.RWD.entity.PContractItemEntity;
+import com.abl.RWD.listener.IBtnClickListener;
 import com.abl.RWD.listener.IWordOpenListener;
 import com.abl.RWD.util.FileUtil;
 import com.abl.RWD.util.IntentUtils;
@@ -28,8 +31,8 @@ import java.util.ArrayList;
 /**
  * Created by yas on 2016/10/13.
  */
-public class SearchContractDetailActivity extends BaseNormalActivity implements View.OnClickListener {
-    private TextView txtBack;
+public class SearchContractDetailActivity extends BaseNormalActivity {
+    private CommonHeaderView mHeader;
     private ListTopItemView mTopView;
     private LinearLayout mFileView;
     private PContractItemEntity mEntity;
@@ -84,8 +87,15 @@ public class SearchContractDetailActivity extends BaseNormalActivity implements 
     }
 
     private void initLayout() {
-        txtBack= (TextView) this.findViewById(R.id.text_back);
-        txtBack.setOnClickListener(this);
+        mHeader= (CommonHeaderView) this.findViewById(R.id.header_contractDetail);
+        mHeader.updateType(CommonHeaderView.TYPE_ONLY_LEFT_IMAGE);
+        mHeader.setTitle("合同详情");
+        mHeader.setHeaderClickListener(new IBtnClickListener() {
+            @Override
+            public void btnLeftClick() {
+                finish();
+            }
+        });
         mTopView= (ListTopItemView) this.findViewById(R.id.topView);
         mFileView= (LinearLayout) this.findViewById(R.id.fileView);
         //合同名称，合同编号，合同金额，签订部门，签订日期，已收款，未收款
@@ -103,7 +113,7 @@ public class SearchContractDetailActivity extends BaseNormalActivity implements 
                 valList.add(mEntity.HTJinE);
                 valList.add(mEntity.HTQianDingBuMen);
                 valList.add(mEntity.HTQianDingRiQi.split(" ")[0]);
-                 valList.add(mEntity.HTKuMingCheng.replace(",","/n/n"));
+                 valList.add(mEntity.HTKuHuMingCheng.replace(",","/n/n"));
                 valList.add(mEntity.LeiJiShouKuan);
                 valList.add(mEntity.WeiShouKuan);
                 if(mEntity.FuJian!=null&&mEntity.FuJian.size()>0){
@@ -135,14 +145,6 @@ public class SearchContractDetailActivity extends BaseNormalActivity implements 
     private void initExtras() {
         mEntity= (PContractItemEntity) getIntent().getSerializableExtra(IntentUtils.KEY_ENTITY);
     }
-
-    @Override
-    public void onClick(View view) {
-        if (view==txtBack){
-            finish();
-        }
-    }
-
     private IWordOpenListener mListener=new IWordOpenListener() {
 
         @Override

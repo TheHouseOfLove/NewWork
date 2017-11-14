@@ -9,4 +9,8 @@
     <dimen name="common_divider">8dp</dimen>
 
     <dimen name="header_selector_height">53dp</dimen>
+
+    <!--msgPage相关-->
+    <dimen name="listEmpty_marginTop">60dp</dimen>
+    <dimen name="listEmpry_textSize">16.5sp</dimen>
 </resources>

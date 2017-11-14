@@ -20,6 +20,7 @@ import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.http.rsp.RspProjectListEntity;
 import com.abl.RWD.listener.IBtnClickListener;
 import com.abl.RWD.listener.OnItemClickListener;
+import com.abl.RWD.util.IntentUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class SearchProjectActivity extends BaseNormalActivity{
         public void onItemClick(View view, int position) {
             if (mAdapter!=null&&mAdapter.getItemCount()>position){
                 PProjectItemEntity entity=mAdapter.getItemEntity(position);
-                showToast(entity.XMMingCheng);
+                IntentUtils.startSearchProjectDetailActivity(SearchProjectActivity.this,entity);
             }
         }
     };

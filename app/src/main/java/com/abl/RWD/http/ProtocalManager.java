@@ -72,7 +72,7 @@ public class ProtocalManager {
      */
     public int reqPendingWorkList(String strWhere,int pageIndex,ICallBack<Object> callBack){
         ReqPendingWorkListEntity req=new ReqPendingWorkListEntity();
-        req.YHID=LoginController.getInstance().getYHID();
+        req.YHID=SharePreLoginUtil.loadLoginInfo().YHID;
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;
         req.pageSize= MConfiger.PAGE_SIZE;
@@ -87,7 +87,7 @@ public class ProtocalManager {
      */
     public int reqFinishWorkList(String strWhere,int pageIndex,ICallBack<Object> callBack){
         ReqFinshWorkListEntity req=new ReqFinshWorkListEntity();
-        req.YHID=LoginController.getInstance().getYHID();
+        req.YHID=SharePreLoginUtil.loadLoginInfo().YHID;
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;
         req.pageSize= MConfiger.PAGE_SIZE;
@@ -103,7 +103,7 @@ public class ProtocalManager {
      */
     public int reqContractList(int page,String strWhere,ICallBack<Object> callBack){
         ReqContractListEntity req=new ReqContractListEntity();
-        req.strYHID= LoginController.getInstance().getYHID();
+        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
         req.pageIndex=page;
         req.pageSize=MConfiger.PAGE_BIG_SIZE;
         req.strWhere=strWhere;
@@ -119,7 +119,7 @@ public class ProtocalManager {
      */
     public int reqProjectList(int page,String strWhere,ICallBack<Object> callBack){
         ReqProjectListEntity req=new ReqProjectListEntity();
-        req.strYHID= LoginController.getInstance().getYHID();
+        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
         req.pageIndex=page;
         req.pageSize=MConfiger.PAGE_BIG_SIZE;
         req.strWhere=strWhere;
