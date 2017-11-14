@@ -19,8 +19,8 @@ public class ContractItemHolder extends BaseViewHolder<PContractItemEntity>{
     private TextView txtName;
     private TextView txtTime;
     private PContractItemEntity mEntity;
-    public ContractItemHolder(Context mContext, ViewGroup parent, int layoutId) {
-        super(mContext, parent, layoutId);
+    public ContractItemHolder(Context mContext, ViewGroup parent) {
+        super(mContext, parent, R.layout.search_contract_itemview);
     }
 
     @Override

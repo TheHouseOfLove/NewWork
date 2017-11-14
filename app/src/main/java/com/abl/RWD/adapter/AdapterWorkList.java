@@ -22,6 +22,6 @@ public class AdapterWorkList extends BaseRecyclerAdapter<WorkItemHolder,PWorkIte
 
     @Override
     protected WorkItemHolder getViewHolder(ViewGroup parent) {
-        return new WorkItemHolder(mContext,parent, R.layout.pending_order_item);
+        return new WorkItemHolder(mContext,parent);
     }
 }

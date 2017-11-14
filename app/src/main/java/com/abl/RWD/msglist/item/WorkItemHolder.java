@@ -23,8 +23,8 @@ public class WorkItemHolder extends BaseViewHolder<PWorkItemEntity>{
     private TextView text_daibanList_time;
     private ImageView image_yiban;
     private Context mContext;
-    public WorkItemHolder(Context mContext, ViewGroup parent, int layoutId) {
-        super(mContext, parent, layoutId);
+    public WorkItemHolder(Context mContext, ViewGroup parent) {
+        super(mContext, parent, R.layout.pending_order_item);
     }
 
     @Override

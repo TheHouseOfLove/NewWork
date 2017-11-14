@@ -21,6 +21,6 @@ public class AdapterContractList extends BaseRecyclerAdapter<ContractItemHolder,
 
     @Override
     protected ContractItemHolder getViewHolder(ViewGroup parent) {
-        return new ContractItemHolder(mContext,parent, R.layout.search_contract_itemview);
+        return new ContractItemHolder(mContext,parent);
     }
 }

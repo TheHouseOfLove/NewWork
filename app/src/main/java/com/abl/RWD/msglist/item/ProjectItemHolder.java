@@ -15,8 +15,8 @@ import com.abl.RWD.msglist.base.BaseViewHolder;
 public class ProjectItemHolder extends BaseViewHolder<PProjectItemEntity>{
     private TextView txtName;
     public PProjectItemEntity mEntity;
-    public ProjectItemHolder(Context mContext, ViewGroup parent, int layoutId) {
-        super(mContext, parent, layoutId);
+    public ProjectItemHolder(Context mContext, ViewGroup parent) {
+        super(mContext, parent, R.layout.search_project_itemview);
     }
 
     @Override
