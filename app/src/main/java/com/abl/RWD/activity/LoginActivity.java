@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.entity.VReadPwdEntity;
 import com.abl.RWD.file.SharePreLoginUtil;
+import com.abl.RWD.file.SharePreReadPwdUtil;
 import com.abl.RWD.http.ProtocalManager;
 import com.abl.RWD.http.rsp.RspLoginEntity;
 import com.abl.RWD.util.IntentUtils;
@@ -60,6 +62,16 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 		server_adress.setOnClickListener(this);
 		text_help=(TextView) findViewById(R.id.text_help);
 		text_help.setOnClickListener(this);
+
+		VReadPwdEntity entity= SharePreReadPwdUtil.loadUserInfo();
+		if(entity!=null){
+			ischecked=entity.isChecked;
+			imgReadPwd.setSelected(ischecked);
+			if(ischecked){
+				etUserName.setText(entity.userName);
+				etPwd.setText(entity.pwd);
+			}
+		}
 	}
 
 
@@ -99,6 +111,11 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 	private void login() {
 		String userName=etUserName.getText().toString();
 		String pwd=etPwd.getText().toString();
+		VReadPwdEntity entity=new VReadPwdEntity();
+		entity.isChecked=ischecked;
+		entity.pwd=pwd;
+		entity.userName=userName;
+		SharePreReadPwdUtil.saveUserInfo(entity);
 		ProtocalManager.getInstance().login(userName,pwd,getCallBack());
 		showLoading("正在登录...");
 	}
