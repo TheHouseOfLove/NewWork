@@ -42,7 +42,7 @@ public class TaskCommon<REQ> extends BaseTask implements ITaskListener {
 
                     if(isSucc){
                         //解析操作
-                        rsp.preParseV2(jsonObj, seqNo);
+                        rsp.preParse(jsonObj, seqNo);
                     }
 
                     //data notify to ui
@@ -52,7 +52,7 @@ public class TaskCommon<REQ> extends BaseTask implements ITaskListener {
                             if (callBack != null) {
                                 ICallBack call = callBack.get();
                                 if (call != null) {
-                                    boolean succ = rsp.result;
+                                    boolean succ = rsp.isSucc;
 //                                    succ = (rsp.code == Common.ERROR_CODE_SUCC || rsp.code == Common.ERROR_CODE_SUCCV2);
                                     call.getResponse(rsp, succ, errorCode, seqNo, src);
                                 }

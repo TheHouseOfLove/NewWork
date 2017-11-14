@@ -106,7 +106,7 @@ public class ProtocalManager {
         ReqContractListEntity req=new ReqContractListEntity();
         req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
         req.pageIndex=page;
-        req.pageSize=MConfiger.PAGE_SIZE;
+        req.pageSize=30;
         req.strWhere=strWhere;
         return addTask(req,callBack);
     }

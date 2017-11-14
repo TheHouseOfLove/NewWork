@@ -17,7 +17,6 @@ public abstract class RspBaseEntity implements Serializable {
 	
 	/**返回错误码**/
 //	public int code;
-	public boolean  result;
 	/**返回错误消息提示**/
 	public String msg;
 	/**返回的数据域信息**/
@@ -36,53 +35,21 @@ public abstract class RspBaseEntity implements Serializable {
 	public RspBaseEntity() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public RspBaseEntity(JSONObject jsonObj, int seqNo){
+	/***
+	 *调用该方法
+	 * @param jsonObj
+	 * @param seqNo
+	 * @return
+	 */
+	public boolean preParse(JSONObject jsonObj, int seqNo){
 		this.seqNo = seqNo;
 		if(jsonObj != null){
-			try {
-				result=jsonObj.getBoolean("result");
-				if(result){
-					this.isSucc = true;
-					boolean isJsonObj = true;
-					try{
-						JSONObject obj = jsonObj.getJSONObject("data");
-						parseData(obj,null,false);
-					}catch(JSONException ee){
-						if(MyLog.isJsonDebugable()){
-							MyLog.error(TAG, ee);
-						}
-						isJsonObj = false;
-					}catch(Exception ee){
-						if(MyLog.isJsonDebugable()){
-							MyLog.error(TAG,ee);
-						}
-					}
-					try{
-						if(!isJsonObj){
-							JSONArray jsonArray = jsonObj.getJSONArray("data");
-							parseData(null, jsonArray, true);
-						}
-					}catch(JSONException ee){
-						if(MyLog.isJsonDebugable()){
-							MyLog.error(TAG,ee);
-						}
-					}catch(Exception ee){
-						if(MyLog.isJsonDebugable()){
-							MyLog.error(TAG,ee);
-						}
-					}
-					//init isLogin key
-					this.msg = jsonObj.getString("msg");
-				}else{
-					this.msg = jsonObj.getString("msg");
-				}
-			} catch (JSONException ee) {
-				MyLog.error(TAG, ee);
-			}
+			this.isSucc = true;
+			MyLog.debug(TAG, "[RspBaseEntity]  jsonObj:"+jsonObj.toString());
+			parseData(jsonObj,null,false);
 		}
+		return this.isSucc;
 	}
-
 	/***
 	 * 框架改造V2调用该方法
 	 * @param jsonObj
@@ -92,33 +59,8 @@ public abstract class RspBaseEntity implements Serializable {
 	public boolean preParseV2(JSONObject jsonObj, int seqNo){
 		this.seqNo = seqNo;
 		try {
-			result=jsonObj.getBoolean("result");
-			if(result){
-				this.isSucc = true;
-//				if(dataJsonType == ReqBaseEntity.TYPE_JSON_OBJECT){
-//					try{
-//						if (jsonObj.has("data")) {
-//							JSONObject obj = jsonObj.getJSONObject("data");
-//							parseData(obj, null, false);
-//						}
-//					}catch(JSONException ee){
-//						if(MyLog.isJsonDebugable()){
-//							MyLog.error(TAG, ee);
-//						}
-//					}catch(Exception ee){
-//						if(MyLog.isJsonDebugable()){
-//							MyLog.error(TAG,ee);
-//						}
-//					}
-//				}else if(dataJsonType == ReqBaseEntity.TYPE_JSON_OBJECTARRAY){
-//					if (jsonObj.has("data")) {
-//						JSONArray jsonArray = jsonObj.getJSONArray("data");
-//						parseData(null, jsonArray, true);
-//					}
-//				} else {
-//					this.data = jsonObj.optString("data");
-//					parseData(null, null, false);
-//				}
+			isSucc=jsonObj.getBoolean("result");
+			if(isSucc){
 				if (jsonObj.has("data")){
 					Object obj=jsonObj.get("data");
 					if (obj instanceof JSONObject){
