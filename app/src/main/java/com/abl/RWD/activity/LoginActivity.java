@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.controller.LoginController;
 import com.abl.RWD.entity.VReadPwdEntity;
 import com.abl.RWD.file.SharePreLoginUtil;
 import com.abl.RWD.file.SharePreReadPwdUtil;
@@ -82,7 +83,7 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 			RspLoginEntity rsp= (RspLoginEntity) obj;
 			if (rsp!=null&&isSucc){
 				showToast("登录成功");
-				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
+				LoginController.getInstance().updateLoginInfo(rsp.mEntity);
 				IntentUtils.startMainActivity(this);
 			}else{
 				showToast("网络错误!");

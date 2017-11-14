@@ -1,6 +1,7 @@
 package com.abl.RWD.http;
 
 import com.abl.RWD.common.MConfiger;
+import com.abl.RWD.controller.LoginController;
 import com.abl.RWD.file.SharePreLoginUtil;
 import com.abl.RWD.http.req.ReqContractListEntity;
 import com.abl.RWD.http.req.ReqFinshWorkListEntity;
@@ -64,15 +65,14 @@ public class ProtocalManager {
 
     /**
      * 待办列表
-     * @param YHID
      * @param strWhere
      * @param pageIndex
      * @param callBack
      * @return
      */
-    public int reqPendingWorkList(String YHID,String strWhere,int pageIndex,ICallBack<Object> callBack){
+    public int reqPendingWorkList(String strWhere,int pageIndex,ICallBack<Object> callBack){
         ReqPendingWorkListEntity req=new ReqPendingWorkListEntity();
-        req.YHID=YHID;
+        req.YHID=LoginController.getInstance().getYHID();
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;
         req.pageSize= MConfiger.PAGE_SIZE;
@@ -80,15 +80,14 @@ public class ProtocalManager {
     }
     /**
      * 已办列表
-     * @param YHID
      * @param strWhere
      * @param pageIndex
      * @param callBack
      * @return
      */
-    public int reqFinishWorkList(String YHID,String strWhere,int pageIndex,ICallBack<Object> callBack){
+    public int reqFinishWorkList(String strWhere,int pageIndex,ICallBack<Object> callBack){
         ReqFinshWorkListEntity req=new ReqFinshWorkListEntity();
-        req.YHID=YHID;
+        req.YHID=LoginController.getInstance().getYHID();
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;
         req.pageSize= MConfiger.PAGE_SIZE;
@@ -104,7 +103,7 @@ public class ProtocalManager {
      */
     public int reqContractList(int page,String strWhere,ICallBack<Object> callBack){
         ReqContractListEntity req=new ReqContractListEntity();
-        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
+        req.strYHID= LoginController.getInstance().getYHID();
         req.pageIndex=page;
         req.pageSize=30;
         req.strWhere=strWhere;
@@ -120,7 +119,7 @@ public class ProtocalManager {
      */
     public int reqProjecttList(int page,String strWhere,ICallBack<Object> callBack){
         ReqProjectListEntity req=new ReqProjectListEntity();
-        req.strYHID= SharePreLoginUtil.loadLoginInfo().YHID;
+        req.strYHID= LoginController.getInstance().getYHID();
         req.pageIndex=page;
         req.pageSize=MConfiger.PAGE_SIZE;
         req.strWhere=strWhere;
