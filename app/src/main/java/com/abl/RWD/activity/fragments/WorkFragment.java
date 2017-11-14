@@ -129,7 +129,7 @@ public class WorkFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ProtocalManager.getInstance().reqPendingWorkList("","",1,getCallBack());
+        ProtocalManager.getInstance().reqPendingWorkList("",1,getCallBack());
         showLoading("正在获取数据。。。");
     }
 
@@ -142,11 +142,11 @@ public class WorkFragment extends BaseFragment {
             isRefresh=true;
             if (mType == TYPE_PENDING) {
                 mPendingAdapter=null;
-                ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,
+                ProtocalManager.getInstance().reqPendingWorkList(strWhereDaiBan,
                         refreshPage(),getCallBack());
             } else if (mType == TYPE_FINISH) {
                 mFinishAdapter=null;
-                 ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,
+                 ProtocalManager.getInstance().reqFinishWorkList(strWhereYiBan,
                         refreshPage(),getCallBack());
             }
         }
@@ -156,7 +156,7 @@ public class WorkFragment extends BaseFragment {
             if (mType == TYPE_PENDING) {
                 if (hasNextLeft) {
                     int page = nextPage();
-                    ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,
+                    ProtocalManager.getInstance().reqPendingWorkList(strWhereDaiBan,
                             page, getCallBack());
                 }else{
                     showToast("没有更多数据");
@@ -164,7 +164,7 @@ public class WorkFragment extends BaseFragment {
             } else if (mType == TYPE_FINISH) {
                 if (hasNextRight) {
                     int page = nextPage();
-                    ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,
+                    ProtocalManager.getInstance().reqFinishWorkList(strWhereYiBan,
                             page, getCallBack());
                 }else{
                     showToast("没有更多数据");
@@ -180,7 +180,7 @@ public class WorkFragment extends BaseFragment {
         public void leftTabClick() {
             mType=TYPE_PENDING;
             if (mPendingAdapter==null){
-                ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,refreshPage(),getCallBack());
+                ProtocalManager.getInstance().reqPendingWorkList(strWhereDaiBan,refreshPage(),getCallBack());
                 showLoading("正在获取数据。。。");
             }else{
                 xrvVisiting.setAdapter(mPendingAdapter);
@@ -192,7 +192,7 @@ public class WorkFragment extends BaseFragment {
         public void rightTabClick() {
             mType=TYPE_FINISH;
             if (mFinishAdapter==null){
-                ProtocalManager.getInstance().reqFinishWorkList("",strWhereYiBan,refreshPage(),getCallBack());
+                ProtocalManager.getInstance().reqFinishWorkList(strWhereYiBan,refreshPage(),getCallBack());
                 showLoading("正在获取数据。。。");
             }else{
                 xrvVisiting.setAdapter(mFinishAdapter);

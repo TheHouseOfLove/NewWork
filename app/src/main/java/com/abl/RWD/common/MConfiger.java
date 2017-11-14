@@ -29,6 +29,7 @@ public class MConfiger {
 	public static final int SPLASH_INTERVAL = 1000 * 2;
 	//下拉列表个数
 	public static final int PAGE_SIZE = 15;
+	public static final int PAGE_BIG_SIZE = 30;
 	//cookie过期时间 30天 1000 * 60 * 60 * 24 * 30 2592000000l
 	public static final long COOKIE_EXPIRE_TIME = 2592000000l;
 	//自动加载更多item个数

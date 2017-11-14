@@ -105,7 +105,7 @@ public class ProtocalManager {
         ReqContractListEntity req=new ReqContractListEntity();
         req.strYHID= LoginController.getInstance().getYHID();
         req.pageIndex=page;
-        req.pageSize=30;
+        req.pageSize=MConfiger.PAGE_BIG_SIZE;
         req.strWhere=strWhere;
         return addTask(req,callBack);
     }
@@ -117,11 +117,11 @@ public class ProtocalManager {
      * @param callBack
      * @return
      */
-    public int reqProjecttList(int page,String strWhere,ICallBack<Object> callBack){
+    public int reqProjectList(int page,String strWhere,ICallBack<Object> callBack){
         ReqProjectListEntity req=new ReqProjectListEntity();
         req.strYHID= LoginController.getInstance().getYHID();
         req.pageIndex=page;
-        req.pageSize=MConfiger.PAGE_SIZE;
+        req.pageSize=MConfiger.PAGE_BIG_SIZE;
         req.strWhere=strWhere;
         return addTask(req,callBack);
     }

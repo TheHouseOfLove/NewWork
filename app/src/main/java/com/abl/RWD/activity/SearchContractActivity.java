@@ -32,7 +32,6 @@ public class SearchContractActivity extends BaseNormalActivity{
     private XRecyclerView mRecyclerView;
     private AdapterContractList mAdapter;
     private int page=1;
-    private static final int FLAG_SHOW=0x100;
     private boolean hasNext=true;
     private boolean isRefresh;
     private String strWhere="";
@@ -91,7 +90,7 @@ public class SearchContractActivity extends BaseNormalActivity{
                         mAdapter.appendList(rsp.mEntity.HTInfo);
                     }
                 }
-                if (rsp.mEntity.HTInfo.size()< MConfiger.PAGE_SIZE){
+                if (rsp.mEntity.HTInfo.size()< MConfiger.PAGE_BIG_SIZE){
                     hasNext=false;
                 }
             }else{
