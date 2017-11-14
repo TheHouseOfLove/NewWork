@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
 import com.abl.RWD.adapter.AdapterContractList;
+import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.HeaderSearchView;
 import com.abl.RWD.entity.PContractItemEntity;
+import com.abl.RWD.http.ProtocalManager;
+import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.listener.IBtnClickListener;
+import com.abl.RWD.listener.OnItemClickListener;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -26,11 +31,18 @@ public class SearchContractActivity extends BaseNormalActivity{
     private HeaderSearchView mSearchView;
     private XRecyclerView mRecyclerView;
     private AdapterContractList mAdapter;
+    private int page=1;
+    private static final int FLAG_SHOW=0x100;
+    private boolean hasNext=true;
+    private boolean isRefresh;
+    private String strWhere="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_contract);
         initLayout();
+        ProtocalManager.getInstance().reqContractList(page,strWhere,getCallBack());
+        showLoading();
     }
 
     private void initLayout() {
@@ -51,24 +63,66 @@ public class SearchContractActivity extends BaseNormalActivity{
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setLoadingListener(mLoadingListener);
-        mAdapter=new AdapterContractList(this,getTestData());
-        mRecyclerView.setAdapter(mAdapter);
+//        mAdapter=new AdapterContractList(this,getTestData());
+//        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
-
+        hideLoadingDialog();
+        if (obj instanceof RspContractListEntity){
+            if (isRefresh){
+                isRefresh=false;
+                mRecyclerView.refreshComplete();
+            }
+            if (page>1){
+                mRecyclerView.loadMoreComplete();
+            }
+            RspContractListEntity rsp= (RspContractListEntity) obj;
+            if (rsp!=null&&isSucc){
+                if (mAdapter==null){
+                    mAdapter=new AdapterContractList(SearchContractActivity.this,rsp.mEntity.HTInfo);
+                    mAdapter.setOnItemClickListener(mItemClickListener);
+                    mRecyclerView.setAdapter(mAdapter);
+                }else{
+                    if (page==1){
+                        mAdapter.reSetList(rsp.mEntity.HTInfo);
+                    }else{
+                        mAdapter.appendList(rsp.mEntity.HTInfo);
+                    }
+                }
+                if (rsp.mEntity.HTInfo.size()< MConfiger.PAGE_SIZE){
+                    hasNext=false;
+                }
+            }else{
+                showToast("数据获取失败，请检查您的网络后再试！");
+            }
+        }
     }
+    private OnItemClickListener mItemClickListener=new OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            if (mAdapter!=null&&mAdapter.getItemCount()>position){
+                PContractItemEntity entity=mAdapter.getItemEntity(position);
+                showToast(entity.HTMingCheng);
+            }
+        }
+    };
     /**
      * 下拉刷新，上了加载更多监听
      */
     private XRecyclerView.LoadingListener mLoadingListener=new XRecyclerView.LoadingListener() {
         @Override
         public void onRefresh() {
+            isRefresh=true;
+            ProtocalManager.getInstance().reqContractList(refreshPage(), strWhere,getCallBack());
         }
 
         @Override
         public void onLoadMore() {
+            if (hasNext){
+                ProtocalManager.getInstance().reqContractList(nextPage(), strWhere,getCallBack());
+            }
         }
     };
     /**
@@ -91,15 +145,14 @@ public class SearchContractActivity extends BaseNormalActivity{
         }
     };
 
-    protected ArrayList<PContractItemEntity> getTestData(){
-        ArrayList<PContractItemEntity> mList=new ArrayList<>();
-        for (int i=1;i<11;i++){
-            PContractItemEntity entity=new PContractItemEntity();
-            entity.HTMingCheng="合同名称"+i;
-            entity.HTJinE="合同金额"+i;
-            entity.HTQianDingRiQi="2017/11/06";
-            mList.add(entity);
-        }
-        return mList;
+    private int nextPage() {
+        page=page+1;
+        return page;
     }
+
+    private int refreshPage() {
+        page=1;
+        return page;
+    }
+
 }

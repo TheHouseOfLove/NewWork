@@ -40,6 +40,7 @@ public class WorkFragment extends BaseFragment {
     private boolean hasNextRight=true;
     private String strWhereYiBan="";
     private String strWhereDaiBan="";
+    private boolean isRefresh;
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_work;
@@ -67,6 +68,11 @@ public class WorkFragment extends BaseFragment {
         hideLoading();
         if (obj instanceof RspWorkListEntity){
             RspWorkListEntity rsp= (RspWorkListEntity) obj;
+            if (isRefresh){
+                isRefresh=false;
+                xrvVisiting.refreshComplete();
+            }
+            xrvVisiting.loadMoreComplete();
             if (rsp!=null&&isSucc){
                 if (mType==TYPE_PENDING){
                     if (mPendingAdapter==null){
@@ -133,6 +139,7 @@ public class WorkFragment extends BaseFragment {
     private XRecyclerView.LoadingListener mLoadingListener=new XRecyclerView.LoadingListener() {
         @Override
         public void onRefresh() {
+            isRefresh=true;
             if (mType == TYPE_PENDING) {
                 mPendingAdapter=null;
                 ProtocalManager.getInstance().reqPendingWorkList("",strWhereDaiBan,
