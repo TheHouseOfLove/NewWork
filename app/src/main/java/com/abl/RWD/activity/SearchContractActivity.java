@@ -141,7 +141,8 @@ public class SearchContractActivity extends BaseNormalActivity{
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            strWhere=editable.toString();
+            ProtocalManager.getInstance().reqContractList(refreshPage(), strWhere,getCallBack());
         }
     };
 

@@ -82,8 +82,8 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		if(view==btnLogin){
-			IntentUtils.startMainActivity(this);
-//			login();
+//			IntentUtils.startMainActivity(this);
+			login();
 		}else if(view==imgReadPwd){
 			ischecked=!ischecked;
 			imgReadPwd.setSelected(ischecked);
