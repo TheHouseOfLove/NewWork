@@ -19,7 +19,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/common_white"
-        android:layout_below="@id/topView"
         android:orientation="vertical">
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/mRecyclerView"
@@ -29,6 +28,7 @@
         android:layout_marginRight="12.5dp"
         android:layout_marginLeft="12.5dp"
         android:padding="1dp"
-        android:background="@drawable/bg_report_list"/>
+        android:background="@drawable/bg_report_list"
+        android:layout_marginBottom="20dp"/>
         </LinearLayout>
 </LinearLayout>
