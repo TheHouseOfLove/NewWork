@@ -4,7 +4,11 @@ import android.support.v4.util.ArrayMap;
 
 import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.http.rsp.RspLoginEntity;
+import com.abl.RWD.http.rsp.RspMonthlyContractEntity;
+import com.abl.RWD.http.rsp.RspMonthlyPaymentEntity;
 import com.abl.RWD.http.rsp.RspProjectListEntity;
+import com.abl.RWD.http.rsp.RspQuarterlyContractEntity;
+import com.abl.RWD.http.rsp.RspQuarterlyPaymentEntity;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 
 import java.util.Map;
@@ -36,6 +40,14 @@ public class NetCommon {
     public static final String URL_PROJECT_LIST_SEARCH="/GetXiangMuInfo";
     /**合同查询**/
     public static final String URL_CONTRACT_LIST_SEARCH="/GetHeTongInfo";
+    /**季度合同**/
+    public static final String URL_JIDU_HETONG="/JiDuHeTongInfo";
+    /**季度收款**/
+    public static final String URK_JIDU_SHOUKUAN="/JiDuShouKuanInfo";
+    /**月度合同信息**/
+    public static final String URL_YUEDU_HETONG_INFO="/YueDuHeTongInfo";
+    /**月度收款信息**/
+    public static final String URL_YUEDU_SHOUKUAN_INFO="/YueDuShouKuanInfo";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -47,6 +59,15 @@ public class NetCommon {
         mMap.put(URL_PROJECT_LIST_SEARCH, RspProjectListEntity.class);
         //合同查询
         mMap.put(URL_CONTRACT_LIST_SEARCH, RspContractListEntity.class);
+        //季度合同
+        mMap.put(URL_JIDU_HETONG, RspQuarterlyContractEntity.class);
+        //季度收款
+        mMap.put(URK_JIDU_SHOUKUAN, RspQuarterlyPaymentEntity.class);
+        //月度合同
+        mMap.put(URL_YUEDU_HETONG_INFO, RspMonthlyContractEntity.class);
+        //月度收款
+        mMap.put(URL_YUEDU_SHOUKUAN_INFO, RspMonthlyPaymentEntity.class);
+
     }
 
 

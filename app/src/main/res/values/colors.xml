@@ -30,4 +30,7 @@
     <color name="common_orange">#FF6600</color>
 
     <color name="header_item_textColor">#808080</color>
+
+    <color name="thirdList_bg">#ffe3d0</color>
+    <color name="thirdList_first_bg">#F2F5ED</color>
 </resources>

@@ -5,8 +5,12 @@ import com.abl.RWD.controller.LoginController;
 import com.abl.RWD.file.SharePreLoginUtil;
 import com.abl.RWD.http.req.ReqContractListEntity;
 import com.abl.RWD.http.req.ReqFinshWorkListEntity;
+import com.abl.RWD.http.req.ReqMonthlyContractEntity;
+import com.abl.RWD.http.req.ReqMonthlyPaymentEntity;
 import com.abl.RWD.http.req.ReqPendingWorkListEntity;
 import com.abl.RWD.http.req.ReqProjectListEntity;
+import com.abl.RWD.http.req.ReqQuarterlyContractEntity;
+import com.abl.RWD.http.req.ReqQuarterlyPaymentEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.http.base.ReqBaseEntity;
@@ -123,6 +127,51 @@ public class ProtocalManager {
         req.pageIndex=page;
         req.pageSize=MConfiger.PAGE_BIG_SIZE;
         req.strWhere=strWhere;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 获取季度合同
+     * @param year
+     * @param callBack
+     * @return
+     */
+    public int getQuarterlyContract(String year,ICallBack<Object> callBack){
+        ReqQuarterlyContractEntity req=new ReqQuarterlyContractEntity();
+        req.NianValue=year;
+        return addTask(req,callBack);
+    }
+    /**
+     * 获取季度收款
+     * @param year
+     * @param callBack
+     * @return
+     */
+    public int getQuarterlyPayment(String year,ICallBack<Object> callBack){
+        ReqQuarterlyPaymentEntity req=new ReqQuarterlyPaymentEntity();
+        req.NianValue=year;
+        return addTask(req,callBack);
+    }
+    /**
+     * 获取月度合同
+     * @param year
+     * @param callBack
+     * @return
+     */
+    public int getMonthlyContract(String year,ICallBack<Object> callBack){
+        ReqMonthlyContractEntity req=new ReqMonthlyContractEntity();
+        req.NianValue=year;
+        return addTask(req,callBack);
+    }
+    /**
+     * 获取月度收款
+     * @param year
+     * @param callBack
+     * @return
+     */
+    public int getMonthlyPayment(String year,ICallBack<Object> callBack){
+        ReqMonthlyPaymentEntity req=new ReqMonthlyPaymentEntity();
+        req.NianValue=year;
         return addTask(req,callBack);
     }
 }
