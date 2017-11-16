@@ -31,7 +31,7 @@ public class Global {
 	private static String KZUA = null;
 	public static int PKG_VER = 0;
 	public static boolean isFromSplash = false;
-	public static String JPUSH_ID = "";
+	public static String clientid="";
 	
 	static{
 		initHandlerThread();
