@@ -2,7 +2,10 @@ package com.abl.RWD.activity.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseFragment;
@@ -65,11 +68,16 @@ public class ReportFragment extends BaseFragment {
         mHeader.addTabChangeListener(mTabChangeListener);
         mHeader.setTabTitle("合同", "收款");
         mRecyclerView=rootView.findViewById(R.id.mRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.setPullRefreshEnabled(false);
         mSubView=rootView.findViewById(R.id.subView);
         mSubView.setClickListener(mReportSubClickListener);
         mChartView=new ChartView(getActivity());
+        mChartView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         mRecyclerView.addHeaderView(mChartView);
         ProtocalManager.getInstance().getQuarterlyContract(year,getCallBack());
         ProtocalManager.getInstance().getMonthlyContract(year,getCallBack());

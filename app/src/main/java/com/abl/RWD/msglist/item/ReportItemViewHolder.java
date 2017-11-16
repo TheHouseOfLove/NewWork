@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.abl.RWD.R;
 import com.abl.RWD.entity.VThirdItemEntity;
 import com.abl.RWD.msglist.base.BaseViewHolder;
+import com.abl.RWD.util.MyLog;
 
 /**
  * Created by yas on 2017/11/16.
@@ -36,6 +37,7 @@ public class ReportItemViewHolder extends BaseViewHolder<VThirdItemEntity>{
 
     @Override
     public void setMsg(VThirdItemEntity t) {
+        MyLog.debug(TAG,"[setMsg]===============");
         mEntity = t;
         if(t.type==VThirdItemEntity.TYPE_HeTong){
             text_item1.setText(t.mEntity.BMName);
