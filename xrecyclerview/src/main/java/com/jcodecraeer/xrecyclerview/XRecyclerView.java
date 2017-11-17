@@ -309,20 +309,38 @@ public class XRecyclerView extends RecyclerView {
             if (mWrapAdapter != null) {
                 mWrapAdapter.notifyDataSetChanged();
             }
-            if (mWrapAdapter != null && mEmptyView != null) {
-                int emptyCount = 1 + mWrapAdapter.getHeadersCount();
-                if (loadingMoreEnabled) {
-                    emptyCount++;
-                }
-                if (mWrapAdapter.getItemCount() == emptyCount) {
+            if (mEmptyView!=null){
+                if (mWrapAdapter!=null){
+                    int emptyCount = 1 + mWrapAdapter.getHeadersCount();
+                    if (loadingMoreEnabled) {
+                        emptyCount++;
+                    }
+                    if (mWrapAdapter.getItemCount() == emptyCount) {
+                        mEmptyView.setVisibility(View.VISIBLE);
+                        XRecyclerView.this.setVisibility(View.GONE);
+                    } else {
+                        mEmptyView.setVisibility(View.GONE);
+                        XRecyclerView.this.setVisibility(View.VISIBLE);
+                    }
+                }else{
                     mEmptyView.setVisibility(View.VISIBLE);
                     XRecyclerView.this.setVisibility(View.GONE);
-                } else {
-
-                    mEmptyView.setVisibility(View.GONE);
-                    XRecyclerView.this.setVisibility(View.VISIBLE);
                 }
             }
+//            if (mWrapAdapter != null && mEmptyView != null) {
+//                int emptyCount = 1 + mWrapAdapter.getHeadersCount();
+//                if (loadingMoreEnabled) {
+//                    emptyCount++;
+//                }
+//                if (mWrapAdapter.getItemCount() == emptyCount) {
+//                    mEmptyView.setVisibility(View.VISIBLE);
+//                    XRecyclerView.this.setVisibility(View.GONE);
+//                } else {
+//
+//                    mEmptyView.setVisibility(View.GONE);
+//                    XRecyclerView.this.setVisibility(View.VISIBLE);
+//                }
+//            }
         }
 
         @Override
