@@ -7,7 +7,7 @@ import com.abl.RWD.common.Global;
 import com.igexin.sdk.PushManager;
 
 public class RWDApp extends Application{
-	private final String TAG = "DCHZApp";
+	private final String TAG = "RWDApp";
 	
 	@Override
 	public void onCreate() {

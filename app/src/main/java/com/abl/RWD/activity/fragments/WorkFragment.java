@@ -16,6 +16,7 @@ import com.abl.RWD.http.ProtocalManager;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 import com.abl.RWD.listener.ITabChangeListener;
 import com.abl.RWD.listener.OnItemClickListener;
+import com.abl.RWD.msglist.ListViewEmptyView;
 import com.abl.RWD.util.IntentUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -41,6 +42,7 @@ public class WorkFragment extends BaseFragment {
     private String strWhereYiBan="";
     private String strWhereDaiBan="";
     private boolean isRefresh;
+    private ListViewEmptyView mEmptyView;
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_work;
@@ -61,6 +63,8 @@ public class WorkFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xrvVisiting.setLayoutManager(linearLayoutManager);
         xrvVisiting.setLoadingListener(mLoadingListener);
+        mEmptyView=rootView.findViewById(R.id.emptyView);
+        xrvVisiting.setEmptyView(mEmptyView);
     }
 
     @Override
@@ -72,7 +76,7 @@ public class WorkFragment extends BaseFragment {
                 isRefresh=false;
                 xrvVisiting.refreshComplete();
             }
-            xrvVisiting.loadMoreComplete();
+
             if (rsp!=null&&isSucc){
                 if (mType==TYPE_PENDING){
                     if (mPendingAdapter==null){
@@ -84,6 +88,7 @@ public class WorkFragment extends BaseFragment {
                             mPendingAdapter.reSetList(rsp.mEntity.daiBan);
                         }else {
                             mPendingAdapter.appendList(rsp.mEntity.daiBan);
+                            xrvVisiting.loadMoreComplete();
                         }
                     }
                     if (rsp.mEntity.daiBan.size() < MConfiger.PAGE_SIZE) {
@@ -99,6 +104,7 @@ public class WorkFragment extends BaseFragment {
                             mFinishAdapter.reSetList(rsp.mEntity.daiBan);
                         }else {
                             mFinishAdapter.appendList(rsp.mEntity.daiBan);
+                            xrvVisiting.loadMoreComplete();
                         }
                     }
                     if (rsp.mEntity.daiBan.size() < MConfiger.PAGE_SIZE) {

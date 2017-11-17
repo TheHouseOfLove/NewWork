@@ -21,4 +21,9 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:scrollbars="vertical"/>
+    <com.abl.RWD.msglist.ListViewEmptyView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </LinearLayout>
