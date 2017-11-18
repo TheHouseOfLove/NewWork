@@ -139,6 +139,7 @@ public class HttpUtilsOkHttp {
         OkHttpClient client=getHttpClient();
         String refer = HttpEngine.getInstance().getRefer();
         String reqUrl = refer+url + params;
+        MyLog.debug(TAG,"[getTypeByte]  reqUrl:"+reqUrl);
         String useragent = System.getProperty("http.agent");
         Request.Builder builder=new Request.Builder();
         builder.addHeader("Accept-Language", "zh-cn")

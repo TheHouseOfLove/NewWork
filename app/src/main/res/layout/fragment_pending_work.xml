@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_white">
+    <com.abl.RWD.component.CommonHeaderView
+        android:id="@+id/mHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.abl.RWD.component.HeaderSearchView
+        android:id="@+id/header_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xrv_visiting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
+    <com.abl.RWD.msglist.ListViewEmptyView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+</LinearLayout>
