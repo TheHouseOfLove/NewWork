@@ -17,6 +17,7 @@ import com.abl.RWD.http.rsp.RspWorkListEntity;
 import com.abl.RWD.listener.OnItemClickListener;
 import com.abl.RWD.msglist.ListViewEmptyView;
 import com.abl.RWD.util.IntentUtils;
+import com.abl.RWD.util.MyLog;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 /**

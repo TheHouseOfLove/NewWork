@@ -5,70 +5,78 @@
     android:orientation="vertical" 
     android:gravity="center_horizontal"
     android:background="#e3e3e3">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       	android:text="济南市政移动审批系统"
-        android:textSize="20sp"
-        android:textColor="#505050"
-        android:layout_marginTop="100dp"/>
-	<TextView 
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="20dp"
-	    android:text="T.Y.LIN INTERNATIONAL"
-	    android:textSize="16sp"
-	    android:textColor="@color/common_orange"
-	    android:visibility="gone"/>
-	<LinearLayout 
-	    android:layout_width="fill_parent"
-	    android:layout_height="30dp"
-	    android:orientation="horizontal"
-	    android:layout_marginTop="60dp"
-	    android:gravity="center">
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="帐  号:    "
-	        android:layout_marginLeft="12.5dp"
-	        android:textSize="14sp"
-	        android:textColor="#505050"/>
-	    <EditText 
-	        android:id="@+id/edit_userName"
-	        android:layout_width="150dp"
-	        android:layout_height="30dp"
-	        android:paddingLeft="12.5dp"
-	        android:hint="请输入您的帐号"
-	        android:textColorHint="#a0a0a0"
-	        android:textSize="14sp"
-	        android:textColor="#505050"
-	        android:background="@drawable/bg_edittext"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="150dp"
+		android:src="@mipmap/rwd_logo"
+		android:scaleType="fitXY"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_marginTop="60dp"
+		android:background="@color/common_white">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:background="@color/common_white"
+			android:gravity="center_vertical"
+			android:layout_marginLeft="20dp">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="帐  号:    "
+				android:layout_marginLeft="12.5dp"
+				android:textSize="14sp"
+				android:textColor="#505050"/>
+			<EditText
+				android:id="@+id/edit_userName"
+				android:layout_width="150dp"
+				android:layout_height="45dp"
+				android:paddingLeft="12.5dp"
+				android:hint="请输入您的帐号"
+				android:textColorHint="#a0a0a0"
+				android:textSize="14sp"
+				android:textColor="#505050"
+				android:background="@drawable/bg_edittext"/>
+		</LinearLayout>
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/common_bg"
+			android:layout_marginLeft="20dp"/>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:background="@color/common_white"
+			android:gravity="center_vertical"
+			android:layout_marginLeft="20dp">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="12.5dp"
+				android:text="密  码:    "
+				android:textSize="14sp"
+				android:textColor="#505050"/>
+			<EditText
+				android:id="@+id/edit_pwd"
+				android:layout_width="150dp"
+				android:layout_height="45dp"
+				android:gravity="center_vertical"
+				android:paddingLeft="12.5dp"
+				android:inputType="textPassword"
+				android:hint="请输入您的密码"
+				android:textColorHint="#a0a0a0"
+				android:textSize="14sp"
+				android:textColor="#505050"
+				android:background="@drawable/bg_edittext"/>
+		</LinearLayout>
 	</LinearLayout>
-	<LinearLayout 
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:layout_marginTop="30dp"
-	    android:gravity="center">
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="12.5dp"
-	        android:text="密  码:    "
-	        android:textSize="14sp"
-	        android:textColor="#505050"/>
-	    <EditText 
-	        android:id="@+id/edit_pwd"
-	        android:layout_width="150dp"
-	        android:layout_height="30dp"
-	        android:paddingLeft="12.5dp"
-	        android:inputType="textPassword"
-	        android:hint="请输入您的密码"
-	        android:textColorHint="#a0a0a0"
-	        android:textSize="14sp"
-	        android:textColor="#505050"
-	        android:background="@drawable/bg_edittext"/>
-	</LinearLayout>
+
 	<LinearLayout 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -77,8 +85,8 @@
 	    android:gravity="center">
 	   <ImageView 
         android:id="@+id/img_switch"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_width="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="12.5dp"
@@ -94,12 +102,14 @@
 	
 	<Button 
 	    android:id="@+id/btn_login"
-	    android:layout_width="80dp"
-	    android:layout_height="35dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
 	    android:layout_marginTop="40dp"
+		android:layout_marginRight="40dp"
+		android:layout_marginLeft="40dp"
 	    android:text="登录"
 	    android:textColor="#ffffff"
-	    android:background="@drawable/bg_btn_selecter"/>
+	    android:background="@drawable/bg_btn_blue"/>
 	<View 
 	    android:layout_width="fill_parent"
 	    android:layout_height="0dp"
@@ -108,7 +118,7 @@
 	    android:id="@+id/text_update"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textColor="@color/common_blue"
+	    android:textColor="#3B97ED"
 	    android:layout_marginBottom="40dp"
 	    android:textSize="17sp"
 	    android:text="有新版本，点击更新"
@@ -126,7 +136,8 @@
 	        android:textColor="#ff0000"
 	        android:text="请填写服务器地址"
 	        android:layout_marginRight="80dp"
-	        android:layout_marginLeft="100dp"/>
+	        android:layout_marginLeft="100dp"
+			android:visibility="gone"/>
 	    <TextView 
 	        android:id="@+id/text_help"
 	        android:layout_width="wrap_content"

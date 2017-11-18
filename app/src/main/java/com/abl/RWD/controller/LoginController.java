@@ -58,12 +58,12 @@ public class LoginController {
      */
     public void updateLoginInfo(PLoginEntity entity){
         this.mEntity=entity;
-//        Global.postDelay(new Runnable() {
-//            @Override
-//            public void run() {
-//                SharePreLoginUtil mSharePre=new SharePreLoginUtil();
-//                mSharePre.saveLoginInfo(mEntity);
-//            }
-//        });
+        Global.postDelay(new Runnable() {
+            @Override
+            public void run() {
+                SharePreLoginUtil mSharePre=new SharePreLoginUtil();
+                mSharePre.saveLoginInfo(mEntity);
+            }
+        });
     }
 }

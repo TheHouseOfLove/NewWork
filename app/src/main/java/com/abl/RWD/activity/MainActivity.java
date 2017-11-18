@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        initFragment();/////
+        initFragment();
     }
     private void initViews() {
         rgTabs = (RadioGroup) findViewById(R.id.rg_tabs);

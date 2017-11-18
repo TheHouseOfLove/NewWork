@@ -2,6 +2,7 @@ package com.abl.RWD;
 
 import android.app.Application;
 
+import com.abl.RWD.controller.LoginController;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Global;
 import com.igexin.sdk.PushManager;
@@ -27,6 +28,7 @@ public class RWDApp extends Application{
 				// TODO Auto-generated method stub
 				HttpEngine.getInstance().start();
 				PushManager.getInstance().initialize(RWDApp.this);
+				LoginController.getInstance().loadLoginInfo();
 			}
 			
 		});

@@ -73,6 +73,10 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 				etPwd.setText(entity.pwd);
 			}
 		}
+		if (LoginController.getInstance().isLogin()){
+			IntentUtils.startMainActivity(this);
+			finish();
+		}
 	}
 
 
@@ -83,8 +87,8 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 			RspLoginEntity rsp= (RspLoginEntity) obj;
 			if (rsp!=null&&isSucc){
 				showToast("登录成功");
-//				LoginController.getInstance().updateLoginInfo(rsp.mEntity);
-				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
+				LoginController.getInstance().updateLoginInfo(rsp.mEntity);
+//				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
 				IntentUtils.startMainActivity(this);
 			}else{
 				showToast("网络错误!");
