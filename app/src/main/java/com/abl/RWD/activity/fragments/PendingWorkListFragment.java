@@ -24,7 +24,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
  * Created by Administrator on 2017/11/18.
  */
 
-public class PendingWorkListFragment extends BaseFragment {
+public class PendingWorkListFragment extends BaseFragment implements View.OnClickListener {
     private XRecyclerView xrvVisiting;
     private AdapterWorkList mPendingAdapter;
     private int pageIndex = 1;
@@ -55,6 +55,7 @@ public class PendingWorkListFragment extends BaseFragment {
         xrvVisiting.setLayoutManager(linearLayoutManager);
         xrvVisiting.setLoadingListener(mLoadingListener);
         mEmptyView = rootView.findViewById(R.id.emptyView);
+        mEmptyView.setOnClickListener(this);
         xrvVisiting.setEmptyView(mEmptyView);
     }
 
@@ -164,5 +165,13 @@ public class PendingWorkListFragment extends BaseFragment {
         hasNext = true;
         return pageIndex;
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view==mEmptyView){
+            ProtocalManager.getInstance().reqPendingWorkList("", 1, getCallBack());
+            showLoading("正在获取数据。。。");
+        }
     }
 }

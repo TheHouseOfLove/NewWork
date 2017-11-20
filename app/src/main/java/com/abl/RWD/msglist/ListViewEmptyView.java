@@ -20,7 +20,6 @@ import com.abl.RWD.common.Global;
  *
  */
 public class ListViewEmptyView extends RelativeLayout {
-	private ImageView image_empty;
 	private TextView text_empty;
 	public ListViewEmptyView(Context context) {
 		super(context);
@@ -41,15 +40,7 @@ public class ListViewEmptyView extends RelativeLayout {
 		// TODO Auto-generated method stub
 		LayoutInflater li=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		li.inflate(R.layout.list_empty, this,true);
-		image_empty=(ImageView) this.findViewById(R.id.image_empty);
-		text_empty=(TextView) this.findViewById(R.id.text_empty);
+		text_empty= this.findViewById(R.id.text_empty);
 	}
 
-	//设置类型
-	public void setType(int type){
-		Drawable drawable=Global.getContext().getResources().getDrawable(R.mipmap.icon_listview_empty);
-		String	str="暂无数据";
-		image_empty.setImageDrawable(drawable);
-		text_empty.setText(str);
-	}
 }

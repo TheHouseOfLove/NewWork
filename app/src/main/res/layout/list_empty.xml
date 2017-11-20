@@ -6,23 +6,13 @@
     android:background="@color/common_white"
     android:gravity="center"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/image_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/listEmpty_marginTop"
-        android:src="@mipmap/icon_listview_empty"
-        android:visibility="gone"/>
-
     <TextView
         android:id="@+id/text_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/listEmpty_marginTop"
         android:layout_marginTop="30dp"
-        android:text="暂无数据"
-        android:textColor="@color/common_font_orange_v2"
+        android:text="暂无数据，点击刷新"
+        android:textColor="@color/common_font_grey"
         android:textSize="@dimen/listEmpry_textSize" />
 </LinearLayout>
