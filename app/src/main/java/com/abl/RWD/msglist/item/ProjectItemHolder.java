@@ -30,8 +30,8 @@ public class ProjectItemHolder extends BaseViewHolder<PProjectItemEntity>{
         txtName.setText(mEntity.XMMingCheng);
     }
 
-    @Override
-    public PProjectItemEntity getMsg() {
-        return mEntity;
-    }
+//    @Override
+//    public PProjectItemEntity getMsg() {
+//        return mEntity;
+//    }
 }

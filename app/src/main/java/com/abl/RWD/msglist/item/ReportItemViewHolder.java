@@ -96,8 +96,8 @@ public class ReportItemViewHolder extends BaseViewHolder<VThirdItemEntity>{
         }
     }
 
-    @Override
-    public VThirdItemEntity getMsg() {
-        return mEntity;
-    }
+//    @Override
+//    public VThirdItemEntity getMsg() {
+//        return mEntity;
+//    }
 }

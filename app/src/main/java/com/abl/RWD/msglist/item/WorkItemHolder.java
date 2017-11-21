@@ -63,8 +63,8 @@ public class WorkItemHolder extends BaseViewHolder<PWorkItemEntity>{
         mType= Common.TYPE_DAIBAN;
     }
 
-    @Override
-    public PWorkItemEntity getMsg() {
-        return mEntity;
-    }
+//    @Override
+//    public PWorkItemEntity getMsg() {
+//        return mEntity;
+//    }
 }

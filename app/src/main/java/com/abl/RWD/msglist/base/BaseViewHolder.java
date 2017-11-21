@@ -19,7 +19,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder{
     }
     public abstract void initView();
     public abstract void setMsg(T t);
-    public abstract T getMsg();
+//    public abstract T getMsg();
 
     public void setPos(int pos){
         this.pos = pos;

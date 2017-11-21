@@ -6,10 +6,14 @@ import android.widget.LinearLayout;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.adapter.AdapterDetailInfo;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.DetailBottomView;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
+import com.abl.RWD.entity.PDetailItemEntity;
 import com.abl.RWD.listener.IBtnClickListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by yas on 2017/11/13.
@@ -21,6 +25,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private RecyclerView mRecyclerView;
     private LinearLayout layoutFiles;
     private DetailBottomView mBottomView;
+    private AdapterDetailInfo mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,17 @@ public class WorkDetailActivity extends BaseNormalActivity{
         mRecyclerView.setLayoutManager(manager);
         layoutFiles= (LinearLayout) this.findViewById(R.id.layout_files);
         mBottomView= (DetailBottomView) this.findViewById(R.id.bottomView);
+
+        mAdapter=new AdapterDetailInfo(this,getTestData());
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private ArrayList<PDetailItemEntity> getTestData() {
+        ArrayList<PDetailItemEntity> mList=new ArrayList<>();
+        for (int i=0;i<10;i++){
+            mList.add(new PDetailItemEntity());
+        }
+        return mList;
     }
 
     @Override

@@ -33,4 +33,9 @@
 
     <color name="thirdList_bg">#ffe3d0</color>
     <color name="thirdList_first_bg">#F2F5ED</color>
+
+    <!--表单item相关-->
+    <color name="txt_info_show_title_textColor">#333333</color>
+    <color name="txt_info_show_content_textColor">#666666</color>
+    <color name="txt_info_show_hint_textColor">#999999</color>
 </resources>

@@ -56,8 +56,8 @@ public class ContractItemHolder extends BaseViewHolder<PContractItemEntity>{
         }
     }
 
-    @Override
-    public PContractItemEntity getMsg() {
-        return mEntity;
-    }
+//    @Override
+//    public PContractItemEntity getMsg() {
+//        return mEntity;
+//    }
 }
