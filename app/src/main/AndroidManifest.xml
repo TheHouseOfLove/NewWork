@@ -46,6 +46,14 @@
         android:supportsRtl="true"
         android:theme="@style/TranslucentTheme"
         android:name=".RWDApp">
+        <activity android:name=".activity.TestActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -53,10 +61,7 @@
         <activity android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>>
         <activity android:name=".activity.SearchProjectActivity"
             android:launchMode="singleTop"

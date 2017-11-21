@@ -13,4 +13,7 @@
     <!--msgPage相关-->
     <dimen name="listEmpty_marginTop">60dp</dimen>
     <dimen name="listEmpry_textSize">16.5sp</dimen>
+    <!--滑动选择控件相关-->
+    <dimen name="datepicker_height">250dp</dimen>
+    <dimen name="datepicker_txtsize">18.5sp</dimen>
 </resources>

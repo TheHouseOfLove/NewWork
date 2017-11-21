@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
-import com.abl.RWD.common.Common;
 import com.abl.RWD.component.CommonHeaderView;
-import com.abl.RWD.component.ListOpenWordView;
+import com.abl.RWD.component.OpenFileItemView;
 import com.abl.RWD.component.ListTopItemView;
 import com.abl.RWD.entity.PContractItemEntity;
 import com.abl.RWD.listener.IBtnClickListener;
@@ -118,7 +115,7 @@ public class SearchContractDetailActivity extends BaseNormalActivity {
                 valList.add(mEntity.WeiShouKuan);
                 if(mEntity.FuJian!=null&&mEntity.FuJian.size()>0){
                     for(int i=0;i<mEntity.FuJian.size();i++){
-                        ListOpenWordView openView=new ListOpenWordView(this);
+                        OpenFileItemView openView=new OpenFileItemView(this);
                         openView.setData(mEntity.FuJian.get(i));
                         openView.setOpenListener(mListener);
                         if (i!=mEntity.FuJian.size()-1){
@@ -130,12 +127,12 @@ public class SearchContractDetailActivity extends BaseNormalActivity {
                         mFileView.addView(openView);
                     }
                 }else{
-                    ListOpenWordView openView=new ListOpenWordView(this);
+                    OpenFileItemView openView=new OpenFileItemView(this);
                     openView.setEmptyData();
                     mFileView.addView(openView);
                 }
         }else{
-            ListOpenWordView openView=new ListOpenWordView(this);
+            OpenFileItemView openView=new OpenFileItemView(this);
             openView.setEmptyData();
             mFileView.addView(openView);
         }

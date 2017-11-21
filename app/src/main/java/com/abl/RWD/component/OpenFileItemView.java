@@ -13,24 +13,24 @@ import com.abl.RWD.R;
 import com.abl.RWD.entity.PFuJianEntity;
 import com.abl.RWD.listener.IWordOpenListener;
 
-public class ListOpenWordView extends RelativeLayout implements OnClickListener {
+public class OpenFileItemView extends RelativeLayout implements OnClickListener {
 	private TextView text_desp;
 	private TextView text_open;
 	private IWordOpenListener mListener;
 	private PFuJianEntity entity;
 	private View viewLine;
 	private TextView text_title;
-	public ListOpenWordView(Context context) {
+	public OpenFileItemView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		init();
 	}
-	public ListOpenWordView(Context context, AttributeSet attrs) {
+	public OpenFileItemView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		init();
 	}
-	public ListOpenWordView(Context context, AttributeSet attrs,
+	public OpenFileItemView(Context context, AttributeSet attrs,
                             int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		// TODO Auto-generated constructor stub
