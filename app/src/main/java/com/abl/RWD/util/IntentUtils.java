@@ -1,16 +1,22 @@
 package com.abl.RWD.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.abl.RWD.activity.MainActivity;
+import com.abl.RWD.activity.NextAccepterActivity;
 import com.abl.RWD.activity.SearchContractActivity;
 import com.abl.RWD.activity.SearchContractDetailActivity;
 import com.abl.RWD.activity.SearchProjectActivity;
 import com.abl.RWD.activity.SearchProjectDetailActivity;
+import com.abl.RWD.activity.SubmitTypeSelectActivity;
 import com.abl.RWD.activity.WorkDetailActivity;
 import com.abl.RWD.entity.PContractItemEntity;
 import com.abl.RWD.entity.PProjectItemEntity;
+import com.abl.RWD.entity.VJieShouRenEntity;
+
+import java.util.ArrayList;
 
 /**
  * Created by yas on 2017/11/6.
@@ -67,5 +73,24 @@ public class IntentUtils {
     public static void startTransactionDetailActivity(Context mContext){
         Intent intent=new Intent(mContext, WorkDetailActivity.class);
         mContext.startActivity(intent);
+    }
+    /**
+     * 启动提交方式
+     * @param mContext
+     * @param noTag
+     */
+    public static void starTiJiaoActivity(Activity mContext, int requestCode, String noTag){
+        Intent intent=new Intent(mContext,SubmitTypeSelectActivity.class);
+        intent.putExtra("noTag", noTag);
+        mContext.startActivityForResult(intent, requestCode);
+    }
+    /**
+     * 启动接收人
+     * @param mContext
+     */
+    public static void starJieShouRenActivity(Activity mContext, ArrayList<VJieShouRenEntity> entity, int requestCode){
+        Intent intent=new Intent(mContext,NextAccepterActivity.class);
+        intent.putExtra(KEY_ENTITY, entity);
+        mContext.startActivityForResult(intent, requestCode);
     }
 }

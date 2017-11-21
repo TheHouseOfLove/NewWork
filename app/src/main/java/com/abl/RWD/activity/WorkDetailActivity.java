@@ -10,7 +10,7 @@ import com.abl.RWD.adapter.AdapterDetailInfo;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.DetailBottomView;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
-import com.abl.RWD.entity.PDetailItemEntity;
+import com.abl.RWD.entity.PWorkDetailItemEntity;
 import com.abl.RWD.listener.IBtnClickListener;
 
 import java.util.ArrayList;
@@ -53,10 +53,10 @@ public class WorkDetailActivity extends BaseNormalActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private ArrayList<PDetailItemEntity> getTestData() {
-        ArrayList<PDetailItemEntity> mList=new ArrayList<>();
+    private ArrayList<PWorkDetailItemEntity> getTestData() {
+        ArrayList<PWorkDetailItemEntity> mList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            mList.add(new PDetailItemEntity());
+            mList.add(new PWorkDetailItemEntity());
         }
         return mList;
     }
