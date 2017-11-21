@@ -78,7 +78,12 @@
         <activity android:name=".activity.WorkDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".activity.SubmitTypeSelectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NextAccepterActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <!--个推SDK配置开始-->
         <!-- 配置的第三方参数属性 -->
