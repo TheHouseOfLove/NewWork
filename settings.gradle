@@ -1,1 +1,1 @@
-include ':app', ':xrecyclerview'
+include ':app', ':xrecyclerview', ':refresh-layout', ':refresh-header', ':refresh-footer'
