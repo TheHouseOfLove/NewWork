@@ -25,18 +25,18 @@ public class HttpEngine extends Thread {
 	private HttpEngine() {
 		// TODO Auto-generated constructor stub
 		super("HttpEnginePool");
-//		//0->正式域名
-//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
-//		//1->UAT域名
-//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
-//		//2->测试域名
-//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
-//		//0->正式域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
+		//0->正式域名
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
 		//1->UAT域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
 		//2->测试域名
-		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
+		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://60.208.75.182:9080/CCSFlat/CCSMobile/MobileService.asmx");
+//		//0->正式域名
+//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_OFFICAL,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
+//		//1->UAT域名
+//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_DEV,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
+//		//2->测试域名
+//		mMapUrl.put(NetCommon.NET_TYPE_INDEX_TEST,"http://192.168.0.102/CCSFlat/CCSMobile/MobileService.asmx");
 
 
 		setPriority(Thread.MAX_PRIORITY);

@@ -7,22 +7,33 @@
         android:id="@+id/mHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <com.abl.RWD.component.HeaderSearchView
-        android:id="@+id/header_search"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/xrv_visiting"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"/>
-    <com.abl.RWD.msglist.ListViewEmptyView
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/common_white">
+            <com.abl.RWD.component.HeaderSearchView
+                android:id="@+id/header_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pending_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"/>
+            <com.abl.RWD.msglist.ListViewEmptyView
+                android:id="@+id/emptyView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
