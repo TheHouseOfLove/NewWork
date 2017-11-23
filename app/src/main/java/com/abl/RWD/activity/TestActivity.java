@@ -28,6 +28,14 @@ public class TestActivity extends BaseNormalActivity{
                 IntentUtils.startTransactionDetailActivity(TestActivity.this);
             }
         });
+        Button btn_next= (Button) this.findViewById(R.id.btn_next);
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentUtils.starNextAccepterActivity(TestActivity.this,null,100);
+            }
+        });
+
     }
 
     @Override

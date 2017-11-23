@@ -79,7 +79,7 @@ public class IntentUtils {
      * @param mContext
      * @param noTag
      */
-    public static void starTiJiaoActivity(Activity mContext, int requestCode, String noTag){
+    public static void starSubmitTypeSelectActivity(Activity mContext, int requestCode, String noTag){
         Intent intent=new Intent(mContext,SubmitTypeSelectActivity.class);
         intent.putExtra("noTag", noTag);
         mContext.startActivityForResult(intent, requestCode);
@@ -88,7 +88,7 @@ public class IntentUtils {
      * 启动接收人
      * @param mContext
      */
-    public static void starJieShouRenActivity(Activity mContext, ArrayList<VJieShouRenEntity> entity, int requestCode){
+    public static void starNextAccepterActivity(Activity mContext, ArrayList<VJieShouRenEntity> entity, int requestCode){
         Intent intent=new Intent(mContext,NextAccepterActivity.class);
         intent.putExtra(KEY_ENTITY, entity);
         mContext.startActivityForResult(intent, requestCode);

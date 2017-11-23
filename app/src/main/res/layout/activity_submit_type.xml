@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white"
-    android:orientation="vertical" >
-    <View
-        android:layout_width="fill_parent"
-        android:layout_marginTop="50dp"
-        android:layout_height="1px"
-        android:background="@color/common_grey" />
-<LinearLayout
+    android:orientation="vertical">
+
+    <com.abl.RWD.component.CommonHeaderView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
         android:id="@+id/layout_ok"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:clickable="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -27,8 +28,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="12.5dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="12.5dp"
             android:src="@mipmap/enter" />
     </LinearLayout>
 
@@ -36,14 +37,15 @@
         android:id="@+id/line"
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="@color/common_grey" />
+        android:background="@color/common_grey"
+        android:layout_marginLeft="12dp"/>
 
     <LinearLayout
         android:id="@+id/layout_no"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:clickable="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -56,12 +58,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="12.5dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="12.5dp"
             android:src="@mipmap/enter" />
     </LinearLayout>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="@color/common_grey" />
+        android:background="@color/common_grey"
+        android:layout_marginLeft="12dp"/>
 </LinearLayout>

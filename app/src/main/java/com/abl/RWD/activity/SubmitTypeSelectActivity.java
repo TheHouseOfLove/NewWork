@@ -9,11 +9,14 @@ import android.widget.LinearLayout;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseActivity;
+import com.abl.RWD.component.CommonHeaderView;
+import com.abl.RWD.listener.IBtnClickListener;
 
 public class SubmitTypeSelectActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout layout_ok;
 	private LinearLayout layout_no;
 	private String noTag;
+	private CommonHeaderView mHeader;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -36,6 +39,16 @@ public class SubmitTypeSelectActivity extends BaseActivity implements OnClickLis
 		if("A".equals(noTag)){
 			layout_no.setVisibility(View.GONE);
 		}
+
+		mHeader= (CommonHeaderView) this.findViewById(R.id.header);
+		mHeader.updateType(CommonHeaderView.TYPE_ONLY_LEFT_IMAGE);
+		mHeader.setTitle("提交方式");
+		mHeader.setHeaderClickListener(new IBtnClickListener() {
+			@Override
+			public void btnLeftClick() {
+				finish();
+			}
+		});
 	}
 	@Override
 	public void onClick(View view) {

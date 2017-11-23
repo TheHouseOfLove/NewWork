@@ -12,6 +12,8 @@ import com.abl.RWD.component.DetailBottomView;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
 import com.abl.RWD.entity.PWorkDetailItemEntity;
 import com.abl.RWD.listener.IBtnClickListener;
+import com.abl.RWD.listener.IDetailBottomClickListener;
+import com.abl.RWD.util.IntentUtils;
 
 import java.util.ArrayList;
 
@@ -48,11 +50,33 @@ public class WorkDetailActivity extends BaseNormalActivity{
         mRecyclerView.setLayoutManager(manager);
         layoutFiles= (LinearLayout) this.findViewById(R.id.layout_files);
         mBottomView= (DetailBottomView) this.findViewById(R.id.bottomView);
-
+        mBottomView.setClickListener(mBottomClickListener);
         mAdapter=new AdapterDetailInfo(this,getTestData());
         mRecyclerView.setAdapter(mAdapter);
     }
+    private IDetailBottomClickListener mBottomClickListener=new IDetailBottomClickListener() {
+        @Override
+        public void typeClickListener() {
+            //TODO 提交类型选择
+            IntentUtils.starSubmitTypeSelectActivity(WorkDetailActivity.this,100,"");
+        }
 
+        @Override
+        public void nextClickListener() {
+            //TODO 接收人选择
+            IntentUtils.starNextAccepterActivity(WorkDetailActivity.this,null,200);
+        }
+
+        @Override
+        public void btnClickListener() {
+            //TODO 提交按钮点击
+        }
+
+        @Override
+        public void noNextListener() {
+            showToast("请选择下一环节");
+        }
+    };
     private ArrayList<PWorkDetailItemEntity> getTestData() {
         ArrayList<PWorkDetailItemEntity> mList=new ArrayList<>();
         for (int i=0;i<10;i++){

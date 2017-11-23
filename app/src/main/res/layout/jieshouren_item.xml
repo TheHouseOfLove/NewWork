@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/common_white">
     <TextView 
         android:id="@+id/text_bumen"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:gravity="center"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="12dp"
         android:textSize="16sp"
         android:textColor="#ffffff"
         android:background="#658CC6"
-        android:text="事业部"
-        android:visibility="gone"/>
+        android:text="事业部" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mMsgPage"
         android:layout_width="fill_parent"

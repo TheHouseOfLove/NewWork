@@ -4,25 +4,22 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.abl.RWD.adapter.base.BaseRecyclerAdapter;
-import com.abl.RWD.entity.VJieShouRenListEntity;
-import com.abl.RWD.listener.IAccptrChangeListener;
-import com.abl.RWD.msglist.item.AccpterItemHolder;
+import com.abl.RWD.entity.VJieShouRenEntity;
+import com.abl.RWD.msglist.item.AccpterHolder;
 
 import java.util.ArrayList;
 
 /**
- * Created by yas on 2017/11/21.
+ * Created by yas on 2017/11/23.
  */
 
-public class AdapterAccpter extends BaseRecyclerAdapter<AccpterItemHolder,VJieShouRenListEntity>{
-    private IAccptrChangeListener mListener;
-    public AdapterAccpter(Context mContext, ArrayList<VJieShouRenListEntity> mList,IAccptrChangeListener listener) {
+public class AdapterAccpter extends BaseRecyclerAdapter<AccpterHolder,VJieShouRenEntity>{
+    public AdapterAccpter(Context mContext, ArrayList<VJieShouRenEntity> mList) {
         super(mContext, mList);
-        mListener=listener;
     }
 
     @Override
-    protected AccpterItemHolder getViewHolder(ViewGroup parent) {
-        return new AccpterItemHolder(mContext,parent,mListener);
+    protected AccpterHolder getViewHolder(ViewGroup parent) {
+        return new AccpterHolder(mContext,parent);
     }
 }

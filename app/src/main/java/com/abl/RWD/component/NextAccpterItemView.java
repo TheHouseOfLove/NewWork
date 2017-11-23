@@ -10,10 +10,9 @@ import android.widget.TextView;
 
 
 import com.abl.RWD.R;
-import com.abl.RWD.adapter.AdapterAccpter;
+import com.abl.RWD.adapter.AdapterAccpterItem;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
 import com.abl.RWD.entity.VJieShouRenEntity;
-import com.abl.RWD.entity.VJieShouRenListEntity;
 import com.abl.RWD.listener.IAccptrChangeListener;
 import com.abl.RWD.listener.IItemCheckedListener;
 import com.abl.RWD.util.MyLog;
@@ -25,10 +24,10 @@ import java.util.Map;
 public class NextAccpterItemView extends LinearLayout {
 	private static final String TAG = "NextAccpterItemView";
 	private RecyclerView mMsgPage;
-	private AdapterAccpter mAdapter;
+	private AdapterAccpterItem mAdapter;
 	private TextView text_bumen;
 	private ArrayList<String> userIds;
-	private ArrayList<VJieShouRenListEntity> arr;
+	private ArrayList<String> arr;
 	private String isRadio;
 	private IItemCheckedListener mCheckedListener;
 
@@ -49,7 +48,7 @@ public class NextAccpterItemView extends LinearLayout {
 		// TODO Auto-generated method stub
 		this.index=index;
 		userIds = new ArrayList<String>();
-		arr = new ArrayList<VJieShouRenListEntity>();
+		arr = new ArrayList<>();
 		if (t != null) {
 			if (t.type == VJieShouRenEntity.TYPE_HT) {
 				String userList = t.HTInfoEntity.usersList;
@@ -58,13 +57,8 @@ public class NextAccpterItemView extends LinearLayout {
 					String[] users = userList.split(",");
 					for (int i = 0; i < users.length; i++) {
 						userIds.add(users[i].split("\\|")[0]);
-						MyLog.debug(TAG,
-								"[setData]  userId:" + users[i].split("\\|")[0]);
-						VJieShouRenListEntity entity = new VJieShouRenListEntity();
-						entity.name = users[i].split("\\|")[1];
-						MyLog.debug(TAG,
-								"[setData]  name:" + users[i].split("\\|")[1]);
-						arr.add(entity);
+						String name = users[i].split("\\|")[1];
+						arr.add(name);
 					}
 				}
 			} else if (t.type == VJieShouRenEntity.TYPE_TJ) {
@@ -74,13 +68,12 @@ public class NextAccpterItemView extends LinearLayout {
 					String[] users = userList.split(",");
 					for (int i = 0; i < users.length; i++) {
 						userIds.add(users[i].split("\\|")[0]);
-						VJieShouRenListEntity entity = new VJieShouRenListEntity();
-						entity.name = users[i].split("\\|")[1];
-						arr.add(entity);
+						String  name = users[i].split("\\|")[1];
+						arr.add(name);
 					}
 				}
 			}
-			mAdapter = new AdapterAccpter(getContext(),arr,mListener);
+			mAdapter = new AdapterAccpterItem(getContext(),arr,mListener);
 			mMsgPage.setAdapter(mAdapter);
 		}
 	}
@@ -161,11 +154,11 @@ public class NextAccpterItemView extends LinearLayout {
 			if (mCheckedListener != null) {
 				if("radio".equals(isRadio)){
 					mCheckedListener.onlyOn(pos,index);
-					name=arr.get(pos).name;
+					name=arr.get(pos);
 					ids=userIds.get(pos);
 				}else{
 						if(!mapName.containsKey(pos)){
-							mapName.put(pos, arr.get(pos).name);
+							mapName.put(pos, arr.get(pos));
 //							MyLog.debug(TAG, "[IAccptrChangeListener]  pos:"+pos+"  name"+arr.get(pos).name);
 						}	
 						if(!mapId.containsKey(pos)){

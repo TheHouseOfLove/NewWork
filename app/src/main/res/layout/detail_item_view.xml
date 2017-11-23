@@ -41,7 +41,6 @@
             android:textColorHint="@color/txt_info_show_hint_textColor"
             android:textSize="14sp"
             android:background="@null"
-            android:maxLines="1"
             android:visibility="gone"/>
     </LinearLayout>
     <View
