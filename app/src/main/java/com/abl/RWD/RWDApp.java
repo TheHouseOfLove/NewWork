@@ -22,7 +22,7 @@ public class RWDApp extends Application{
 			@NonNull
 			@Override
 			public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-				layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
+				layout.setPrimaryColorsId(R.color.common_grey, android.R.color.white);//全局设置主题颜色
 				return new ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Translate);
 			}
 		});
