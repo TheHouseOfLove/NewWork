@@ -10,4 +10,5 @@ public class VAcceptDepartmentEntity implements Serializable {
 	public PDetailHTInfoEntity HTInfoEntity;
 	public PDetailTJInfoInfoEntity TJInfoEntity;
 	public int type;
+	public boolean isChecked;
 }

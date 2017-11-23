@@ -48,4 +48,17 @@ public class AdapterAccepterItem extends BaseRecyclerAdapter<AccpterItemHolder,V
             notifyDataSetChanged();
         }
     }
+    public boolean hasItemChecked(){
+        ArrayList<VAccepterItemEntity> mList=getList();
+        if (mList!=null&&mList.size()>0){
+            for (int i=0;i<mList.size();i++){
+                VAccepterItemEntity itemEntity = mList.get(i);
+                if (itemEntity.isChecked){
+                    return true;
+                }
+            }
+            notifyDataSetChanged();
+        }
+        return false;
+    }
 }

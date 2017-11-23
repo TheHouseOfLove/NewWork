@@ -1,23 +1,24 @@
 package com.abl.RWD.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseActivity;
-import com.abl.RWD.adapter.AdapterAcceptDepartment;
+import com.abl.RWD.component.AcceptDepartmentView;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.entity.VAcceptDepartmentEntity;
 import com.abl.RWD.listener.IBtnClickListener;
+import com.abl.RWD.listener.IItemCheckedListener;
+import com.abl.RWD.util.MyLog;
 
 import java.util.ArrayList;
 
 public class NextAccepterActivity extends BaseActivity {
 	private CommonHeaderView mHeader;
-	private RecyclerView mRecyclerView;
-	private AdapterAcceptDepartment mAdapter;
+	private LinearLayout mAcceptDepartmentLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -44,13 +45,29 @@ public class NextAccepterActivity extends BaseActivity {
 				super.btnRightClick();
 			}
 		});
-		mRecyclerView= (RecyclerView) this.findViewById(R.id.mRecyclerView);
-		LinearLayoutManager manager=new LinearLayoutManager(this);
-		mRecyclerView.setLayoutManager(manager);
-		mAdapter=new AdapterAcceptDepartment(this,getTestData());
-		mRecyclerView.setAdapter(mAdapter);
+		mAcceptDepartmentLayout= (LinearLayout) this.findViewById(R.id.layout_AcceptDepartment);
+
+		ArrayList<VAcceptDepartmentEntity> mList= getTestData();
+		initDepartView(mList);
 	}
 
+	private void initDepartView(ArrayList<VAcceptDepartmentEntity> mList) {
+		if (mList!=null&&mList.size()>0){
+			for (int i=0;i<mList.size();i++){
+				AcceptDepartmentView itemView=new AcceptDepartmentView(this,itemCheckedListener);
+				itemView.setData(mList.get(i),i);
+				mAcceptDepartmentLayout.addView(itemView);
+
+			}
+		}
+	}
+
+	private IItemCheckedListener itemCheckedListener=new IItemCheckedListener() {
+		@Override
+		public void itemChecked(int pos) {
+			MyLog.debug(TAG,"[itemChecked]  pos:"+pos);
+		}
+	};
 	private ArrayList<VAcceptDepartmentEntity> getTestData(){
 		ArrayList<VAcceptDepartmentEntity> mList=new ArrayList<>();
 		for (int i=0;i<10;i++){
