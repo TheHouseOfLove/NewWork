@@ -3,19 +3,18 @@ package com.abl.RWD.msglist.item;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
-import com.abl.RWD.adapter.AdapterAccpterItem;
-import com.abl.RWD.entity.VJieShouRenEntity;
+import com.abl.RWD.adapter.AdapterAccepterItem;
+import com.abl.RWD.entity.VAcceptDepartmentEntity;
+import com.abl.RWD.entity.VAccepterItemEntity;
+import com.abl.RWD.listener.IAcceptrChangeListener;
 import com.abl.RWD.listener.IItemCheckedListener;
 import com.abl.RWD.msglist.base.BaseViewHolder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.abl.RWD.common.Global.getContext;
 
@@ -23,17 +22,17 @@ import static com.abl.RWD.common.Global.getContext;
  * Created by yas on 2017/11/23.
  */
 
-public class AccpterHolder extends BaseViewHolder<VJieShouRenEntity> {
+public class AccepterDepartmentHolder extends BaseViewHolder<VAcceptDepartmentEntity> {
     private static final String TAG = "AccpterHolder";
     private RecyclerView mMsgPage;
-    private AdapterAccpterItem mAdapter;
+    private AdapterAccepterItem mAdapter;
     private TextView text_bumen;
     private ArrayList<String> userIds;
-    private ArrayList<String> arr;
+    private ArrayList<VAccepterItemEntity> arr;
     private String isRadio;
     private IItemCheckedListener mCheckedListener;
 
-    public AccpterHolder(Context mContext, ViewGroup parent) {
+    public AccepterDepartmentHolder(Context mContext, ViewGroup parent) {
         super(mContext, parent, R.layout.jieshouren_item);
     }
 
@@ -46,7 +45,7 @@ public class AccpterHolder extends BaseViewHolder<VJieShouRenEntity> {
     }
 
     @Override
-    public void setMsg(VJieShouRenEntity t) {
+    public void setMsg(VAcceptDepartmentEntity t) {
         userIds = new ArrayList<>();
         arr = new ArrayList<>();
         if (t != null) {
@@ -74,10 +73,24 @@ public class AccpterHolder extends BaseViewHolder<VJieShouRenEntity> {
 //                    }
 //                }
             for (int i = 1; i < 5; i++) {
-                arr.add("接收人" + i);
+                VAccepterItemEntity entity=new VAccepterItemEntity();
+                entity.name="接收人" + i;
+                arr.add(entity);
             }
         }
-        mAdapter = new AdapterAccpterItem(getContext(), arr, null);
+        mAdapter = new AdapterAccepterItem(getContext(), arr, mListener);
         mMsgPage.setAdapter(mAdapter);
     }
+
+    private IAcceptrChangeListener mListener=new IAcceptrChangeListener() {
+        @Override
+        public void selectedListener(int pos) {
+            mAdapter.clearOtherChecked(pos);
+        }
+
+        @Override
+        public void cancelSelectListener(int pos) {
+
+        }
+    };
 }

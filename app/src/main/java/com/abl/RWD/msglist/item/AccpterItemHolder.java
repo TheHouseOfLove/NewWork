@@ -1,28 +1,26 @@
 package com.abl.RWD.msglist.item;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
-import com.abl.RWD.listener.IAccptrChangeListener;
+import com.abl.RWD.entity.VAccepterItemEntity;
+import com.abl.RWD.listener.IAcceptrChangeListener;
 import com.abl.RWD.msglist.base.BaseViewHolder;
-import com.abl.RWD.util.MyLog;
 
 /**
  * Created by yas on 2017/11/21.
  */
 
-public class AccpterItemHolder extends BaseViewHolder<String> implements CompoundButton.OnCheckedChangeListener {
-    private String name;
+public class AccpterItemHolder extends BaseViewHolder<VAccepterItemEntity> implements CompoundButton.OnCheckedChangeListener {
+    private VAccepterItemEntity mEntity;
     private TextView text_name;
     private CheckBox cb;
-    private IAccptrChangeListener mListener;
-    public AccpterItemHolder(Context mContext, ViewGroup parent,IAccptrChangeListener mListener) {
+    private IAcceptrChangeListener mListener;
+    public AccpterItemHolder(Context mContext, ViewGroup parent,IAcceptrChangeListener mListener) {
         super(mContext, parent, R.layout.accpter_list_item);
         this.mListener=mListener;
     }
@@ -35,13 +33,15 @@ public class AccpterItemHolder extends BaseViewHolder<String> implements Compoun
     }
 
     @Override
-    public void setMsg(String t) {
-        name=t;
-        text_name.setText(name);
+    public void setMsg(VAccepterItemEntity t) {
+        mEntity=t;
+        text_name.setText(mEntity.name);
+        cb.setChecked(mEntity.isChecked);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+        mEntity.isChecked=isChecked;
         if(mListener!=null){
             if (isChecked) {
                 mListener.selectedListener(pos);

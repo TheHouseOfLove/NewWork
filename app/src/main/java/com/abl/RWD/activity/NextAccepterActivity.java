@@ -7,18 +7,17 @@ import android.support.v7.widget.RecyclerView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseActivity;
-import com.abl.RWD.adapter.AdapterAccpter;
+import com.abl.RWD.adapter.AdapterAcceptDepartment;
 import com.abl.RWD.component.CommonHeaderView;
-import com.abl.RWD.entity.VJieShouRenEntity;
+import com.abl.RWD.entity.VAcceptDepartmentEntity;
 import com.abl.RWD.listener.IBtnClickListener;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 
 public class NextAccepterActivity extends BaseActivity {
 	private CommonHeaderView mHeader;
 	private RecyclerView mRecyclerView;
-	private AdapterAccpter mAdapter;
+	private AdapterAcceptDepartment mAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,14 +47,14 @@ public class NextAccepterActivity extends BaseActivity {
 		mRecyclerView= (RecyclerView) this.findViewById(R.id.mRecyclerView);
 		LinearLayoutManager manager=new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(manager);
-		mAdapter=new AdapterAccpter(this,getTestData());
+		mAdapter=new AdapterAcceptDepartment(this,getTestData());
 		mRecyclerView.setAdapter(mAdapter);
 	}
 
-	private ArrayList<VJieShouRenEntity> getTestData(){
-		ArrayList<VJieShouRenEntity> mList=new ArrayList<>();
+	private ArrayList<VAcceptDepartmentEntity> getTestData(){
+		ArrayList<VAcceptDepartmentEntity> mList=new ArrayList<>();
 		for (int i=0;i<10;i++){
-			mList.add(new VJieShouRenEntity());
+			mList.add(new VAcceptDepartmentEntity());
 		}
 		return mList;
 	}

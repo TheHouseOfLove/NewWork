@@ -70,6 +70,9 @@ public abstract class BaseRecyclerAdapter<VM extends BaseViewHolder,T>extends Re
         }
         return null;
     }
+    public ArrayList<T> getList(){
+        return mList;
+    }
     protected abstract VM getViewHolder(ViewGroup parent);
     public void setOnItemClickListener(OnItemClickListener mItemListener){
         this.mItemListener=mItemListener;

@@ -14,7 +14,7 @@ import com.abl.RWD.activity.SubmitTypeSelectActivity;
 import com.abl.RWD.activity.WorkDetailActivity;
 import com.abl.RWD.entity.PContractItemEntity;
 import com.abl.RWD.entity.PProjectItemEntity;
-import com.abl.RWD.entity.VJieShouRenEntity;
+import com.abl.RWD.entity.VAcceptDepartmentEntity;
 
 import java.util.ArrayList;
 
@@ -88,7 +88,7 @@ public class IntentUtils {
      * 启动接收人
      * @param mContext
      */
-    public static void starNextAccepterActivity(Activity mContext, ArrayList<VJieShouRenEntity> entity, int requestCode){
+    public static void starNextAccepterActivity(Activity mContext, ArrayList<VAcceptDepartmentEntity> entity, int requestCode){
         Intent intent=new Intent(mContext,NextAccepterActivity.class);
         intent.putExtra(KEY_ENTITY, entity);
         mContext.startActivityForResult(intent, requestCode);
