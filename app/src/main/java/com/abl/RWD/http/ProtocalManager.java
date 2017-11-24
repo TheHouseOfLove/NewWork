@@ -2,6 +2,7 @@ package com.abl.RWD.http;
 
 import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.controller.LoginController;
+import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.file.SharePreLoginUtil;
 import com.abl.RWD.http.req.ReqContractListEntity;
 import com.abl.RWD.http.req.ReqFinshWorkListEntity;
@@ -11,6 +12,7 @@ import com.abl.RWD.http.req.ReqPendingWorkListEntity;
 import com.abl.RWD.http.req.ReqProjectListEntity;
 import com.abl.RWD.http.req.ReqQuarterlyContractEntity;
 import com.abl.RWD.http.req.ReqQuarterlyPaymentEntity;
+import com.abl.RWD.http.req.ReqWorkDetailEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.http.base.ReqBaseEntity;
@@ -100,6 +102,27 @@ public class ProtocalManager {
         return addTask(req,callBack);
     }
 
+    /**
+     * 获取事务详情
+     * @param entity
+     * @param callBack
+     * @return
+     */
+    public int getWorkDetail(PWorkItemEntity entity, ICallBack<Object> callBack){
+        ReqWorkDetailEntity req=new ReqWorkDetailEntity();
+        req.LCID=entity.LCID;
+        req.SLID=entity.SLID;
+        req.YWID=entity.YWID;
+        req.YHID=LoginController.getInstance().getYHID();
+        String BLUrl=entity.BLUrl;
+        String[] strs=BLUrl.split("\\?");
+        req.UrlParam=strs[1].replaceAll("\\&", "\\$");
+        String[] strs1=BLUrl.split(";");
+        String[] strs2=strs1[1].split("=");
+        String[] strs3=strs2[1].split("@");
+        req.JDID=strs3[0];
+        return addTask(req,callBack);
+    }
     /**
      * 合同查询
      * @param page

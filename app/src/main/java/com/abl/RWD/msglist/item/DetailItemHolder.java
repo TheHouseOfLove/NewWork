@@ -9,18 +9,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
-import com.abl.RWD.entity.PWorkDetailItemEntity;
+import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.msglist.base.BaseViewHolder;
 
 /**
  * Created by yas on 2017/11/21.
  */
 
-public class DetailItemHolder extends BaseViewHolder<PWorkDetailItemEntity> implements View.OnClickListener {
+public class DetailItemHolder extends BaseViewHolder<PYWInfoItemEntity> implements View.OnClickListener {
     private TextView tvTitle;
     private TextView tvInfo;
     private EditText edInfo;
-    private PWorkDetailItemEntity mEntity;
+    private PYWInfoItemEntity mEntity;
     private String paramValue;
     public DetailItemHolder(Context mContext, ViewGroup parent) {
         super(mContext, parent, R.layout.detail_item_view);
@@ -35,7 +35,7 @@ public class DetailItemHolder extends BaseViewHolder<PWorkDetailItemEntity> impl
     }
 
     @Override
-    public void setMsg(PWorkDetailItemEntity pDetailItemEntity) {
+    public void setMsg(PYWInfoItemEntity pDetailItemEntity) {
         mEntity=pDetailItemEntity;
         if (pDetailItemEntity!=null){
             tvInfo.setText(pDetailItemEntity.FieldName);

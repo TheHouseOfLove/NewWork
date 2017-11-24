@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by yas on 2017/11/21.
  */
 
-public class PWorkDetailItemEntity implements Serializable{
+public class PYWInfoItemEntity implements Serializable{
     //TextBox_1：单行输入框   TextBox_2：多行输入框  DropDownList、RadioButtonList：单选框
     //CheckBoxList: 多选框    CalendarV2：日期选择框   其他情况：label
     public String ControlType;

@@ -32,7 +32,7 @@ public class TestActivity extends BaseNormalActivity{
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentUtils.starNextAccepterActivity(TestActivity.this,null,100);
+                IntentUtils.starNextAccepterActivity(TestActivity.this,null,2,100);
             }
         });
 

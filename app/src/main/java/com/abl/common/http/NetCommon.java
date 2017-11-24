@@ -9,6 +9,7 @@ import com.abl.RWD.http.rsp.RspMonthlyPaymentEntity;
 import com.abl.RWD.http.rsp.RspProjectListEntity;
 import com.abl.RWD.http.rsp.RspQuarterlyContractEntity;
 import com.abl.RWD.http.rsp.RspQuarterlyPaymentEntity;
+import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 
 import java.util.Map;
@@ -48,6 +49,8 @@ public class NetCommon {
     public static final String URL_YUEDU_HETONG_INFO="/YueDuHeTongInfo";
     /**月度收款信息**/
     public static final String URL_YUEDU_SHOUKUAN_INFO="/YueDuShouKuanInfo";
+    /**事务详情**/
+    public static final String URL_WORK_DETAIL="";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -67,7 +70,8 @@ public class NetCommon {
         mMap.put(URL_YUEDU_HETONG_INFO, RspMonthlyContractEntity.class);
         //月度收款
         mMap.put(URL_YUEDU_SHOUKUAN_INFO, RspMonthlyPaymentEntity.class);
-
+        //事务详情
+        mMap.put(URL_WORK_DETAIL, RspWorkDetailEntity.class);
     }
 
 

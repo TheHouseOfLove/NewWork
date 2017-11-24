@@ -1,5 +1,6 @@
 package com.abl.RWD.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
@@ -10,7 +11,8 @@ import com.abl.RWD.adapter.AdapterDetailInfo;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.DetailBottomView;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
-import com.abl.RWD.entity.PWorkDetailItemEntity;
+import com.abl.RWD.entity.PWorkItemEntity;
+import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.listener.IBtnClickListener;
 import com.abl.RWD.listener.IDetailBottomClickListener;
 import com.abl.RWD.util.IntentUtils;
@@ -28,13 +30,20 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private LinearLayout layoutFiles;
     private DetailBottomView mBottomView;
     private AdapterDetailInfo mAdapter;
+    private int mType;
+    private PWorkItemEntity entity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_detail);
+        initExtras();
         initLayout();
     }
-
+    private void initExtras(){
+        Intent intent=getIntent();
+        mType=intent.getIntExtra(IntentUtils.KEY_TYPE, 0);
+        entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
+    }
     private void initLayout() {
         mHeader= (CommonHeaderView) this.findViewById(R.id.header_detail);
         mHeader.updateType(CommonHeaderView.TYPE_ONLY_LEFT_IMAGE);
@@ -64,7 +73,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void nextClickListener() {
             //TODO 接收人选择
-            IntentUtils.starNextAccepterActivity(WorkDetailActivity.this,null,200);
+            IntentUtils.starNextAccepterActivity(WorkDetailActivity.this,null,1,200);
         }
 
         @Override
@@ -77,10 +86,10 @@ public class WorkDetailActivity extends BaseNormalActivity{
             showToast("请选择下一环节");
         }
     };
-    private ArrayList<PWorkDetailItemEntity> getTestData() {
-        ArrayList<PWorkDetailItemEntity> mList=new ArrayList<>();
+    private ArrayList<PYWInfoItemEntity> getTestData() {
+        ArrayList<PYWInfoItemEntity> mList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            mList.add(new PWorkDetailItemEntity());
+            mList.add(new PYWInfoItemEntity());
         }
         return mList;
     }
