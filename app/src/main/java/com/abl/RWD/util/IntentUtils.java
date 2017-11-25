@@ -15,6 +15,7 @@ import com.abl.RWD.activity.WorkDetailActivity;
 import com.abl.RWD.entity.PContractItemEntity;
 import com.abl.RWD.entity.PProjectItemEntity;
 import com.abl.RWD.entity.PWorkDetailEntity;
+import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.entity.VAcceptDepartmentEntity;
 
 import java.util.ArrayList;
@@ -72,8 +73,9 @@ public class IntentUtils {
      * 启动事务详情页
      * @param mContext
      */
-    public static void startTransactionDetailActivity(Context mContext){
+    public static void startTransactionDetailActivity(Context mContext, PWorkItemEntity entity){
         Intent intent=new Intent(mContext, WorkDetailActivity.class);
+        intent.putExtra(KEY_ENTITY,entity);
         mContext.startActivity(intent);
     }
     /**

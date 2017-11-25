@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/common_white">
     <LinearLayout
+        android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -14,18 +15,16 @@
         android:paddingTop="15dp">
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textColor="@color/txt_info_show_title_textColor"
-            android:textSize="14sp"
-            android:text="title"/>
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/tv_content"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:gravity="right"
-            android:singleLine="true"
+            android:gravity="left"
             android:ellipsize="end"
             android:textColor="@color/txt_info_show_content_textColor"
             android:textColorHint="@color/txt_info_show_hint_textColor"
@@ -36,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textColor="@color/txt_info_show_content_textColor"
             android:textColorHint="@color/txt_info_show_hint_textColor"
             android:textSize="14sp"
@@ -44,10 +43,17 @@
             android:visibility="gone"/>
     </LinearLayout>
     <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#E5E7EB"
+        android:visibility="gone"/>
+    <View
         android:id="@+id/line_modify"
         android:layout_height="1px"
         android:layout_width="match_parent"
         android:background="#E5E7EB"
         android:layout_marginLeft="12dp"
         android:layout_alignParentBottom="true" />
+
 </LinearLayout>

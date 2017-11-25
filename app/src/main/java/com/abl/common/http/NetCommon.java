@@ -2,6 +2,7 @@ package com.abl.common.http;
 
 import android.support.v4.util.ArrayMap;
 
+import com.abl.RWD.http.rsp.RspBanLiYiJianEntity;
 import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.http.rsp.RspLoginEntity;
 import com.abl.RWD.http.rsp.RspMonthlyContractEntity;
@@ -50,7 +51,9 @@ public class NetCommon {
     /**月度收款信息**/
     public static final String URL_YUEDU_SHOUKUAN_INFO="/YueDuShouKuanInfo";
     /**事务详情**/
-    public static final String URL_WORK_DETAIL="";
+    public static final String URL_WORK_DETAIL="/GetYWInfo";
+    /**办理意见**/
+    public static final String URL_BANLIYIJIAN="/banLiYiJian";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -72,6 +75,8 @@ public class NetCommon {
         mMap.put(URL_YUEDU_SHOUKUAN_INFO, RspMonthlyPaymentEntity.class);
         //事务详情
         mMap.put(URL_WORK_DETAIL, RspWorkDetailEntity.class);
+        //办理意见
+        mMap.put(URL_BANLIYIJIAN, RspBanLiYiJianEntity.class);
     }
 
 

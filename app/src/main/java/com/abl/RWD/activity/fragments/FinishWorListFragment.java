@@ -118,7 +118,7 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
         public void onItemClick(View view, int position) {
             PWorkItemEntity entity = mFinishAdapter.getItemEntity(position);
             showToast(entity.FormName);
-            IntentUtils.startTransactionDetailActivity(getActivity());
+            IntentUtils.startTransactionDetailActivity(getActivity(),entity);
 
         }
     };

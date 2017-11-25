@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12.5dp"
         android:layout_marginLeft="12.5dp"
-        android:textColorHint="#000000"
-        android:textSize="15sp"
+        android:textColorHint="@color/common_bg"
+        android:textSize="13sp"
         android:text="合同附件:"
         android:visibility="gone"/>
 <TextView 
@@ -41,8 +41,8 @@
 <View
     android:id="@+id/view"
     android:layout_width="fill_parent"
-    android:layout_height="1px"
+    android:layout_height="1dp"
     android:layout_below="@id/text_open"
-    android:background="@color/common_orange"
-    />
+    android:background="@color/common_grey"
+    android:layout_marginLeft="12dp"/>
 </RelativeLayout>

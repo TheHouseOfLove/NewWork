@@ -3,9 +3,11 @@ package com.abl.RWD.msglist.item;
 import android.content.Context;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
@@ -22,6 +24,8 @@ public class DetailItemHolder extends BaseViewHolder<PYWInfoItemEntity> implemen
     private EditText edInfo;
     private PYWInfoItemEntity mEntity;
     private String paramValue;
+    private LinearLayout Layout;
+    private View divider;
     public DetailItemHolder(Context mContext, ViewGroup parent) {
         super(mContext, parent, R.layout.detail_item_view);
     }
@@ -32,13 +36,22 @@ public class DetailItemHolder extends BaseViewHolder<PYWInfoItemEntity> implemen
         tvInfo=itemView.findViewById(R.id.tv_content);
         tvInfo.setOnClickListener(this);
         edInfo=itemView.findViewById(R.id.edit_content);
+        divider=itemView.findViewById(R.id.divider);
+        Layout=itemView.findViewById(R.id.layout_content);
     }
 
     @Override
     public void setMsg(PYWInfoItemEntity pDetailItemEntity) {
         mEntity=pDetailItemEntity;
         if (pDetailItemEntity!=null){
-            tvInfo.setText(pDetailItemEntity.FieldName);
+            if (TextUtils.isEmpty(pDetailItemEntity.FieldName)){
+                divider.setVisibility(View.VISIBLE);
+                Layout.setVisibility(View.GONE);
+                return;
+            }
+            divider.setVisibility(View.GONE);
+            Layout.setVisibility(View.VISIBLE);
+            tvTitle.setText(pDetailItemEntity.FieldName);
             tvInfo.setText(pDetailItemEntity.FieldValue);
             edInfo.setText(pDetailItemEntity.FieldValue);
             if (!"修改".equals(pDetailItemEntity.CRName)){

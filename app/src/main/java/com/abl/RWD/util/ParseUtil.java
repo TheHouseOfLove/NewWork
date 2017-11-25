@@ -3,8 +3,12 @@ package com.abl.RWD.util;
 import android.text.TextUtils;
 
 import com.abl.RWD.component.ChartView;
+import com.abl.RWD.entity.PAttInfoItemEntity;
+import com.abl.RWD.entity.PAttInfoSubItemEntity;
 import com.abl.RWD.entity.PJiDuHeTongItemEntity;
 import com.abl.RWD.entity.PJiDuShouKuanItemEntity;
+import com.abl.RWD.entity.PYWInfoItemEntity;
+import com.abl.RWD.entity.PYWInfoSubItemEntity;
 import com.abl.RWD.entity.PYueDuHeTongItemEntiity;
 import com.abl.RWD.entity.PYueDuInfoItemEntity;
 import com.abl.RWD.entity.VThirdItemEntity;
@@ -169,32 +173,45 @@ public class ParseUtil {
 		}
 		return mList;
 	}
-//	public static ArrayList<VJieShouRenEntity> getJieShouRen(ArrayList<PDetailHTInfoEntity> srcList){
-//		 ArrayList<VJieShouRenEntity> mList=new ArrayList<VJieShouRenEntity>();
-//		 if(srcList!=null&&srcList.size()>0){
-//			 for(int i=0;i<srcList.size();i++){
-//				 VJieShouRenEntity mEntity=new VJieShouRenEntity();
-//				 mEntity.HTInfoEntity=srcList.get(i);
-//				 mEntity.type=VJieShouRenEntity.TYPE_HT;
-//				 mList.add(mEntity);
-//			 }
-//		 }
-//		 return mList;
-//	}
-//
-//	public static ArrayList<VJieShouRenEntity> getJieShouRen1(ArrayList<PDetailTJInfoInfoEntity> srcList){
-//		 ArrayList<VJieShouRenEntity> mList=new ArrayList<VJieShouRenEntity>();
-//		 if(srcList!=null&&srcList.size()>0){
-//			 for(int i=0;i<srcList.size();i++){
-//				 VJieShouRenEntity mEntity=new VJieShouRenEntity();
-//				 mEntity.TJInfoEntity=srcList.get(i);
-//				 mEntity.type=VJieShouRenEntity.TYPE_TJ;
-//				 mList.add(mEntity);
-//			 }
-//		 }
-//		 return mList;
-//	}
 
+	/**
+	 * 获取业务list
+	 * @param YWInfo
+	 * @return
+	 */
+	public static ArrayList<PYWInfoItemEntity> getDetailItemList(ArrayList<PYWInfoSubItemEntity> YWInfo){
+		ArrayList<PYWInfoItemEntity> mList=new ArrayList<>();
+		if (YWInfo!=null){
+			for (int i=0;i<YWInfo.size();i++){
+				PYWInfoSubItemEntity itemEntity=YWInfo.get(i);
+				if (itemEntity!=null&&itemEntity.Item!=null){
+					mList.addAll(itemEntity.Item);
+					if (i!=YWInfo.size()-1) {
+						mList.add(new PYWInfoItemEntity());
+					}
+				}
+			}
+		}
+		return mList;
+	}
+
+	/**
+	 * 获取文件
+	 * @param files
+	 * @return
+	 */
+	public static ArrayList<PAttInfoItemEntity> getDetailAttItemList(ArrayList<PAttInfoSubItemEntity> files){
+		ArrayList<PAttInfoItemEntity> mList=new ArrayList<>();
+		if (files!=null){
+			for (int i=0;i<files.size();i++) {
+				PAttInfoSubItemEntity itemEntity = files.get(i);
+				itemEntity.Item.get(0).isFirst=true;
+				itemEntity.Item.get(itemEntity.Item.size()-1).isLast=true;
+				mList.addAll(itemEntity.Item);
+			}
+		}
+		return mList;
+	}
 	/**
 	 * 计算所有分部的月度信息
 	 * @param srcList

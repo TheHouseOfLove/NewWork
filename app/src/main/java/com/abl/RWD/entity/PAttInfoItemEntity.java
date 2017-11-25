@@ -10,4 +10,7 @@ public class PAttInfoItemEntity implements Serializable{
     public String AttName;
     public String FJPath;
     public String FieldName;
+
+    public boolean isFirst;
+    public boolean isLast;
 }

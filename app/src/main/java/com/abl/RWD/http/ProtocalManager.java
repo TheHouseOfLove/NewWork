@@ -3,7 +3,7 @@ package com.abl.RWD.http;
 import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.controller.LoginController;
 import com.abl.RWD.entity.PWorkItemEntity;
-import com.abl.RWD.file.SharePreLoginUtil;
+import com.abl.RWD.http.req.ReqBanLiYiJianEntity;
 import com.abl.RWD.http.req.ReqContractListEntity;
 import com.abl.RWD.http.req.ReqFinshWorkListEntity;
 import com.abl.RWD.http.req.ReqMonthlyContractEntity;
@@ -113,6 +113,7 @@ public class ProtocalManager {
         req.LCID=entity.LCID;
         req.SLID=entity.SLID;
         req.YWID=entity.YWID;
+        req.FormID=entity.FormID;
         req.YHID=LoginController.getInstance().getYHID();
         String BLUrl=entity.BLUrl;
         String[] strs=BLUrl.split("\\?");
@@ -199,6 +200,18 @@ public class ProtocalManager {
     public int getMonthlyPayment(String year,ICallBack<Object> callBack){
         ReqMonthlyPaymentEntity req=new ReqMonthlyPaymentEntity();
         req.NianValue=year;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 办理意见
+     * @param SLID
+     * @param callBack
+     * @return
+     */
+    public int reqBanLiYiJian(String SLID,ICallBack<Object> callBack){
+        ReqBanLiYiJianEntity req=new ReqBanLiYiJianEntity();
+        req.SLID=SLID;
         return addTask(req,callBack);
     }
 }

@@ -25,7 +25,7 @@ public class TestActivity extends BaseNormalActivity{
         btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentUtils.startTransactionDetailActivity(TestActivity.this);
+                IntentUtils.startTransactionDetailActivity(TestActivity.this,null);
             }
         });
         Button btn_next= (Button) this.findViewById(R.id.btn_next);

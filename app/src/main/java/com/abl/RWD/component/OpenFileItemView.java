@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
+import com.abl.RWD.entity.PAttInfoItemEntity;
 import com.abl.RWD.entity.PFuJianEntity;
 import com.abl.RWD.listener.IWordOpenListener;
 
@@ -17,7 +18,7 @@ public class OpenFileItemView extends RelativeLayout implements OnClickListener 
 	private TextView text_desp;
 	private TextView text_open;
 	private IWordOpenListener mListener;
-	private PFuJianEntity entity;
+	private PAttInfoItemEntity entity;
 	private View viewLine;
 	private TextView text_title;
 	public OpenFileItemView(Context context) {
@@ -40,16 +41,27 @@ public class OpenFileItemView extends RelativeLayout implements OnClickListener 
 		// TODO Auto-generated method stub
 		LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		li.inflate(R.layout.list_open_word, this, true);
-		text_desp=(TextView) this.findViewById(R.id.text_desp);
-		text_open=(TextView) this.findViewById(R.id.text_open);
+		text_desp= this.findViewById(R.id.text_desp);
+		text_open= this.findViewById(R.id.text_open);
 		text_open.setOnClickListener(this);
 		viewLine=this.findViewById(R.id.view);
-		text_title= (TextView) this.findViewById(R.id.text_title);
+		text_title=  this.findViewById(R.id.text_title);
 	}
 	
-	public void setData(PFuJianEntity entity){
+	public void setData(PAttInfoItemEntity entity){
 		this.entity=entity;
-		text_desp.setText(entity.FJName);
+		text_desp.setText(entity.AttName);
+		if (entity.isFirst){
+			text_title.setVisibility(View.VISIBLE);
+			text_title.setText(entity.FieldName);
+		}else{
+			text_title.setVisibility(View.GONE);
+		}
+		if (entity.isLast){
+			viewLine.setVisibility(View.VISIBLE);
+		}else{
+			viewLine.setVisibility(View.GONE);
+		}
 	}
 	public void setEmptyData(){
 		text_desp.setText("");
@@ -70,7 +82,7 @@ public class OpenFileItemView extends RelativeLayout implements OnClickListener 
 		// TODO Auto-generated method stub
 		if(mListener!=null){
 			if(view==text_open){
-				mListener.openListener(entity.FJName,entity.FJPath);
+				mListener.openListener(entity.AttName,entity.FJPath);
 			}
 		}
 	}

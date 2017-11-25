@@ -17,11 +17,61 @@
                 android:id="@+id/recycler_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
             <LinearLayout
                 android:id="@+id/layout_files"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical"
+                android:background="@color/common_white">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/common_bg"/>
+            </LinearLayout>>
+            <LinearLayout
+                android:id="@+id/layout_advice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/common_white">
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    xmlns:android="http://schemas.android.com/apk/res/android">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/common_orange" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/common_orange" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="3dp"
+                        android:layout_height="14dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12.5dp"
+                        android:background="@color/common_orange" />
+
+                    <TextView
+                        android:id="@+id/text_top"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/view"
+                        android:text="审批意见"
+                        android:textColor="@color/common_red"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </LinearLayout>
             <com.abl.RWD.component.DetailBottomView
                 android:id="@+id/bottomView"
                 android:layout_width="match_parent"

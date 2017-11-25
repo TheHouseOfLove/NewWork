@@ -124,11 +124,11 @@ public class WorkFragment extends BaseFragment {
             if (mType==TYPE_PENDING) {
                 PWorkItemEntity entity = mPendingAdapter.getItemEntity(position);
                 showToast(entity.FormName);
-                IntentUtils.startTransactionDetailActivity(getActivity());
+                IntentUtils.startTransactionDetailActivity(getActivity(),entity);
             }else if (mType==TYPE_FINISH){
                 PWorkItemEntity entity = mFinishAdapter.getItemEntity(position);
                 showToast(entity.FormName);
-                IntentUtils.startTransactionDetailActivity(getActivity());
+                IntentUtils.startTransactionDetailActivity(getActivity(),entity);
             }
         }
     };

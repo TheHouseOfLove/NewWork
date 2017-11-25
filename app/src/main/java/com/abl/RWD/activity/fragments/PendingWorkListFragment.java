@@ -19,7 +19,6 @@ import com.abl.RWD.listener.OnItemClickListener;
 import com.abl.RWD.msglist.ListViewEmptyView;
 import com.abl.RWD.util.IntentUtils;
 import com.abl.RWD.util.MyLog;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
@@ -121,7 +120,7 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
         public void onItemClick(View view, int position) {
             PWorkItemEntity entity = mPendingAdapter.getItemEntity(position);
             showToast(entity.FormName);
-            IntentUtils.startTransactionDetailActivity(getActivity());
+            IntentUtils.startTransactionDetailActivity(getActivity(),entity);
 
         }
     };

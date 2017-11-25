@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/common_white"
+     >
+
+    <LinearLayout
+        android:id="@+id/layout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/text_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12.5dp"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textColor="@color/order_detail_yiji_name_color"
+            android:text="name" />
+
+        <TextView
+            android:id="@+id/text_item_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.6"
+            android:textSize="15sp"
+            android:textColor="#808080"
+            android:text="意见" />
+
+        <TextView
+            android:id="@+id/text_item_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="12.5dp"
+            android:textSize="13sp"
+            android:textColor="#808080"
+            android:layout_weight="1"
+            android:text="2015-09-07" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_item_isOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12.5dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:text="统一"
+        android:layout_below="@id/layout_top" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#ff0000" 
+        android:layout_marginTop="12.5dp"
+        android:layout_below="@id/text_item_isOk"/>
+
+</RelativeLayout>

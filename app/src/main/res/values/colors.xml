@@ -36,4 +36,6 @@
     <color name="txt_info_show_title_textColor">#333333</color>
     <color name="txt_info_show_content_textColor">#666666</color>
     <color name="txt_info_show_hint_textColor">#999999</color>
+
+    <color name="order_detail_yiji_name_color">#3C6D95</color>
 </resources>

@@ -17,6 +17,7 @@ public class ReqWorkDetailEntity extends ReqBaseEntity{
     public String JDID;
     public String UrlParam;
     public String YHID;
+    public String FormID;
     @Override
     public String getReqUrl() {
         return NetCommon.URL_WORK_DETAIL;
@@ -31,6 +32,7 @@ public class ReqWorkDetailEntity extends ReqBaseEntity{
         mMap.put("JDID", JDID);
         mMap.put("UrlParam", UrlParam);
         mMap.put("YHID", YHID);
+        mMap.put("FormID", FormID);
         return mMap;
     }
 }

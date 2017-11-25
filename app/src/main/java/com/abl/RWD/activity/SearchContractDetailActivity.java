@@ -116,7 +116,7 @@ public class SearchContractDetailActivity extends BaseNormalActivity {
                 if(mEntity.FuJian!=null&&mEntity.FuJian.size()>0){
                     for(int i=0;i<mEntity.FuJian.size();i++){
                         OpenFileItemView openView=new OpenFileItemView(this);
-                        openView.setData(mEntity.FuJian.get(i));
+//                        openView.setData(mEntity.FuJian.get(i));
                         openView.setOpenListener(mListener);
                         if (i!=mEntity.FuJian.size()-1){
                             openView.hideLine();
