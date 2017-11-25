@@ -9,6 +9,7 @@ import android.view.View;
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseFragment;
 import com.abl.RWD.adapter.AdapterWorkList;
+import com.abl.RWD.common.Common;
 import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.HeaderSearchView;
@@ -118,7 +119,7 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
         public void onItemClick(View view, int position) {
             PWorkItemEntity entity = mFinishAdapter.getItemEntity(position);
             showToast(entity.FormName);
-            IntentUtils.startTransactionDetailActivity(getActivity(),entity);
+            IntentUtils.startTransactionDetailActivity(getActivity(),entity, Common.TYPE_YIBAN);
 
         }
     };

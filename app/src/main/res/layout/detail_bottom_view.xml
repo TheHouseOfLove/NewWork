@@ -49,7 +49,8 @@
         android:layout_margin="12.5dp"
         android:padding="4dp"
         android:background="#eeeeee"
-        android:textColor="#dddddd"
+        android:textColor="@color/common_font_black"
+
         android:gravity="top|left"
         android:hint="请输入您的意见"
         android:textSize="14sp" />

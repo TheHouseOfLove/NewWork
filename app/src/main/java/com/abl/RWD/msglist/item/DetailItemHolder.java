@@ -1,6 +1,7 @@
 package com.abl.RWD.msglist.item;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -61,7 +62,6 @@ public class DetailItemHolder extends BaseViewHolder<PYWInfoItemEntity> implemen
                 edInfo.setVisibility(View.GONE);
             }else{
                 //可以修改时，根据不同限制条件作出不同操作
-                tvInfo.setEnabled(true);
                 if ("TextBox_1".equals(pDetailItemEntity.ControlType)||"TextBox_2".equals(pDetailItemEntity.ControlType)){
                     if ("TextBox_1".equals(pDetailItemEntity.ControlType)){
                         edInfo.setSingleLine();
@@ -75,10 +75,27 @@ public class DetailItemHolder extends BaseViewHolder<PYWInfoItemEntity> implemen
                             ||"decimal".equals(pDetailItemEntity.DataType)){
                         edInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
                     }
-                }else{
+                    if ("是".equals(pDetailItemEntity.Required)){
+                        tvTitle.setTextColor(Color.RED);
+                    }else{
+                        tvTitle.setTextColor(mContext.getResources().getColor(R.color.txt_info_show_title_textColor));
+                    }
+                } else if ("DropDownList".equals(pDetailItemEntity.ControlType)||"RadioButtonList".equals(pDetailItemEntity.ControlType)
+                        ||"CheckBoxList".equals(pDetailItemEntity.ControlType)
+                        ||"CalendarV2".equals(pDetailItemEntity.ControlType)) {
+                    tvInfo.setEnabled(true);
+                    tvInfo.setVisibility(View.VISIBLE);
+                    edInfo.setVisibility(View.GONE);
+                    if ("是".equals(pDetailItemEntity.Required)){
+                        tvTitle.setTextColor(Color.RED);
+                    }else{
+                        tvTitle.setTextColor(mContext.getResources().getColor(R.color.txt_info_show_title_textColor));
+                    }
+                } else {
                     tvInfo.setVisibility(View.VISIBLE);
                     edInfo.setVisibility(View.GONE);
                 }
+
             }
         }
     }

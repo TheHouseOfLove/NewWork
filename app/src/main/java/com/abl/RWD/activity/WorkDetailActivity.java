@@ -8,10 +8,12 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
 import com.abl.RWD.adapter.AdapterDetailInfo;
+import com.abl.RWD.common.Common;
 import com.abl.RWD.component.BanLiItemView;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.DetailBottomView;
@@ -101,10 +103,16 @@ public class WorkDetailActivity extends BaseNormalActivity{
         mType=intent.getIntExtra(IntentUtils.KEY_TYPE, 0);
         entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void initLayout() {
         mHeader= (CommonHeaderView) this.findViewById(R.id.header_detail);
         mHeader.updateType(CommonHeaderView.TYPE_ONLY_LEFT_IMAGE);
-        mHeader.setTitle("详情");
+        mHeader.setTitle(entity.FormName);
         mHeader.setHeaderClickListener(new IBtnClickListener() {
             @Override
             public void btnLeftClick() {
@@ -118,6 +126,12 @@ public class WorkDetailActivity extends BaseNormalActivity{
         mBottomView= (DetailBottomView) this.findViewById(R.id.bottomView);
         mBottomView.setClickListener(mBottomClickListener);
         layoutAdvice= (LinearLayout) this.findViewById(R.id.layout_advice);
+        if(this.mType== Common.TYPE_DAIBAN){
+            mBottomView.setVisibility(View.VISIBLE);
+        }else if (mType==Common.TYPE_YIBAN){
+            mBottomView.setVisibility(View.GONE);
+        }
+        mRecyclerView.setFocusable(false);
     }
     private IDetailBottomClickListener mBottomClickListener=new IDetailBottomClickListener() {
         @Override

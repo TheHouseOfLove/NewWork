@@ -205,9 +205,11 @@ public class ParseUtil {
 		if (files!=null){
 			for (int i=0;i<files.size();i++) {
 				PAttInfoSubItemEntity itemEntity = files.get(i);
-				itemEntity.Item.get(0).isFirst=true;
-				itemEntity.Item.get(itemEntity.Item.size()-1).isLast=true;
-				mList.addAll(itemEntity.Item);
+				if (itemEntity!=null&&itemEntity.Item!=null&&itemEntity.Item.size()>0) {
+					itemEntity.Item.get(0).isFirst = true;
+					itemEntity.Item.get(itemEntity.Item.size() - 1).isLast = true;
+					mList.addAll(itemEntity.Item);
+				}
 			}
 		}
 		return mList;

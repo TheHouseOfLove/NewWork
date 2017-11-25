@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.common.Common;
 import com.abl.RWD.util.IntentUtils;
 
 /**
@@ -25,7 +26,7 @@ public class TestActivity extends BaseNormalActivity{
         btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentUtils.startTransactionDetailActivity(TestActivity.this,null);
+                IntentUtils.startTransactionDetailActivity(TestActivity.this,null, Common.TYPE_DAIBAN);
             }
         });
         Button btn_next= (Button) this.findViewById(R.id.btn_next);

@@ -73,9 +73,10 @@ public class IntentUtils {
      * 启动事务详情页
      * @param mContext
      */
-    public static void startTransactionDetailActivity(Context mContext, PWorkItemEntity entity){
+    public static void startTransactionDetailActivity(Context mContext, PWorkItemEntity entity,int type){
         Intent intent=new Intent(mContext, WorkDetailActivity.class);
         intent.putExtra(KEY_ENTITY,entity);
+        intent.putExtra(KEY_TYPE,type);
         mContext.startActivity(intent);
     }
     /**
