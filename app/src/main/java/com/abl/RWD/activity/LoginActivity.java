@@ -91,7 +91,7 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 //				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
 				IntentUtils.startMainActivity(this);
 			}else{
-				showToast("网络错误!");
+				showToast("网络错误!  errorCode:"+errorCode);
 			}
 		}
 	}

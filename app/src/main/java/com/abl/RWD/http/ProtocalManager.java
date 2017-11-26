@@ -12,6 +12,9 @@ import com.abl.RWD.http.req.ReqPendingWorkListEntity;
 import com.abl.RWD.http.req.ReqProjectListEntity;
 import com.abl.RWD.http.req.ReqQuarterlyContractEntity;
 import com.abl.RWD.http.req.ReqQuarterlyPaymentEntity;
+import com.abl.RWD.http.req.ReqReturnFlowBusinessEntity;
+import com.abl.RWD.http.req.ReqSaveDateEntity;
+import com.abl.RWD.http.req.ReqSubmitFlowBusinessEntity;
 import com.abl.RWD.http.req.ReqWorkDetailEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
@@ -65,7 +68,7 @@ public class ProtocalManager {
         ReqLoginEntity req=new ReqLoginEntity();
         req.UserName=userName;
         req.UserPwd=pwd;
-        req.mVisitType=ReqBaseEntity.TYPE_JAVA_GET;
+        req.mVisitType=ReqBaseEntity.TYPE_JAVA_POST;
         return addTask(req,callBack);
     }
 
@@ -212,6 +215,84 @@ public class ProtocalManager {
     public int reqBanLiYiJian(String SLID,ICallBack<Object> callBack){
         ReqBanLiYiJianEntity req=new ReqBanLiYiJianEntity();
         req.SLID=SLID;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 保存数据
+     * @param strJson
+     * @param strPKField
+     * @param DBName
+     * @param callBack
+     * @return
+     */
+    public int saveData(String strJson,String strPKField,String DBName,ICallBack<Object> callBack){
+        ReqSaveDateEntity req=new ReqSaveDateEntity();
+        req.strJson=strJson;
+        req.strPKField=strPKField;
+        req.DBName=DBName;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 提交流程
+     * @param entity
+     * @param BLUserID
+     * @param opinion
+     * @param callBack
+     * @return
+     */
+    public int submitFlowBusiness(PWorkItemEntity entity,String BLUserID,String opinion,ICallBack<Object> callBack){
+        ReqSubmitFlowBusinessEntity req=new ReqSubmitFlowBusinessEntity();
+        req.YHID=LoginController.getInstance().getYHID();
+        req.BLUserID=BLUserID;
+        req.opinion=opinion;
+
+        String BLUrl=entity.BLUrl;
+        String[] strs=BLUrl.split("\\?");
+        req.UrlParam=strs[1].replaceAll("\\&", "\\$");
+        String[] strs1=BLUrl.split(";");
+        String[] strs2=strs1[1].split("=");
+        String[] strs3=strs2[1].split("@");
+        req.FlowJDID=strs3[0];
+        req.FlowSLID=entity.SLID;
+        req.YWID=entity.YWID;
+        req.FlowVerID=entity.LCID;
+        String[] arr=BLUrl.split(";");
+        String[] arr1=arr[3].split("=");
+        String[] arr2=arr1[1].split("@");
+        req.FLowBLID=arr2[0];
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 回退流程
+     * @param entity
+     * @param BLUserID
+     * @param opinion
+     * @param callBack
+     * @return
+     */
+    public int returnFlowBusiness(PWorkItemEntity entity,String BLUserID,String opinion,ICallBack<Object> callBack){
+        ReqReturnFlowBusinessEntity req=new ReqReturnFlowBusinessEntity();
+        req.YHID=LoginController.getInstance().getYHID();
+        req.BLUserID=BLUserID;
+        req.opinion=opinion;
+
+        String BLUrl=entity.BLUrl;
+        String[] strs=BLUrl.split("\\?");
+        req.UrlParam=strs[1].replaceAll("\\&", "\\$");
+        String[] strs1=BLUrl.split(";");
+        String[] strs2=strs1[1].split("=");
+        String[] strs3=strs2[1].split("@");
+        req.FlowJDID=strs3[0];
+        req.FlowSLID=entity.SLID;
+        req.YWID=entity.YWID;
+        req.FlowVerID=entity.LCID;
+        String[] arr=BLUrl.split(";");
+        String[] arr1=arr[3].split("=");
+        String[] arr2=arr1[1].split("@");
+        req.FLowBLID=arr2[0];
         return addTask(req,callBack);
     }
 }

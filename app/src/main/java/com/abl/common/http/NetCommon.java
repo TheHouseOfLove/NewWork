@@ -3,6 +3,7 @@ package com.abl.common.http;
 import android.support.v4.util.ArrayMap;
 
 import com.abl.RWD.http.rsp.RspBanLiYiJianEntity;
+import com.abl.RWD.http.rsp.RspCommonEntity;
 import com.abl.RWD.http.rsp.RspContractListEntity;
 import com.abl.RWD.http.rsp.RspLoginEntity;
 import com.abl.RWD.http.rsp.RspMonthlyContractEntity;
@@ -10,6 +11,9 @@ import com.abl.RWD.http.rsp.RspMonthlyPaymentEntity;
 import com.abl.RWD.http.rsp.RspProjectListEntity;
 import com.abl.RWD.http.rsp.RspQuarterlyContractEntity;
 import com.abl.RWD.http.rsp.RspQuarterlyPaymentEntity;
+import com.abl.RWD.http.rsp.RspReturnFlowBusinessEntity;
+import com.abl.RWD.http.rsp.RspSaveDataEntity;
+import com.abl.RWD.http.rsp.RspSubmitFlowBusinessEntity;
 import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 
@@ -54,6 +58,12 @@ public class NetCommon {
     public static final String URL_WORK_DETAIL="/GetYWInfo";
     /**办理意见**/
     public static final String URL_BANLIYIJIAN="/banLiYiJian";
+    /**保存数据**/
+    public static final String URL_SAVE_DATA="/SaveData";
+    /**流程提交**/
+    public static final String URL_SUBMIT_BUSINESS="/SaveFlowBusiness";
+    /**退回**/
+    public static final String URL_RETURN_BUSINESS="/SaveReturnFlowBusiness";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -77,6 +87,13 @@ public class NetCommon {
         mMap.put(URL_WORK_DETAIL, RspWorkDetailEntity.class);
         //办理意见
         mMap.put(URL_BANLIYIJIAN, RspBanLiYiJianEntity.class);
+        //保存数据
+        mMap.put(URL_SAVE_DATA, RspSaveDataEntity.class);
+        //提交流程
+        mMap.put(URL_SUBMIT_BUSINESS, RspSubmitFlowBusinessEntity.class);
+        //退回流程
+        mMap.put(URL_RETURN_BUSINESS, RspReturnFlowBusinessEntity.class);
+
     }
 
 

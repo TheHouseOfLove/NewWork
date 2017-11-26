@@ -61,7 +61,14 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
         mRefreshView=rootView.findViewById(R.id.mRefreshLayout);
         mRefreshView.setOnRefreshLoadmoreListener(mRefreshListener);
     }
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            ProtocalManager.getInstance().reqPendingWorkList("", 1, getCallBack());
+            showLoading("正在获取数据。。。");
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();

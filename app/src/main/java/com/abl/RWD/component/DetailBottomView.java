@@ -58,6 +58,9 @@ public class DetailBottomView extends RelativeLayout implements OnClickListener 
 	public void setType(String type){
 		text_type.setText(type);
 	}
+	public String getType(){
+		return text_type.getText().toString();
+	}
 	public void setname(String name){
 		text_next.setText(name);
 	}

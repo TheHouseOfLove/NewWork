@@ -1,11 +1,13 @@
 package com.abl.RWD.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,10 +23,14 @@ import com.abl.RWD.component.OpenFileItemView;
 import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
 import com.abl.RWD.entity.PAttInfoItemEntity;
 import com.abl.RWD.entity.PAttInfoSubItemEntity;
+import com.abl.RWD.entity.PWorkDetailEntity;
 import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.http.ProtocalManager;
 import com.abl.RWD.http.rsp.RspBanLiYiJianEntity;
+import com.abl.RWD.http.rsp.RspReturnFlowBusinessEntity;
+import com.abl.RWD.http.rsp.RspSaveDataEntity;
+import com.abl.RWD.http.rsp.RspSubmitFlowBusinessEntity;
 import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.listener.IBtnClickListener;
 import com.abl.RWD.listener.IDetailBottomClickListener;
@@ -44,18 +50,24 @@ import java.util.ArrayList;
  */
 
 public class WorkDetailActivity extends BaseNormalActivity{
+    private static final int REQ_SUBMIT_TYPE=1;  //提交方式选择（同意、退回）
+    private static final int REQ_ACCEPTER=2;     //接收人
     private CommonHeaderView mHeader;
     private RecyclerView mRecyclerView;
     private LinearLayout layoutFiles;
     private LinearLayout layoutAdvice;  //办理意见
     private DetailBottomView mBottomView;
     private AdapterDetailInfo mAdapter;
-    private int mType;
+    private int mType;                  //已办待办类型
     private PWorkItemEntity entity;
     private String savePath= Environment.getExternalStorageDirectory().getAbsolutePath();
     private File file;
     private String filename;
     private static final int what=1;
+    private String noTag;
+    private PWorkDetailEntity mDetailEntity;
+    private String mBLUserName;
+    private String mBLUserID;
     private Handler mHandler=new Handler(){
         public void handleMessage(Message msg) {
             hideLoadingDialog();
@@ -137,18 +149,33 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void typeClickListener() {
             //TODO 提交类型选择
-            IntentUtils.starSubmitTypeSelectActivity(WorkDetailActivity.this,100,"");
+            IntentUtils.starSubmitTypeSelectActivity(WorkDetailActivity.this,REQ_SUBMIT_TYPE,noTag);
         }
 
         @Override
         public void nextClickListener() {
             //TODO 接收人选择
-            IntentUtils.starNextAccepterActivity(WorkDetailActivity.this,null,1,200);
+            String str=mBottomView.getType();
+            if ("同意".equals(str)) {
+                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 1, REQ_ACCEPTER);
+            }else if (TextUtils.isEmpty(str)){
+                showToast("请先选择提交方式！");
+            }else{
+                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 2, REQ_ACCEPTER);
+            }
         }
 
         @Override
         public void btnClickListener() {
             //TODO 提交按钮点击
+            String str=mBottomView.getType();
+            String BLUserID="";
+            String opinion=mBottomView.getOpinion();
+            if ("同意".equals(str)) {
+                saveChangeData();
+            }else{
+                returnFlowBusiness();
+            }
         }
 
         @Override
@@ -163,6 +190,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
         if (obj instanceof RspWorkDetailEntity){
             RspWorkDetailEntity rsp= (RspWorkDetailEntity) obj;
             if (rsp!=null&&isSucc){
+                mDetailEntity=rsp.mEntity;
                 if (mAdapter==null) {
                     mAdapter = new AdapterDetailInfo(this, ParseUtil.getDetailItemList(rsp.mEntity.YWInfo));
                     mRecyclerView.setAdapter(mAdapter);
@@ -170,6 +198,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
                     mAdapter.reSetList(ParseUtil.getDetailItemList(rsp.mEntity.YWInfo));
                 }
                 addDFiles(rsp.mEntity.AttInfo);
+                if (rsp.mEntity.ReturnInfo!=null&&rsp.mEntity.ReturnInfo.size()>0) {
+                    noTag = rsp.mEntity.ReturnInfo.get(0).nodeTag;
+                }
             }
         }else if (obj instanceof RspBanLiYiJianEntity){
             RspBanLiYiJianEntity rsp= (RspBanLiYiJianEntity) obj;
@@ -183,7 +214,77 @@ public class WorkDetailActivity extends BaseNormalActivity{
             }else{
                 layoutAdvice.setVisibility(View.GONE);
             }
+        }else if (obj instanceof RspSaveDataEntity){
+            RspSaveDataEntity rsp= (RspSaveDataEntity) obj;
+            if (rsp!=null&&isSucc&&rsp.mEntity!=null&&"Success".equals(rsp.mEntity.SaveData)){
+                submitFlowBusiness();
+            }else{
+                //TODO 保存失败处理
+                showToast("保存数据失败");
+            }
+        }else if (obj instanceof RspSubmitFlowBusinessEntity){
+            RspSubmitFlowBusinessEntity rsp= (RspSubmitFlowBusinessEntity) obj;
+            if(rsp!=null&&rsp.isSucc){
+                showToast("请求成功！");
+                finish();
+            }else{
+                showToast("请求失败！");
+            }
+        }else if (obj instanceof RspReturnFlowBusinessEntity){
+            RspReturnFlowBusinessEntity rsp= (RspReturnFlowBusinessEntity) obj;
+            if(rsp!=null&&rsp.isSucc){
+                showToast("请求成功！");
+                finish();
+            }else{
+                showToast("请求失败！");
+            }
         }
+    }
+
+    /**
+     * 修改数据
+     */
+    private void saveChangeData(){
+        ProtocalManager.getInstance().saveData(getChangeParams(),entity.FormPKField,entity.FormDB,getCallBack());
+        showLoading();
+    }
+    /**
+     * 退回流程
+     */
+    private void returnFlowBusiness(){
+        String opinion=mBottomView.getOpinion();
+        String BLUserID=mDetailEntity.ReturnInfo.get(0).nodeID+"$$"+mBLUserID;
+        try {
+            opinion = URLEncoder.encode(opinion, "GBK");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        ProtocalManager.getInstance().returnFlowBusiness(entity, BLUserID, opinion,getCallBack());
+        showLoading();
+    }
+    /**
+     * 提交流程
+     */
+    private void submitFlowBusiness(){
+        String opinion=mBottomView.getOpinion();
+        String BLUserID=mDetailEntity.ReferInfo.get(0).nodeID+"$$"+mBLUserID;
+        try {
+            opinion = URLEncoder.encode(opinion, "GBK");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        ProtocalManager.getInstance().submitFlowBusiness(entity, BLUserID, opinion,getCallBack());
+        showLoading();
+    }
+
+    /**
+     * 获取修改的参数
+     * @return
+     */
+    private String getChangeParams(){
+        return "";
     }
     private void addDFiles(ArrayList<PAttInfoSubItemEntity> files){
         if (files!=null&&files.size()>0){
@@ -240,6 +341,22 @@ public class WorkDetailActivity extends BaseNormalActivity{
             }.start();
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode!= Activity.RESULT_OK){
+            return;
+        }
+        if (requestCode==REQ_SUBMIT_TYPE){
+            String TJtype=data.getStringExtra("type");
+            mBottomView.setType(TJtype);
+        }else if (requestCode==REQ_ACCEPTER){
+             mBLUserName=data.getStringExtra("name");
+             mBLUserID=data.getStringExtra("id");
+            mBottomView.setname(mBLUserName);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

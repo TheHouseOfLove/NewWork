@@ -1,7 +1,9 @@
 package com.abl.RWD.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 
@@ -20,6 +22,7 @@ public class NextAccepterActivity extends BaseActivity {
 	private CommonHeaderView mHeader;
 	private LinearLayout mAcceptDepartmentLayout;
 	private int mType;
+	private boolean isEnd;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -44,7 +47,23 @@ public class NextAccepterActivity extends BaseActivity {
 
 			@Override
 			public void btnRightClick() {
-				super.btnRightClick();
+				Intent intent=new Intent();
+				String name=getNameStr();
+				String id=getUserIdstr();
+				if(!isEnd){
+					if(!TextUtils.isEmpty(name)){
+						intent.putExtra("name", name);
+					}else{
+						intent.putExtra("name", "下一环节");
+					}
+				}else{
+					intent.putExtra("name", "结束");
+				}
+				if(!TextUtils.isEmpty(id)){
+					intent.putExtra("id", id);
+				}
+				setResult(Activity.RESULT_OK, intent);
+				finish();
 			}
 		});
 		mAcceptDepartmentLayout= (LinearLayout) this.findViewById(R.id.layout_AcceptDepartment);
@@ -62,6 +81,10 @@ public class NextAccepterActivity extends BaseActivity {
 							AcceptDepartmentView itemView=new AcceptDepartmentView(this,itemCheckedListener);
 							itemView.setReferInfo(entity.ReferInfo.get(i),i);
 							mAcceptDepartmentLayout.addView(itemView);
+							if ("结束".equals(entity.ReferInfo.get(i).nodeName)){
+								isEnd=true;
+								return;
+							}
 						}
 					}
 					break;
@@ -71,6 +94,10 @@ public class NextAccepterActivity extends BaseActivity {
 							AcceptDepartmentView itemView=new AcceptDepartmentView(this,itemCheckedListener);
 							itemView.setReturnInfo(entity.ReturnInfo.get(i),i);
 							mAcceptDepartmentLayout.addView(itemView);
+							if ("结束".equals(entity.ReturnInfo.get(i).nodeName)){
+								isEnd=true;
+								return;
+							}
 						}
 					}
 					break;
@@ -79,6 +106,22 @@ public class NextAccepterActivity extends BaseActivity {
 			}
 		}
 
+	}
+
+	/**
+	 * 获取接收人姓名参数
+	 * @return
+	 */
+	private String getNameStr(){
+		return "";
+	}
+
+	/**
+	 * 获取接收人id参数
+	 * @return
+	 */
+	private String getUserIdstr(){
+		return "";
 	}
 
 	private IItemCheckedListener itemCheckedListener=new IItemCheckedListener() {

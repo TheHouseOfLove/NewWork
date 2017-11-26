@@ -24,5 +24,5 @@ public class PWorkItemEntity implements Serializable{
     public String FormDB;
     public String FormID;
     public String FormPKField;
-    public String FormTable;
+    public String FormTable;       //表名，需要改动的流程jsson
 }
