@@ -169,8 +169,6 @@ public class WorkDetailActivity extends BaseNormalActivity{
         public void btnClickListener() {
             //TODO 提交按钮点击
             String str=mBottomView.getType();
-            String BLUserID="";
-            String opinion=mBottomView.getOpinion();
             if ("同意".equals(str)) {
                 saveChangeData();
             }else{

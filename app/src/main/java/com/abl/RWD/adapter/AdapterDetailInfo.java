@@ -1,6 +1,7 @@
 package com.abl.RWD.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.abl.RWD.adapter.base.BaseRecyclerAdapter;
@@ -21,5 +22,22 @@ public class AdapterDetailInfo extends BaseRecyclerAdapter<DetailItemHolder,PYWI
     @Override
     protected DetailItemHolder getViewHolder(ViewGroup parent) {
         return new DetailItemHolder(mContext,parent);
+    }
+
+    /**
+     * 获取提交参数
+     * @return
+     */
+    public String getChangeParams(){
+        ArrayList<PYWInfoItemEntity> mList=getList();
+        if (mList!=null){
+            for (int i=0;i<mList.size();i++){
+                PYWInfoItemEntity itemEntity=mList.get(i);
+                if (itemEntity!=null&&"修改".equals(itemEntity.CRName)) {
+
+                }
+            }
+        }
+        return "";
     }
 }
