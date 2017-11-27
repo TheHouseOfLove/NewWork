@@ -66,4 +66,13 @@ public class LoginController {
             }
         });
     }
+
+    /**
+     * 退出登录，清除相关登录身份信息
+     */
+    public void clearLoginInfo(){
+        this.mEntity=null;
+        SharePreLoginUtil mSharePre=new SharePreLoginUtil();
+        mSharePre.clearLoginInfo();
+    }
 }

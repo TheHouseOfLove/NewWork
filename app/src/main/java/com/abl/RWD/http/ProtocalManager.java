@@ -54,7 +54,6 @@ public class ProtocalManager {
         reqEntity.seqNo = seqNo;
         TaskCommon task = new TaskCommon(reqEntity, callBack);
         HttpEngine.getInstance().addTask(task);
-        MyLog.debug(TAG,"[addTask]=====================");
         return seqNo;
     }
     /**
@@ -97,7 +96,6 @@ public class ProtocalManager {
      */
     public int reqFinishWorkList(String strWhere,int pageIndex,ICallBack<Object> callBack){
         ReqFinshWorkListEntity req=new ReqFinshWorkListEntity();
-//        req.YHID=SharePreLoginUtil.loadLoginInfo().YHID;
         req.YHID=LoginController.getInstance().getYHID();
         req.strWhere=strWhere;
         req.pageIndex=pageIndex;

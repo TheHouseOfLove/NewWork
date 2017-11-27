@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.abl.RWD.activity.LoginActivity;
 import com.abl.RWD.activity.MainActivity;
 import com.abl.RWD.activity.NextAccepterActivity;
 import com.abl.RWD.activity.SearchContractActivity;
@@ -27,6 +28,16 @@ import java.util.ArrayList;
 public class IntentUtils {
     public static final String KEY_ENTITY="entity";
     public static final String KEY_TYPE="type";
+
+    /**
+     * 启动登录页
+     * @param mContext
+     */
+    public static void startLoginActivity(Context mContext){
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
     /**
      * 启动主页
      * @param mContext
