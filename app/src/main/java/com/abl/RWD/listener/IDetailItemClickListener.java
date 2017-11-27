@@ -9,9 +9,21 @@ import com.abl.RWD.component.DetailItemView;
 
 public interface IDetailItemClickListener {
    /**
-    * 流程详情点击选择回调
+    * 流程详情单选item点击回调
     * @param itemView   点击的item对应的控件
     * @param options    供选择的选项值
     */
-   void itemClick(DetailItemView itemView, String options);
+   void itemRadioClick(DetailItemView itemView, String options);
+
+   /**
+    * 流程详情多选item点击回调
+    * @param itemView
+    * @param options
+    */
+   void itemCheckBoxClick(DetailItemView itemView, String options);
+   /**
+    * 流程详情时间选择item点击回调
+    * @param itemView
+    */
+   void itemCalendarClick(DetailItemView itemView);
 }

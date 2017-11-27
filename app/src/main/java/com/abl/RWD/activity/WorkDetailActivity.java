@@ -358,8 +358,18 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private IDetailItemClickListener mItemClickListener=new IDetailItemClickListener() {
 
         @Override
-        public void itemClick(DetailItemView itemView, String options) {
+        public void itemRadioClick(DetailItemView itemView, String options) {
             showDialog(itemView,options);
+        }
+
+        @Override
+        public void itemCheckBoxClick(DetailItemView itemView, String options) {
+            //TODO 多选页面
+        }
+
+        @Override
+        public void itemCalendarClick(DetailItemView itemView) {
+            //TODO 时间选择
         }
     };
     private IWordOpenListener mListener=new IWordOpenListener() {

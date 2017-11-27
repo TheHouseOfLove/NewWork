@@ -16,6 +16,8 @@ import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.listener.IDetailItemClickListener;
 
+import java.util.ArrayList;
+
 /**
  * Created by yas on 2017/11/27.
  */
@@ -106,6 +108,11 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
         }
         return "";
     }
+
+    /**
+     * 单选结果回填
+     * @param itemEntity
+     */
     public void setParam(VDetailSelectorItemEntity itemEntity){
         if (edInfo.getVisibility()==View.VISIBLE)
             edInfo.setText(itemEntity.value);
@@ -113,11 +120,43 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             tvInfo.setText(itemEntity.value);
         paramValue=itemEntity.key;
     }
+
+    /**
+     * 多选结果回填
+     * @param list
+     */
+    public void setParam(ArrayList<VDetailSelectorItemEntity> list){
+        if (list!=null){
+            String value="";
+            String key="";
+            for (int i=0;i<list.size();i++){
+                VDetailSelectorItemEntity itemEntity=list.get(i);
+                if (i==0){
+                    value=itemEntity.value;
+                    key=itemEntity.key;
+                }else{
+                    value=value+","+itemEntity.value;
+                    key=key+","+itemEntity.key;
+                }
+            }
+            if (edInfo.getVisibility()==View.VISIBLE)
+                edInfo.setText(value);
+            if (tvInfo.getVisibility()==View.VISIBLE)
+                tvInfo.setText(value);
+            paramValue=key;
+        }
+    }
     @Override
     public void onClick(View view) {
         if (view==tvInfo){
             if (mListener!=null){
-                mListener.itemClick(this,mEntity.ControlValue);
+                if ("DropDownList".equals(mEntity.ControlType)||"RadioButtonList".equals(mEntity.ControlType)) {
+                    mListener.itemRadioClick(this, mEntity.ControlValue);
+                }else if ("CheckBoxList".equals(mEntity.ControlType)){
+                    mListener.itemCheckBoxClick(this,mEntity.ControlValue);
+                }else if ("CalendarV2".equals(mEntity.ControlType)){
+                    mListener.itemCalendarClick(this);
+                }
             }
         }
     }
