@@ -184,11 +184,11 @@ public class ParseUtil {
 		if (YWInfo!=null){
 			for (int i=0;i<YWInfo.size();i++){
 				PYWInfoSubItemEntity itemEntity=YWInfo.get(i);
-				if (itemEntity!=null&&itemEntity.Item!=null){
-					mList.addAll(itemEntity.Item);
-					if (i!=YWInfo.size()-1) {
-						mList.add(new PYWInfoItemEntity());
+				if (itemEntity!=null&&itemEntity.Item!=null&&itemEntity.Item.size()>0){
+					if (i!=0){
+						itemEntity.Item.get(0).isTop=true;
 					}
+					mList.addAll(itemEntity.Item);
 				}
 			}
 		}

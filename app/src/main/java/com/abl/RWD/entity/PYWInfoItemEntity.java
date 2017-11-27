@@ -18,4 +18,6 @@ public class PYWInfoItemEntity implements Serializable{
     public String FieldName;    //显示每一行的标题
     public String FieldValue;   //显示每一行的值
     public String Required;     //是否必填，当CRName为修改并且Required为是的时候才限制必填，并且每⾏行行的标题都要变红
+
+    public boolean isTop;
 }
