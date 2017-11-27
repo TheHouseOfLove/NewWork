@@ -6,29 +6,27 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
-import com.abl.RWD.adapter.AdapterDetailInfo;
+import com.abl.RWD.activity.dialog.SingleWheelSelectorDialog;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.component.BanLiItemView;
 import com.abl.RWD.component.CommonHeaderView;
 import com.abl.RWD.component.DetailBottomView;
 import com.abl.RWD.component.DetailItemView;
 import com.abl.RWD.component.OpenFileItemView;
-import com.abl.RWD.component.fullrecyclerview.FullyLinearLayoutManager;
 import com.abl.RWD.entity.PAttInfoItemEntity;
 import com.abl.RWD.entity.PAttInfoSubItemEntity;
 import com.abl.RWD.entity.PWorkDetailEntity;
 import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.entity.PYWInfoSubItemEntity;
+import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.http.ProtocalManager;
 import com.abl.RWD.http.rsp.RspBanLiYiJianEntity;
 import com.abl.RWD.http.rsp.RspReturnFlowBusinessEntity;
@@ -38,6 +36,7 @@ import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.listener.IBtnClickListener;
 import com.abl.RWD.listener.IDetailBottomClickListener;
 import com.abl.RWD.listener.IDetailItemClickListener;
+import com.abl.RWD.listener.IWheelViewSelectedListener;
 import com.abl.RWD.listener.IWordOpenListener;
 import com.abl.RWD.util.FileUtil;
 import com.abl.RWD.util.IntentUtils;
@@ -49,8 +48,6 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import static com.abl.RWD.R.id.mRecyclerView;
 
 /**
  * Created by yas on 2017/11/13.
@@ -75,6 +72,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private PWorkDetailEntity mDetailEntity;
     private String mBLUserName;
     private String mBLUserID;
+    private SingleWheelSelectorDialog mDialog;
     private Handler mHandler=new Handler(){
         public void handleMessage(Message msg) {
             hideLoadingDialog();
@@ -253,6 +251,29 @@ public class WorkDetailActivity extends BaseNormalActivity{
     }
 
     /**
+     * 选择窗弹出
+     * @param itemView
+     * @param options
+     */
+    private void showDialog(final DetailItemView itemView, String options){
+        hideDialog();
+        mDialog= new SingleWheelSelectorDialog(this, R.style.MyDialogBg);
+        mDialog.setSelectListener(new IWheelViewSelectedListener() {
+            @Override
+            public void select(VDetailSelectorItemEntity itemEntity) {
+                itemView.setParam(itemEntity);
+            }
+        });
+        mDialog.show();
+        mDialog.setData(options);
+    }
+    private void hideDialog(){
+        if (mDialog!=null){
+            mDialog.dismiss();
+            mDialog=null;
+        }
+    }
+    /**
      * 修改数据
      */
     private void saveChangeData(){
@@ -335,9 +356,10 @@ public class WorkDetailActivity extends BaseNormalActivity{
      * item点击选择监听
      */
     private IDetailItemClickListener mItemClickListener=new IDetailItemClickListener() {
+
         @Override
-        public void itemClick(TextView textView, String options) {
-            //TODO 选择弹窗弹出
+        public void itemClick(DetailItemView itemView, String options) {
+            showDialog(itemView,options);
         }
     };
     private IWordOpenListener mListener=new IWordOpenListener() {

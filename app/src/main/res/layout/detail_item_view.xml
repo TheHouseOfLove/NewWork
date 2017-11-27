@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/common_white">
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#E5E7EB"
+        android:visibility="gone"/>
     <LinearLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
@@ -42,12 +48,6 @@
             android:background="@null"
             android:visibility="gone"/>
     </LinearLayout>
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#E5E7EB"
-        android:visibility="gone"/>
     <View
         android:id="@+id/line_modify"
         android:layout_height="1px"

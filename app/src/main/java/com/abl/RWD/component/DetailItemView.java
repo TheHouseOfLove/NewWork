@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.entity.PYWInfoItemEntity;
+import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.listener.IDetailItemClickListener;
 
 /**
@@ -25,7 +26,6 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
     private EditText edInfo;
     private PYWInfoItemEntity mEntity;
     private String paramValue;
-    private LinearLayout Layout;
     private View divider;
     private IDetailItemClickListener mListener;
     public DetailItemView(Context context,IDetailItemClickListener mListener) {
@@ -41,18 +41,15 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
         tvInfo.setOnClickListener(this);
         edInfo=findViewById(R.id.edit_content);
         divider=findViewById(R.id.divider);
-        Layout=findViewById(R.id.layout_content);
     }
     public void setMsg(PYWInfoItemEntity pDetailItemEntity) {
         mEntity=pDetailItemEntity;
         if (pDetailItemEntity!=null){
-            if (TextUtils.isEmpty(pDetailItemEntity.FieldName)){
+            if (pDetailItemEntity.isTop){
                 divider.setVisibility(View.VISIBLE);
-                Layout.setVisibility(View.GONE);
-                return;
+            }else {
+                divider.setVisibility(View.GONE);
             }
-            divider.setVisibility(View.GONE);
-            Layout.setVisibility(View.VISIBLE);
             tvTitle.setText(pDetailItemEntity.FieldName);
             tvInfo.setText(pDetailItemEntity.FieldValue);
             edInfo.setText(pDetailItemEntity.FieldValue);
@@ -105,21 +102,22 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             if (edInfo.getVisibility()==View.VISIBLE)
                 return mEntity.FieldId+":"+edInfo.getText();
             if (tvInfo.getVisibility()==View.VISIBLE)
-                return mEntity.FieldId+":"+tvInfo.getText();
+                return mEntity.FieldId+":"+paramValue;
         }
         return "";
     }
-    public void setParam(String str){
+    public void setParam(VDetailSelectorItemEntity itemEntity){
         if (edInfo.getVisibility()==View.VISIBLE)
-            edInfo.setText(str);
+            edInfo.setText(itemEntity.value);
         if (tvInfo.getVisibility()==View.VISIBLE)
-            tvInfo.setText(str);
+            tvInfo.setText(itemEntity.value);
+        paramValue=itemEntity.key;
     }
     @Override
     public void onClick(View view) {
         if (view==tvInfo){
             if (mListener!=null){
-                mListener.itemClick(tvInfo,mEntity.ControlValue);
+                mListener.itemClick(this,mEntity.ControlValue);
             }
         }
     }

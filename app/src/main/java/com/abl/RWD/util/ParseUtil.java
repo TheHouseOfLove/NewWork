@@ -11,6 +11,8 @@ import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.entity.PYWInfoSubItemEntity;
 import com.abl.RWD.entity.PYueDuHeTongItemEntiity;
 import com.abl.RWD.entity.PYueDuInfoItemEntity;
+import com.abl.RWD.entity.VAccepterItemEntity;
+import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.entity.VThirdItemEntity;
 
 import java.util.ArrayList;
@@ -267,6 +269,26 @@ public class ParseUtil {
 				}
 			}
 		String[] mList =new String[]{yiYue/2 + "", erYue/2 + "", sanYue/2 + "", siYue/2 + "", wuYue/2 + "", liuYue/2 + "", qiYue/2 + "", baYue/2 + "", jiuYue/2 + "", shiYue/2 + "", shiyiYue/2 + "", shierYue/2 + ""};
+		return mList;
+	}
+
+	/**
+	 * 格式化弹窗可选项
+	 * @param options
+	 * @return
+	 */
+	public static ArrayList<VDetailSelectorItemEntity> getSelectData(String options){
+		if (TextUtils.isEmpty(options)){
+			return null;
+		}
+		ArrayList<VDetailSelectorItemEntity> mList=new ArrayList<>();
+		String[] strs = options.split(",");
+		for (int i = 0; i < strs.length; i++) {
+			VDetailSelectorItemEntity itemEntity=new VDetailSelectorItemEntity();
+			itemEntity.key=strs[i].split("\\|")[0];
+			itemEntity.value=strs[i].split("\\|")[1];
+			mList.add(itemEntity);
+		}
 		return mList;
 	}
 }
