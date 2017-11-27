@@ -68,14 +68,13 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
                             }
                         }
                     }
-//                    if (files.size() > 0) {
+                    if (files.size() > 0) {
                         //带文件上传的请求
 //                        mMap = putCommonParams(mMap);
                         buffer = HttpUtilsOkHttp.postTypeByte(url, files, fileNames, mMap);
-//                    } else {
-//                        String jsonStr = getPostJavaParams(map);
-//                        buffer = HttpUtilsOkHttp.postTypeByte(url, jsonStr);
-//                    }
+                    } else {
+                        buffer = HttpUtilsOkHttp.postAsyn(url, map);
+                    }
                 }
 
                 if (buffer != null && buffer.length > 2) {

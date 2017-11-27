@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by yas on 2017/11/23.
  */
 
-public class AcceptDepartmentView extends LinearLayout{
+public class AcceptDepartmentView extends LinearLayout {
     private RecyclerView mMsgPage;
     private AdapterAccepterItem mAdapter;
     private TextView text_bumen;
@@ -36,14 +36,13 @@ public class AcceptDepartmentView extends LinearLayout{
     private String isRadio;
     private IItemCheckedListener mCheckedListener;
     private int index;
-//    private Map<Integer,String> mapName=new HashMap<>();
-//    private Map<Integer,String> mapId=new HashMap<>();
-//    private String name="";
-//    private String id="";
-    public AcceptDepartmentView(Context context,IItemCheckedListener mCheckedListener) {
+    private Map<Integer, String> mapName = new HashMap<>();
+    private Map<Integer, String> mapId = new HashMap<>();
+
+    public AcceptDepartmentView(Context context, IItemCheckedListener mCheckedListener) {
         super(context);
         init();
-        this.mCheckedListener=mCheckedListener;
+        this.mCheckedListener = mCheckedListener;
     }
 
     public AcceptDepartmentView(Context context, @Nullable AttributeSet attrs) {
@@ -55,20 +54,22 @@ public class AcceptDepartmentView extends LinearLayout{
         super(context, attrs, defStyleAttr);
         init();
     }
-    private void init(){
+
+    private void init() {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         li.inflate(R.layout.jieshouren_item, this, true);
-        mMsgPage =  this.findViewById(R.id.mMsgPage);
+        mMsgPage = this.findViewById(R.id.mMsgPage);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mMsgPage.setLayoutManager(manager);
-        text_bumen =  this.findViewById(R.id.text_bumen);
+        text_bumen = this.findViewById(R.id.text_bumen);
     }
-    public void setReferInfo(PReferInfoItemEntity t, int index){
-        this.index=index;
+
+    public void setReferInfo(PReferInfoItemEntity t, int index) {
+        this.index = index;
         userIds = new ArrayList<>();
         arr = new ArrayList<>();
-        if(t!=null){
+        if (t != null) {
             text_bumen.setText(t.nodeName);
             isRadio = t.userBLType;
             String userList = t.usersList;
@@ -85,21 +86,22 @@ public class AcceptDepartmentView extends LinearLayout{
             }
         }
     }
+
     public void setReturnInfo(PReturnInfoItemEntity t, int index) {
-        this.index=index;
+        this.index = index;
         userIds = new ArrayList<>();
         arr = new ArrayList<>();
         if (t != null) {
-                text_bumen.setText(t.nodeName);
-                String userList = t.usersList;
-                if (!TextUtils.isEmpty(userList)) {
-                    String[] users = userList.split(",");
-                    for (int i = 0; i < users.length; i++) {
-                        userIds.add(users[i].split("\\|")[0]);
-                        VAccepterItemEntity entity = new VAccepterItemEntity();
-                        entity.name = users[i].split("\\|")[1];
-                        arr.add(entity);
-                    }
+            text_bumen.setText(t.nodeName);
+            String userList = t.usersList;
+            if (!TextUtils.isEmpty(userList)) {
+                String[] users = userList.split(",");
+                for (int i = 0; i < users.length; i++) {
+                    userIds.add(users[i].split("\\|")[0]);
+                    VAccepterItemEntity entity = new VAccepterItemEntity();
+                    entity.name = users[i].split("\\|")[1];
+                    arr.add(entity);
+                }
             }
             mAdapter = new AdapterAccepterItem(getContext(), arr, mListener);
             mMsgPage.setAdapter(mAdapter);
@@ -109,23 +111,60 @@ public class AcceptDepartmentView extends LinearLayout{
     private IAcceptrChangeListener mListener = new IAcceptrChangeListener() {
         @Override
         public void selectedListener(int position) {
-//            mAdapter.clearOtherChecked(position);
-//            mCheckedListener.itemChecked(index);
-            if (mCheckedListener!=null){
-                if ("radio".equals(isRadio)){
+            if (mCheckedListener != null) {
+                if ("radio".equals(isRadio)) {
                     mCheckedListener.itemChecked(index);
                     mAdapter.clearOtherChecked(position);
-                }else{
-
+                    mapName.clear();
+                    mapName.put(position, arr.get(position).name);
+                    mapId.clear();
+                    mapId.put(position, userIds.get(position));
+                } else {
+                    if (!mapName.containsKey(position)) {
+                        mapName.put(position, arr.get(position).name);
+                    }
+                    if (!mapId.containsKey(position)) {
+                        mapId.put(position, userIds.get(position));
+                    }
                 }
             }
         }
 
         @Override
         public void cancelSelectListener(int position) {
+            if (mapName.containsKey(position)) {
+                mapName.remove(position);
+            }
+            if (mapId.containsKey(position)) {
+                mapId.remove(position);
+            }
         }
     };
-    public void cancelChecked(){
+
+    public String getName() {
+        String name = "";
+        for (Integer key : mapName.keySet()) {
+            name = name + " " + mapName.get(key);
+        }
+        if (!TextUtils.isEmpty(name) && name.length() > 1) {
+            name = name.substring(1);
+        }
+        return name;
+    }
+
+    public String getIds() {
+        String ids = "";
+        for (Integer key : mapId.keySet()) {
+            ids = ids + "," + mapId.get(key);
+        }
+        if (!TextUtils.isEmpty(ids) && ids.length() > 1) {
+            ids = ids.substring(1);
+        }
+        return ids;
+
+    }
+
+    public void cancelChecked() {
         mAdapter.clearAllChecked();
     }
 }

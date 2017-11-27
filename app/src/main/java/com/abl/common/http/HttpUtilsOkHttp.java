@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.abl.RWD.common.Global;
 import com.abl.RWD.util.MyLog;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -24,6 +25,7 @@ import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -204,7 +206,63 @@ public class HttpUtilsOkHttp {
             return new byte[] { NetCommon.ERROR_HTTP_IO_EXCEPTION };
         }
     }
-
+    /**
+     * 异步的post请求
+     *
+     * @param url
+     * @param params
+     */
+    public static byte[] postAsyn(String url, Map<String, Object> params)
+    {
+        OkHttpClient client=getHttpClient();
+        String refer = HttpEngine.getInstance().getRefer();
+        String reqUrl = refer+url;
+        Param[] paramsArr = map2Params(params);
+        Request request = buildPostRequest(reqUrl, paramsArr);
+        Call call=client.newCall(request);
+        try {
+            Response response=call.execute();
+            return decodeResponse(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new byte[] { NetCommon.ERROR_HTTP_IO_EXCEPTION };
+        }
+    }
+    /**
+     * 将Map类型的参数集转换为 数组类型
+     * @param params
+     * @return
+     */
+    private static Param[] map2Params(Map<String, Object> params)
+    {
+        if (params == null) return new Param[0];
+        int size = params.size();
+        Param[] res = new Param[size];
+        Set<Map.Entry<String, Object>> entries = params.entrySet();
+        int i = 0;
+        for (Map.Entry<String, Object> entry : entries)
+        {
+            res[i++] = new Param(entry.getKey(), entry.getValue()+"");
+        }
+        return res;
+    }
+    private static Request buildPostRequest(String url, Param[] params)
+    {
+        if (params == null)
+        {
+            params = new Param[0];
+        }
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        for (Param param : params)
+        {
+            builder.add(param.key, param.value);
+        }
+        RequestBody requestBody = builder.build();
+        return new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+    }
 
     /**
      * 异步基于post的文件上传
