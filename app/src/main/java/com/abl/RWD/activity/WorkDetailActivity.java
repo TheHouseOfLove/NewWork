@@ -40,6 +40,7 @@ import com.abl.RWD.listener.IWheelViewSelectedListener;
 import com.abl.RWD.listener.IWordOpenListener;
 import com.abl.RWD.util.FileUtil;
 import com.abl.RWD.util.IntentUtils;
+import com.abl.RWD.util.MyLog;
 import com.abl.RWD.util.ParseUtil;
 import com.abl.common.util.SoftHideKeyBoardUtil;
 import com.google.gson.Gson;
@@ -113,16 +114,17 @@ public class WorkDetailActivity extends BaseNormalActivity{
         SoftHideKeyBoardUtil.assistActivity(this);
         initExtras();
         initLayout();
-//        ProtocalManager.getInstance().getWorkDetail(entity,getCallBack());
-//        ProtocalManager.getInstance().reqBanLiYiJian(entity.SLID,getCallBack());
-//        showLoading();
+        ProtocalManager.getInstance().getWorkDetail(entity,getCallBack());
+        ProtocalManager.getInstance().reqBanLiYiJian(entity.SLID,getCallBack());
+        showLoading();
     }
     private void initExtras(){
         Intent intent=getIntent();
         mType=intent.getIntExtra(IntentUtils.KEY_TYPE, 0);
-//        entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
-        entity=new PWorkItemEntity();
-        entity.FormName="测试";
+        entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
+//        entity=new PWorkItemEntity();
+//        entity.FormName="测试";
+//        entity.FormTable="test";
     }
 
     @Override
@@ -151,9 +153,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
             mBottomView.setVisibility(View.GONE);
         }
 
-        mDetailEntity=getTestData();
-        addItems(mDetailEntity.YWInfo);
-        addDFiles(mDetailEntity.AttInfo);
+//        mDetailEntity=getTestData();
+//        addItems(mDetailEntity.YWInfo);
+//        addDFiles(mDetailEntity.AttInfo);
     }
     private PWorkDetailEntity getTestData(){
         PWorkDetailEntity detailEntity=null;
@@ -278,7 +280,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
      * 修改数据
      */
     private void saveChangeData(){
-        ProtocalManager.getInstance().saveData(getChangeParams(),entity.FormPKField,entity.FormDB,getCallBack());
+        String str=getChangeParams();
+        MyLog.debug(TAG,"[saveChangeData] str:"+str);
+        ProtocalManager.getInstance().saveData(str,entity.FormPKField,entity.FormDB,getCallBack());
         showLoading();
     }
     /**
@@ -317,7 +321,27 @@ public class WorkDetailActivity extends BaseNormalActivity{
      * @return
      */
     private String getChangeParams(){
-        return "";
+        int count=layoutItems.getChildCount();
+       StringBuilder builder=new StringBuilder();
+        for (int i=0;i<count;i++){
+            View view=layoutItems.getChildAt(i);
+            if (view instanceof DetailItemView){
+                DetailItemView itemView= (DetailItemView) view;
+                String str=itemView.getParam();
+                if ("empty".equals(str)){
+                    showToast("有必填项未填写！");
+                    return "";
+                }
+                if (!TextUtils.isEmpty(str)){
+                    if (builder.length()==0){
+                        builder.append(str);
+                    }else{
+                        builder.append(","+str);
+                    }
+                }
+            }
+        }
+        return "{\""+entity.FormTable+"\":[{"+ builder+"}]}";
     }
 
     /**

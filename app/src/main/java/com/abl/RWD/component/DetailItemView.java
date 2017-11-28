@@ -100,11 +100,19 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
         }
     }
     public String getParam(){
-        if (mEntity!=null){
-            if (edInfo.getVisibility()==View.VISIBLE)
-                return mEntity.FieldId+":"+edInfo.getText();
-            if (tvInfo.getVisibility()==View.VISIBLE)
-                return mEntity.FieldId+":"+paramValue;
+        if (mEntity!=null&&"修改".equals(mEntity.CRName)){
+            String param="";
+            if (edInfo.getVisibility() == View.VISIBLE)
+                param=edInfo.getText().toString();
+            if (tvInfo.getVisibility() == View.VISIBLE)
+                param=paramValue;
+            if (!TextUtils.isEmpty(param)){
+                return "\""+mEntity.Field + "\":\"" + param+"\"";
+            }else {
+                if ("是".equals(mEntity.Required)&&TextUtils.isEmpty(mEntity.FieldValue)) {
+                    return "empty";
+                }
+            }
         }
         return "";
     }
