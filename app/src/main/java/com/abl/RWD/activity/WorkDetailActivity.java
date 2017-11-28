@@ -57,6 +57,7 @@ import java.util.ArrayList;
 public class WorkDetailActivity extends BaseNormalActivity{
     private static final int REQ_SUBMIT_TYPE=1;  //提交方式选择（同意、退回）
     private static final int REQ_ACCEPTER=2;     //接收人
+    private static final int REQ_CHECKBOX=3;     //多选页面
     private CommonHeaderView mHeader;
     private LinearLayout layoutItems;
     private LinearLayout layoutFiles;
@@ -112,16 +113,16 @@ public class WorkDetailActivity extends BaseNormalActivity{
         SoftHideKeyBoardUtil.assistActivity(this);
         initExtras();
         initLayout();
-        ProtocalManager.getInstance().getWorkDetail(entity,getCallBack());
-        ProtocalManager.getInstance().reqBanLiYiJian(entity.SLID,getCallBack());
-        showLoading();
+//        ProtocalManager.getInstance().getWorkDetail(entity,getCallBack());
+//        ProtocalManager.getInstance().reqBanLiYiJian(entity.SLID,getCallBack());
+//        showLoading();
     }
     private void initExtras(){
         Intent intent=getIntent();
         mType=intent.getIntExtra(IntentUtils.KEY_TYPE, 0);
-        entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
-//        entity=new PWorkItemEntity();
-//        entity.FormName="测试";
+//        entity=(PWorkItemEntity) intent.getSerializableExtra(IntentUtils.KEY_ENTITY);
+        entity=new PWorkItemEntity();
+        entity.FormName="测试";
     }
 
     @Override
@@ -150,9 +151,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
             mBottomView.setVisibility(View.GONE);
         }
 
-//        mDetailEntity=getTestData();
-//        addItems(mDetailEntity.YWInfo);
-//        addDFiles(mDetailEntity.AttInfo);
+        mDetailEntity=getTestData();
+        addItems(mDetailEntity.YWInfo);
+        addDFiles(mDetailEntity.AttInfo);
     }
     private PWorkDetailEntity getTestData(){
         PWorkDetailEntity detailEntity=null;
@@ -352,6 +353,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
         }
     }
 
+    private DetailItemView checkBoxItemView;
     /**
      * item点击选择监听
      */
@@ -365,6 +367,8 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void itemCheckBoxClick(DetailItemView itemView, String options) {
             //TODO 多选页面
+            checkBoxItemView=itemView;
+            IntentUtils.startDetailCheckBoxActivity(WorkDetailActivity.this,options,REQ_CHECKBOX);
         }
 
         @Override
@@ -426,6 +430,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
              mBLUserName=data.getStringExtra("name");
              mBLUserID=data.getStringExtra("id");
             mBottomView.setname(mBLUserName);
+        }else if (requestCode==REQ_CHECKBOX){
+            ArrayList<VDetailSelectorItemEntity> mList= (ArrayList<VDetailSelectorItemEntity>) data.getSerializableExtra(IntentUtils.KEY_ENTITY);
+            checkBoxItemView.setParam(mList);
         }
     }
 

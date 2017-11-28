@@ -9,4 +9,6 @@ import java.io.Serializable;
 public class VDetailSelectorItemEntity implements Serializable{
     public String key;
     public String value;
+
+    public boolean isChecked;
 }

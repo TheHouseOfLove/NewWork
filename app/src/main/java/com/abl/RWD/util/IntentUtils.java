@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.abl.RWD.activity.DetailCheckBoxActivity;
 import com.abl.RWD.activity.LoginActivity;
 import com.abl.RWD.activity.MainActivity;
 import com.abl.RWD.activity.NextAccepterActivity;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class IntentUtils {
     public static final String KEY_ENTITY="entity";
     public static final String KEY_TYPE="type";
-
+    public static final String KEY_STR="string";
     /**
      * 启动登录页
      * @param mContext
@@ -108,6 +109,18 @@ public class IntentUtils {
         Intent intent=new Intent(mContext,NextAccepterActivity.class);
         intent.putExtra(KEY_ENTITY, entity);
         intent.putExtra(KEY_TYPE, type);
+        mContext.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 多选页面
+     * @param mContext
+     * @param options
+     * @param requestCode
+     */
+    public static void startDetailCheckBoxActivity(Activity mContext, String options, int requestCode){
+        Intent intent=new Intent(mContext,DetailCheckBoxActivity.class);
+        intent.putExtra(KEY_STR, options);
         mContext.startActivityForResult(intent, requestCode);
     }
 }

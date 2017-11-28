@@ -49,7 +49,10 @@
         <activity android:name=".activity.TestActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"
             android:launchMode="singleTop"
@@ -58,10 +61,7 @@
         <activity android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".activity.SearchProjectActivity"
             android:launchMode="singleTop"
@@ -85,7 +85,9 @@
         <activity android:name=".activity.NextAccepterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".activity.DetailCheckBoxActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <!--个推SDK配置开始-->
         <!-- 配置的第三方参数属性 -->
         <meta-data
