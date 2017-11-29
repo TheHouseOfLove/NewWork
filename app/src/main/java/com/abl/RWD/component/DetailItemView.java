@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.entity.PYWInfoItemEntity;
+import com.abl.RWD.entity.VDateEntity;
 import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.listener.IDetailItemClickListener;
 
@@ -152,6 +153,16 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             if (tvInfo.getVisibility()==View.VISIBLE)
                 tvInfo.setText(value);
             paramValue=key;
+        }
+    }
+    public void seDate(VDateEntity vEntity){
+        if (vEntity!=null){
+            String strDate=vEntity.getDate();
+            if (edInfo.getVisibility()==View.VISIBLE)
+                edInfo.setText(strDate);
+            if (tvInfo.getVisibility()==View.VISIBLE)
+                tvInfo.setText(strDate);
+            paramValue=strDate;
         }
     }
     @Override

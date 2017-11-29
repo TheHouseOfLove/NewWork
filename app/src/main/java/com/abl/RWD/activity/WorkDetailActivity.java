@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.activity.dialog.MDateSelectorDialog;
 import com.abl.RWD.activity.dialog.SingleWheelSelectorDialog;
 import com.abl.RWD.common.Common;
 import com.abl.RWD.component.BanLiItemView;
@@ -26,6 +27,7 @@ import com.abl.RWD.entity.PWorkDetailEntity;
 import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.entity.PYWInfoSubItemEntity;
+import com.abl.RWD.entity.VDateEntity;
 import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.http.ProtocalManager;
 import com.abl.RWD.http.rsp.RspBanLiYiJianEntity;
@@ -34,6 +36,7 @@ import com.abl.RWD.http.rsp.RspSaveDataEntity;
 import com.abl.RWD.http.rsp.RspSubmitFlowBusinessEntity;
 import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.listener.IBtnClickListener;
+import com.abl.RWD.listener.IDatePickerListener;
 import com.abl.RWD.listener.IDetailBottomClickListener;
 import com.abl.RWD.listener.IDetailItemClickListener;
 import com.abl.RWD.listener.IWheelViewSelectedListener;
@@ -75,6 +78,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private String mBLUserName;
     private String mBLUserID;
     private SingleWheelSelectorDialog mDialog;
+    private MDateSelectorDialog mDateDialog;
     private Handler mHandler=new Handler(){
         public void handleMessage(Message msg) {
             hideLoadingDialog();
@@ -252,7 +256,28 @@ public class WorkDetailActivity extends BaseNormalActivity{
             }
         }
     }
-
+    /**
+     * 选择窗弹出
+     * @param itemView
+     * @param options
+     */
+    private void showDateDialog(final DetailItemView itemView){
+        hideDateDialog();
+        mDateDialog= new MDateSelectorDialog(this, R.style.MyDialogBg);
+        mDateDialog.setIDatePickerListener(new IDatePickerListener() {
+            @Override
+            public void onPickerClick(VDateEntity vEntity) {
+                itemView.seDate(vEntity);
+            }
+        });
+        mDateDialog.show();
+    }
+    private void hideDateDialog(){
+        if (mDateDialog!=null){
+            mDateDialog.dismiss();
+            mDateDialog=null;
+        }
+    }
     /**
      * 选择窗弹出
      * @param itemView
@@ -398,6 +423,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void itemCalendarClick(DetailItemView itemView) {
             //TODO 时间选择
+            showDateDialog(itemView);
         }
     };
     private IWordOpenListener mListener=new IWordOpenListener() {
