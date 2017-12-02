@@ -177,12 +177,12 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void btnClickListener() {
             //TODO 提交按钮点击
-            String str=mBottomView.getType();
-            if ("同意".equals(str)) {
+//            String str=mBottomView.getType();
+//            if ("同意".equals(str)) {
                 saveChangeData();
-            }else{
-                returnFlowBusiness();
-            }
+//            }else{
+//                returnFlowBusiness();
+//            }
         }
 
         @Override
@@ -219,7 +219,12 @@ public class WorkDetailActivity extends BaseNormalActivity{
         }else if (obj instanceof RspSaveDataEntity){
             RspSaveDataEntity rsp= (RspSaveDataEntity) obj;
             if (rsp!=null&&isSucc&&rsp.mEntity!=null&&"Success".equals(rsp.mEntity.SaveData)){
-                submitFlowBusiness();
+                String str=mBottomView.getType();
+                if ("同意".equals(str)) {
+                    submitFlowBusiness();
+                }else{
+                    returnFlowBusiness();
+                }
             }else{
                 //TODO 保存失败处理
                 showToast("保存数据失败");
@@ -354,7 +359,8 @@ public class WorkDetailActivity extends BaseNormalActivity{
             }
         }
         if (!TextUtils.isEmpty(builder.toString())) {
-            return "{\"" + entity.FormTable + "\":[{" + builder + "}]}";
+            String str="{\"" + entity.FormTable + "\":[{" + builder + "}]}";
+            return str;
         }
         return "";
     }
@@ -367,7 +373,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
         if (mList!=null&&mList.size()>0){
             layoutItems.removeAllViews();
             for (int i=0;i<mList.size();i++){
-                DetailItemView itemView=new DetailItemView(WorkDetailActivity.this,mItemClickListener);
+                DetailItemView itemView=new DetailItemView(WorkDetailActivity.this,mItemClickListener,mType);
                 itemView.setMsg(mList.get(i));
                 layoutItems.addView(itemView);
             }

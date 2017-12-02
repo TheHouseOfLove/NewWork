@@ -15,6 +15,7 @@ import com.abl.RWD.http.req.ReqQuarterlyPaymentEntity;
 import com.abl.RWD.http.req.ReqReturnFlowBusinessEntity;
 import com.abl.RWD.http.req.ReqSaveDateEntity;
 import com.abl.RWD.http.req.ReqSubmitFlowBusinessEntity;
+import com.abl.RWD.http.req.ReqUpDateEntity;
 import com.abl.RWD.http.req.ReqWorkDetailEntity;
 import com.abl.common.http.HttpEngine;
 import com.abl.RWD.common.Common;
@@ -261,6 +262,7 @@ public class ProtocalManager {
         String[] arr1=arr[3].split("=");
         String[] arr2=arr1[1].split("@");
         req.FLowBLID=arr2[0];
+        req.mVisitType=ReqBaseEntity.TYPE_JAVA_POST;
         return addTask(req,callBack);
     }
 
@@ -292,6 +294,17 @@ public class ProtocalManager {
         String[] arr1=arr[3].split("=");
         String[] arr2=arr1[1].split("@");
         req.FLowBLID=arr2[0];
+        req.mVisitType=ReqBaseEntity.TYPE_JAVA_POST;
+        return addTask(req,callBack);
+    }
+
+    /**
+     * 更新
+     * @param callBack
+     * @return
+     */
+    public int Update(ICallBack<Object> callBack){
+        ReqUpDateEntity req=new ReqUpDateEntity();
         return addTask(req,callBack);
     }
 }

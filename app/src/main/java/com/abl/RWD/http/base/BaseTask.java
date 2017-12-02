@@ -45,36 +45,8 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
                     buffer = HttpUtilsOkHttp.getTypeByte(url, params);
 
                 } else if (reqBaseEntity.mVisitType == ReqBaseEntity.TYPE_JAVA_POST) {
-                     /* Post方式访问 */
-                    Map<String, Object> map = reqBaseEntity.getReqData();
-                    //添加token作为最后一个参数，java后端做校验使用;
-//                    map.put("token", LoginController.getInstance().getToken());
-                    ArrayList<File> files = new ArrayList<>();
-                    ArrayList<String> fileNames = new ArrayList<>();
-                    Map<String, Object> mMap = new HashMap<>();
-                    if (map!=null) {
-                        for (Map.Entry<String, Object> entry : map.entrySet()) {
-                            String key = entry.getKey();
-                            Object val = entry.getValue();
-                            if (val instanceof PFileEntity) {
-                                PFileEntity fileEntity = (PFileEntity) val;
-                                if (fileEntity != null) {
-                                    File file = new File(fileEntity.filePath);
-                                    files.add(file);
-                                    fileNames.add("myfile");
-                                }
-                            } else {
-                                mMap.put(key, val);
-                            }
-                        }
-                    }
-                    if (files.size() > 0) {
-                        //带文件上传的请求
-//                        mMap = putCommonParams(mMap);
-                        buffer = HttpUtilsOkHttp.postTypeByte(url, files, fileNames, mMap);
-                    } else {
-                        buffer = HttpUtilsOkHttp.postAsyn(url, map);
-                    }
+                    String params = getParamsV2(reqBaseEntity.getReqData());
+                    buffer = HttpUtilsOkHttp.postTypeByte(url, params);
                 }
 
                 if (buffer != null && buffer.length > 2) {
@@ -126,6 +98,21 @@ public class BaseTask<T> extends HttpBaseTask implements ITaskListener {
         StringBuilder builder = new StringBuilder();
         if (mReqMap != null) {
             builder.append("?");
+            for (Map.Entry<String, Object> entry : mReqMap.entrySet()) {
+                String key = entry.getKey();
+                Object val = entry.getValue();
+                builder.append(key + "=" + val + "&");
+            }
+        }
+        if (builder.length() > 0) {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+
+        return builder.toString();
+    }
+    private static final String getParamsV2(Map<String, Object> mReqMap) {
+        StringBuilder builder = new StringBuilder();
+        if (mReqMap != null) {
             for (Map.Entry<String, Object> entry : mReqMap.entrySet()) {
                 String key = entry.getKey();
                 Object val = entry.getValue();

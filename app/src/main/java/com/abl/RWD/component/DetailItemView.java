@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
+import com.abl.RWD.common.Common;
 import com.abl.RWD.entity.PYWInfoItemEntity;
 import com.abl.RWD.entity.VDateEntity;
 import com.abl.RWD.entity.VDetailSelectorItemEntity;
@@ -34,9 +35,12 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
     private View divider;
     private IDetailItemClickListener mListener;
 
-    public DetailItemView(Context context, IDetailItemClickListener mListener) {
+    private int mType;
+
+    public DetailItemView(Context context, IDetailItemClickListener mListener, int type) {
         super(context);
         this.mListener = mListener;
+        mType = type;
         init();
     }
 
@@ -61,47 +65,52 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             tvTitle.setText(pDetailItemEntity.FieldName);
             tvInfo.setText(pDetailItemEntity.FieldValue);
             edInfo.setText(pDetailItemEntity.FieldValue);
-            if (!"修改".equals(pDetailItemEntity.CRName)) {
-                //不能修改时，使用textView显示数据
+            if (this.mType == Common.TYPE_DAIBAN) {
+                if (!"修改".equals(pDetailItemEntity.CRName)) {
+                    //不能修改时，使用textView显示数据
+                    tvInfo.setEnabled(false);
+                    tvInfo.setVisibility(View.VISIBLE);
+                    edInfo.setVisibility(View.GONE);
+                } else {
+                    //可以修改时，根据不同限制条件作出不同操作
+                    if ("TextBox_1".equals(pDetailItemEntity.ControlType) || "TextBox_2".equals(pDetailItemEntity.ControlType)) {
+                        if ("TextBox_1".equals(pDetailItemEntity.ControlType)) {
+                            edInfo.setSingleLine();
+                        }
+                        //单行输入框
+                        tvInfo.setVisibility(View.GONE);
+                        edInfo.setVisibility(View.VISIBLE);
+                        InputFilter[] filters = {new InputFilter.LengthFilter(Integer.valueOf(pDetailItemEntity.DataLength))};
+                        edInfo.setFilters(filters);
+                        if ("int".equals(pDetailItemEntity.DataType) || "float".equals(pDetailItemEntity.DataType)
+                                || "decimal".equals(pDetailItemEntity.DataType)) {
+                            edInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        }
+                        if ("是".equals(pDetailItemEntity.Required)) {
+                            tvTitle.setTextColor(Color.RED);
+                        } else {
+                            tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
+                        }
+                    } else if ("DropDownList".equals(pDetailItemEntity.ControlType) || "RadioButtonList".equals(pDetailItemEntity.ControlType)
+                            || "CheckBoxList".equals(pDetailItemEntity.ControlType)
+                            || "CalendarV2".equals(pDetailItemEntity.ControlType)) {
+                        tvInfo.setEnabled(true);
+                        tvInfo.setVisibility(View.VISIBLE);
+                        edInfo.setVisibility(View.GONE);
+                        if ("是".equals(pDetailItemEntity.Required)) {
+                            tvTitle.setTextColor(Color.RED);
+                        } else {
+                            tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
+                        }
+                    } else {
+                        tvInfo.setVisibility(View.VISIBLE);
+                        edInfo.setVisibility(View.GONE);
+                    }
+                }
+            } else if (mType == Common.TYPE_YIBAN) {
                 tvInfo.setEnabled(false);
                 tvInfo.setVisibility(View.VISIBLE);
                 edInfo.setVisibility(View.GONE);
-            } else {
-                //可以修改时，根据不同限制条件作出不同操作
-                if ("TextBox_1".equals(pDetailItemEntity.ControlType) || "TextBox_2".equals(pDetailItemEntity.ControlType)) {
-                    if ("TextBox_1".equals(pDetailItemEntity.ControlType)) {
-                        edInfo.setSingleLine();
-                    }
-                    //单行输入框
-                    tvInfo.setVisibility(View.GONE);
-                    edInfo.setVisibility(View.VISIBLE);
-                    InputFilter[] filters = {new InputFilter.LengthFilter(Integer.valueOf(pDetailItemEntity.DataLength))};
-                    edInfo.setFilters(filters);
-                    if ("int".equals(pDetailItemEntity.DataType) || "float".equals(pDetailItemEntity.DataType)
-                            || "decimal".equals(pDetailItemEntity.DataType)) {
-                        edInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    }
-                    if ("是".equals(pDetailItemEntity.Required)) {
-                        tvTitle.setTextColor(Color.RED);
-                    } else {
-                        tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
-                    }
-                } else if ("DropDownList".equals(pDetailItemEntity.ControlType) || "RadioButtonList".equals(pDetailItemEntity.ControlType)
-                        || "CheckBoxList".equals(pDetailItemEntity.ControlType)
-                        || "CalendarV2".equals(pDetailItemEntity.ControlType)) {
-                    tvInfo.setEnabled(true);
-                    tvInfo.setVisibility(View.VISIBLE);
-                    edInfo.setVisibility(View.GONE);
-                    if ("是".equals(pDetailItemEntity.Required)) {
-                        tvTitle.setTextColor(Color.RED);
-                    } else {
-                        tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
-                    }
-                } else {
-                    tvInfo.setVisibility(View.VISIBLE);
-                    edInfo.setVisibility(View.GONE);
-                }
-
             }
         }
     }
@@ -114,11 +123,11 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             if (tvInfo.getVisibility() == View.VISIBLE)
                 param = paramValue;
             if (!TextUtils.isEmpty(param)) {
-                try {
-                    param = URLEncoder.encode(param, "GBK");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    param = URLEncoder.encode(param, "GBK");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
                 return "\"" + mEntity.Field + "\":\"" + param + "\"";
             } else {
                 if ("是".equals(mEntity.Required) && TextUtils.isEmpty(mEntity.FieldValue)) {

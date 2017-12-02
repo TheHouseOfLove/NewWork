@@ -4,17 +4,22 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioGroup;
 import com.abl.RWD.R;
 import com.abl.RWD.activity.base.BaseActivity;
+import com.abl.RWD.activity.base.BaseNormalActivity;
+import com.abl.RWD.activity.dialog.UpdateDialog;
 import com.abl.RWD.activity.fragments.FinishWorListFragment;
 import com.abl.RWD.activity.fragments.PendingWorkListFragment;
 import com.abl.RWD.activity.fragments.SearchFragment;
 import com.abl.RWD.activity.fragments.ReportFragment;
 import com.abl.RWD.activity.fragments.SettingFragment;
 import com.abl.RWD.activity.fragments.WorkFragment;
+import com.abl.RWD.http.ProtocalManager;
+import com.abl.RWD.http.rsp.RspUpDateEntity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseNormalActivity {
     private RadioGroup rgTabs;
     private Fragment mContent;
 
@@ -25,12 +30,41 @@ public class MainActivity extends BaseActivity {
     private PendingWorkListFragment pendingWorkListFragment;
     private FinishWorListFragment finishWorListFragment;
     private FragmentManager manager;
+    private UpdateDialog mUpDateDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
         initFragment();
+        ProtocalManager.getInstance().Update(getCallBack());
+    }
+
+    @Override
+    protected void handleRsp(Object obj, boolean isSucc, int errorCode, int seqNo, int src) {
+        hideLoadingDialog();
+        if (obj instanceof RspUpDateEntity){
+            RspUpDateEntity rsp= (RspUpDateEntity) obj;
+            if(rsp!=null&&rsp.isSucc){
+                String str=rsp.mEntity.AppVersionInfo.get(1).Android;
+                String url=rsp.mEntity.AppVersionInfo.get(1).DownloadUrl;
+                if(!"V1.0".equals(str)){
+                    showDialog(url);
+                }
+            }
+        }
+    }
+    private void showDialog(String url){
+        hideDialog();
+        mUpDateDialog=new UpdateDialog(this,R.style.MyDialogBg);
+        mUpDateDialog.show();
+        mUpDateDialog.setDownloadUrl(url);
+    }
+    private void hideDialog(){
+        if (mUpDateDialog!=null){
+            mUpDateDialog.dismiss();
+            mUpDateDialog=null;
+        }
     }
     private void initViews() {
         rgTabs = (RadioGroup) findViewById(R.id.rg_tabs);

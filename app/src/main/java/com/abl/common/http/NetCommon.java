@@ -14,6 +14,7 @@ import com.abl.RWD.http.rsp.RspQuarterlyPaymentEntity;
 import com.abl.RWD.http.rsp.RspReturnFlowBusinessEntity;
 import com.abl.RWD.http.rsp.RspSaveDataEntity;
 import com.abl.RWD.http.rsp.RspSubmitFlowBusinessEntity;
+import com.abl.RWD.http.rsp.RspUpDateEntity;
 import com.abl.RWD.http.rsp.RspWorkDetailEntity;
 import com.abl.RWD.http.rsp.RspWorkListEntity;
 
@@ -64,6 +65,8 @@ public class NetCommon {
     public static final String URL_SUBMIT_BUSINESS="/SaveFlowBusiness";
     /**退回**/
     public static final String URL_RETURN_BUSINESS="/SaveReturnFlowBusiness";
+    /**更新**/
+    public static final String URL_UPDATE="/GetLatestAppVersion";
     static {
         //登录
         mMap.put(URL_LOGIN, RspLoginEntity.class);
@@ -93,7 +96,7 @@ public class NetCommon {
         mMap.put(URL_SUBMIT_BUSINESS, RspSubmitFlowBusinessEntity.class);
         //退回流程
         mMap.put(URL_RETURN_BUSINESS, RspReturnFlowBusinessEntity.class);
-
+        mMap.put(URL_UPDATE,RspUpDateEntity.class);
     }
 
 

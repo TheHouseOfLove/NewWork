@@ -3,6 +3,8 @@ package com.abl.RWD.http.req;
 import com.abl.RWD.http.base.ReqBaseEntity;
 import com.abl.common.http.NetCommon;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 

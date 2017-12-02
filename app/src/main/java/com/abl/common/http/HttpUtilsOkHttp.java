@@ -168,18 +168,11 @@ public class HttpUtilsOkHttp {
         OkHttpClient client=getHttpClient();
         String refer = HttpEngine.getInstance().getRefer();
         String reqUrl = refer+url;
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset:utf-8"), params);
-        String useragent = System.getProperty("http.agent");
-        Request.Builder builder=new Request.Builder();
-        builder .addHeader("Accept-Language","zh-cn")
-                .addHeader("User-Agent", useragent)
-                .addHeader("Content-Type","application/json;charset:utf-8");
-        if (!TextUtils.isEmpty(getLoginStatus())) {
-            builder.addHeader("Cookie", getLoginStatus());
-        }
-        Request request = builder
+        RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=gb2312"),
+                params);
+        Request request =  new Request.Builder()
                 .url(reqUrl)
-                .post(requestBody)
+                .post(body)
                 .build();
         Call call=client.newCall(request);
         try {

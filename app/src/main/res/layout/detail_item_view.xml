@@ -35,6 +35,7 @@
             android:textColor="@color/txt_info_show_content_textColor"
             android:textColorHint="@color/txt_info_show_hint_textColor"
             android:textSize="14sp"
+            android:layout_marginLeft="8dp"
             android:text="context"/>
         <EditText
             android:id="@+id/edit_content"
@@ -45,6 +46,7 @@
             android:textColor="@color/txt_info_show_content_textColor"
             android:textColorHint="@color/txt_info_show_hint_textColor"
             android:textSize="14sp"
+            android:layout_marginLeft="8dp"
             android:background="@null"
             android:visibility="gone"/>
     </LinearLayout>
