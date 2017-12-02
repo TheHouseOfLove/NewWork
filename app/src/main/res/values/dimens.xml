@@ -16,4 +16,5 @@
     <!--滑动选择控件相关-->
     <dimen name="datepicker_height">250dp</dimen>
     <dimen name="datepicker_txtsize">18.5sp</dimen>
+    <dimen name="modify_ip_header_height">50dp</dimen>
 </resources>

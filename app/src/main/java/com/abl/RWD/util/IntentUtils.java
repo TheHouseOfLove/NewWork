@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.abl.RWD.activity.DetailCheckBoxActivity;
 import com.abl.RWD.activity.LoginActivity;
+import com.abl.RWD.activity.MOdifyIPActivity;
 import com.abl.RWD.activity.MainActivity;
 import com.abl.RWD.activity.NextAccepterActivity;
 import com.abl.RWD.activity.SearchContractActivity;
@@ -122,5 +123,9 @@ public class IntentUtils {
         Intent intent=new Intent(mContext,DetailCheckBoxActivity.class);
         intent.putExtra(KEY_STR, options);
         mContext.startActivityForResult(intent, requestCode);
+    }
+    public static void startModifyIpActivity(Activity mContext){
+        Intent intent=new Intent(mContext,MOdifyIPActivity.class);
+        mContext.startActivity(intent);
     }
 }

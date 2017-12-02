@@ -1,6 +1,7 @@
 package com.abl.RWD.activity.fragments;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.abl.RWD.R;
@@ -16,6 +17,7 @@ import com.abl.RWD.util.IntentUtils;
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
     private CommonHeaderView mHeaderView;
     private TextView tvOutLogin;
+    private LinearLayout layout_type;
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_setting;
@@ -28,6 +30,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         mHeaderView.setTitle("设置");
         tvOutLogin=rootView.findViewById(R.id.text_out);
         tvOutLogin.setOnClickListener(this);
+        layout_type=rootView.findViewById(R.id.layout_type);
+        layout_type.setOnClickListener(this);
     }
 
     @Override
@@ -40,6 +44,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         if (view==tvOutLogin){
             LoginController.getInstance().clearLoginInfo();
             IntentUtils.startLoginActivity(getActivity());
+        }else if (view==layout_type){
+            IntentUtils.startModifyIpActivity(getActivity());
         }
     }
 }
