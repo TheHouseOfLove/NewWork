@@ -7,6 +7,11 @@
         android:id="@+id/mHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.abl.RWD.component.HeaderSearchView
+        android:id="@+id/header_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mRefreshLayout"
         android:layout_width="match_parent"
@@ -16,11 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/common_white">
-            <com.abl.RWD.component.HeaderSearchView
-                android:id="@+id/header_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/pending_recycler"
                 android:layout_width="match_parent"

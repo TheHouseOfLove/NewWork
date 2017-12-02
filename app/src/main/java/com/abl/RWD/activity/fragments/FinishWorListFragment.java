@@ -53,7 +53,6 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
         mSearchView = rootView.findViewById(R.id.header_search);
         mSearchView.setHint("申请人/事务标题/事务类型");
         mSearchView.addTextChangeListener(mSearchTextChangeListener);
-        mSearchView.setFocusable(false);
 
         mRecyclerView = rootView.findViewById(R.id.finish_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -128,7 +127,6 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
         @Override
         public void onItemClick(View view, int position) {
             PWorkItemEntity entity = mFinishAdapter.getItemEntity(position);
-            showToast(entity.FormName);
             IntentUtils.startTransactionDetailActivity(getActivity(),entity, Common.TYPE_YIBAN);
 
         }

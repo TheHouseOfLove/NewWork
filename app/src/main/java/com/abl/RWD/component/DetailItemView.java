@@ -17,6 +17,8 @@ import com.abl.RWD.entity.VDateEntity;
 import com.abl.RWD.entity.VDetailSelectorItemEntity;
 import com.abl.RWD.listener.IDetailItemClickListener;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -31,40 +33,43 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
     private String paramValue;
     private View divider;
     private IDetailItemClickListener mListener;
-    public DetailItemView(Context context,IDetailItemClickListener mListener) {
+
+    public DetailItemView(Context context, IDetailItemClickListener mListener) {
         super(context);
-        this.mListener=mListener;
+        this.mListener = mListener;
         init();
     }
-    private void init(){
-        LayoutInflater li= (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.detail_item_view,this,true);
-        tvTitle=findViewById(R.id.tv_title);
-        tvInfo=findViewById(R.id.tv_content);
+
+    private void init() {
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        li.inflate(R.layout.detail_item_view, this, true);
+        tvTitle = findViewById(R.id.tv_title);
+        tvInfo = findViewById(R.id.tv_content);
         tvInfo.setOnClickListener(this);
-        edInfo=findViewById(R.id.edit_content);
-        divider=findViewById(R.id.divider);
+        edInfo = findViewById(R.id.edit_content);
+        divider = findViewById(R.id.divider);
     }
+
     public void setMsg(PYWInfoItemEntity pDetailItemEntity) {
-        mEntity=pDetailItemEntity;
-        if (pDetailItemEntity!=null){
-            if (pDetailItemEntity.isTop){
+        mEntity = pDetailItemEntity;
+        if (pDetailItemEntity != null) {
+            if (pDetailItemEntity.isTop) {
                 divider.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 divider.setVisibility(View.GONE);
             }
             tvTitle.setText(pDetailItemEntity.FieldName);
             tvInfo.setText(pDetailItemEntity.FieldValue);
             edInfo.setText(pDetailItemEntity.FieldValue);
-            if (!"修改".equals(pDetailItemEntity.CRName)){
+            if (!"修改".equals(pDetailItemEntity.CRName)) {
                 //不能修改时，使用textView显示数据
                 tvInfo.setEnabled(false);
                 tvInfo.setVisibility(View.VISIBLE);
                 edInfo.setVisibility(View.GONE);
-            }else{
+            } else {
                 //可以修改时，根据不同限制条件作出不同操作
-                if ("TextBox_1".equals(pDetailItemEntity.ControlType)||"TextBox_2".equals(pDetailItemEntity.ControlType)){
-                    if ("TextBox_1".equals(pDetailItemEntity.ControlType)){
+                if ("TextBox_1".equals(pDetailItemEntity.ControlType) || "TextBox_2".equals(pDetailItemEntity.ControlType)) {
+                    if ("TextBox_1".equals(pDetailItemEntity.ControlType)) {
                         edInfo.setSingleLine();
                     }
                     //单行输入框
@@ -72,24 +77,24 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
                     edInfo.setVisibility(View.VISIBLE);
                     InputFilter[] filters = {new InputFilter.LengthFilter(Integer.valueOf(pDetailItemEntity.DataLength))};
                     edInfo.setFilters(filters);
-                    if ("int".equals(pDetailItemEntity.DataType)||"float".equals(pDetailItemEntity.DataType)
-                            ||"decimal".equals(pDetailItemEntity.DataType)){
+                    if ("int".equals(pDetailItemEntity.DataType) || "float".equals(pDetailItemEntity.DataType)
+                            || "decimal".equals(pDetailItemEntity.DataType)) {
                         edInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
                     }
-                    if ("是".equals(pDetailItemEntity.Required)){
+                    if ("是".equals(pDetailItemEntity.Required)) {
                         tvTitle.setTextColor(Color.RED);
-                    }else{
+                    } else {
                         tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
                     }
-                } else if ("DropDownList".equals(pDetailItemEntity.ControlType)||"RadioButtonList".equals(pDetailItemEntity.ControlType)
-                        ||"CheckBoxList".equals(pDetailItemEntity.ControlType)
-                        ||"CalendarV2".equals(pDetailItemEntity.ControlType)) {
+                } else if ("DropDownList".equals(pDetailItemEntity.ControlType) || "RadioButtonList".equals(pDetailItemEntity.ControlType)
+                        || "CheckBoxList".equals(pDetailItemEntity.ControlType)
+                        || "CalendarV2".equals(pDetailItemEntity.ControlType)) {
                     tvInfo.setEnabled(true);
                     tvInfo.setVisibility(View.VISIBLE);
                     edInfo.setVisibility(View.GONE);
-                    if ("是".equals(pDetailItemEntity.Required)){
+                    if ("是".equals(pDetailItemEntity.Required)) {
                         tvTitle.setTextColor(Color.RED);
-                    }else{
+                    } else {
                         tvTitle.setTextColor(getContext().getResources().getColor(R.color.txt_info_show_title_textColor));
                     }
                 } else {
@@ -100,17 +105,23 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
             }
         }
     }
-    public String getParam(){
-        if (mEntity!=null&&"修改".equals(mEntity.CRName)){
-            String param="";
+
+    public String getParam() {
+        if (mEntity != null && "修改".equals(mEntity.CRName)) {
+            String param = "";
             if (edInfo.getVisibility() == View.VISIBLE)
-                param=edInfo.getText().toString();
+                param = edInfo.getText().toString();
             if (tvInfo.getVisibility() == View.VISIBLE)
-                param=paramValue;
-            if (!TextUtils.isEmpty(param)){
-                return "\""+mEntity.Field + "\":\"" + param+"\"";
-            }else {
-                if ("是".equals(mEntity.Required)&&TextUtils.isEmpty(mEntity.FieldValue)) {
+                param = paramValue;
+            if (!TextUtils.isEmpty(param)) {
+                try {
+                    param = URLEncoder.encode(param, "GBK");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return "\"" + mEntity.Field + "\":\"" + param + "\"";
+            } else {
+                if ("是".equals(mEntity.Required) && TextUtils.isEmpty(mEntity.FieldValue)) {
                     return "empty";
                 }
             }
@@ -120,60 +131,64 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
 
     /**
      * 单选结果回填
+     *
      * @param itemEntity
      */
-    public void setParam(VDetailSelectorItemEntity itemEntity){
-        if (edInfo.getVisibility()==View.VISIBLE)
+    public void setParam(VDetailSelectorItemEntity itemEntity) {
+        if (edInfo.getVisibility() == View.VISIBLE)
             edInfo.setText(itemEntity.value);
-        if (tvInfo.getVisibility()==View.VISIBLE)
+        if (tvInfo.getVisibility() == View.VISIBLE)
             tvInfo.setText(itemEntity.value);
-        paramValue=itemEntity.key;
+        paramValue = itemEntity.key;
     }
 
     /**
      * 多选结果回填
+     *
      * @param list
      */
-    public void setParam(ArrayList<VDetailSelectorItemEntity> list){
-        if (list!=null){
-            String value="";
-            String key="";
-            for (int i=0;i<list.size();i++){
-                VDetailSelectorItemEntity itemEntity=list.get(i);
-                if (i==0){
-                    value=itemEntity.value;
-                    key=itemEntity.key;
-                }else{
-                    value=value+","+itemEntity.value;
-                    key=key+","+itemEntity.key;
+    public void setParam(ArrayList<VDetailSelectorItemEntity> list) {
+        if (list != null) {
+            String value = "";
+            String key = "";
+            for (int i = 0; i < list.size(); i++) {
+                VDetailSelectorItemEntity itemEntity = list.get(i);
+                if (i == 0) {
+                    value = itemEntity.value;
+                    key = itemEntity.key;
+                } else {
+                    value = value + "," + itemEntity.value;
+                    key = key + "," + itemEntity.key;
                 }
             }
-            if (edInfo.getVisibility()==View.VISIBLE)
+            if (edInfo.getVisibility() == View.VISIBLE)
                 edInfo.setText(value);
-            if (tvInfo.getVisibility()==View.VISIBLE)
+            if (tvInfo.getVisibility() == View.VISIBLE)
                 tvInfo.setText(value);
-            paramValue=key;
+            paramValue = key;
         }
     }
-    public void seDate(VDateEntity vEntity){
-        if (vEntity!=null){
-            String strDate=vEntity.getDate();
-            if (edInfo.getVisibility()==View.VISIBLE)
+
+    public void seDate(VDateEntity vEntity) {
+        if (vEntity != null) {
+            String strDate = vEntity.getDate();
+            if (edInfo.getVisibility() == View.VISIBLE)
                 edInfo.setText(strDate);
-            if (tvInfo.getVisibility()==View.VISIBLE)
+            if (tvInfo.getVisibility() == View.VISIBLE)
                 tvInfo.setText(strDate);
-            paramValue=strDate;
+            paramValue = strDate;
         }
     }
+
     @Override
     public void onClick(View view) {
-        if (view==tvInfo){
-            if (mListener!=null){
-                if ("DropDownList".equals(mEntity.ControlType)||"RadioButtonList".equals(mEntity.ControlType)) {
+        if (view == tvInfo) {
+            if (mListener != null) {
+                if ("DropDownList".equals(mEntity.ControlType) || "RadioButtonList".equals(mEntity.ControlType)) {
                     mListener.itemRadioClick(this, mEntity.ControlValue);
-                }else if ("CheckBoxList".equals(mEntity.ControlType)){
-                    mListener.itemCheckBoxClick(this,mEntity.ControlValue);
-                }else if ("CalendarV2".equals(mEntity.ControlType)){
+                } else if ("CheckBoxList".equals(mEntity.ControlType)) {
+                    mListener.itemCheckBoxClick(this, mEntity.ControlValue);
+                } else if ("CalendarV2".equals(mEntity.ControlType)) {
                     mListener.itemCalendarClick(this);
                 }
             }

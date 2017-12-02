@@ -136,7 +136,7 @@
         android:layout_below="@id/line2"
         android:layout_centerHorizontal="true"
         android:layout_margin="12.5dp"
-        android:background="@drawable/bg_btn_selecter"
+        android:background="#3B97ED"
         android:text="确定"
         android:textColor="@color/common_white"
         android:textSize="14sp" />
