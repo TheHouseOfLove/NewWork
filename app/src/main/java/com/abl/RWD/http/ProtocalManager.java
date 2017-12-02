@@ -229,6 +229,7 @@ public class ProtocalManager {
         req.strJson=strJson;
         req.strPKField=strPKField;
         req.DBName=DBName;
+        req.mVisitType=ReqBaseEntity.TYPE_JAVA_POST;
         return addTask(req,callBack);
     }
 

@@ -53,6 +53,7 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
         mSearchView = rootView.findViewById(R.id.header_search);
         mSearchView.setHint("申请人/事务标题/事务类型");
         mSearchView.addTextChangeListener(mSearchTextChangeListener);
+        mSearchView.setFocusable(false);
 
         mRecyclerView = rootView.findViewById(R.id.finish_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -66,7 +67,7 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (hidden){
-            ProtocalManager.getInstance().reqFinishWorkList("", 1, getCallBack());
+            ProtocalManager.getInstance().reqFinishWorkList(strWhere, 1, getCallBack());
             showLoading("正在获取数据。。。");
         }
     }
@@ -74,7 +75,7 @@ public class FinishWorListFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onResume() {
         super.onResume();
-        ProtocalManager.getInstance().reqFinishWorkList("", 1, getCallBack());
+        ProtocalManager.getInstance().reqFinishWorkList(strWhere, 1, getCallBack());
         showLoading("正在获取数据。。。");
     }
     @Override

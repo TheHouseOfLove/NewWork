@@ -52,6 +52,7 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
         mSearchView = rootView.findViewById(R.id.header_search);
         mSearchView.setHint("申请人/事务标题/事务类型");
         mSearchView.addTextChangeListener(mSearchTextChangeListener);
+        mSearchView.setFocusable(false);
 
         mRecyclerView = rootView.findViewById(R.id.pending_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -65,14 +66,14 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden){
-            ProtocalManager.getInstance().reqPendingWorkList("", 1, getCallBack());
+            ProtocalManager.getInstance().reqPendingWorkList(strWhere, 1, getCallBack());
             showLoading("正在获取数据。。。");
         }
     }
     @Override
     public void onResume() {
         super.onResume();
-        ProtocalManager.getInstance().reqPendingWorkList("", 1, getCallBack());
+        ProtocalManager.getInstance().reqPendingWorkList(strWhere, 1, getCallBack());
         showLoading("正在获取数据。。。");
     }
 
@@ -140,7 +141,7 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
         public void onLoadmore(RefreshLayout refreshlayout) {
             if (hasNext) {
                 int page = nextPage();
-                ProtocalManager.getInstance().reqFinishWorkList(strWhere,
+                ProtocalManager.getInstance().reqPendingWorkList(strWhere,
                         page, getCallBack());
             } else {
                 showToast("没有更多数据");
@@ -151,7 +152,7 @@ public class PendingWorkListFragment extends BaseFragment implements View.OnClic
         @Override
         public void onRefresh(RefreshLayout refreshlayout) {
             isRefresh = true;
-            ProtocalManager.getInstance().reqFinishWorkList(strWhere,
+            ProtocalManager.getInstance().reqPendingWorkList(strWhere,
                     refreshPage(), getCallBack());
         }
     };
