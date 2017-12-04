@@ -86,6 +86,9 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 		if (obj instanceof RspLoginEntity){
 			RspLoginEntity rsp= (RspLoginEntity) obj;
 			if (rsp!=null&&isSucc){
+				if(rsp.mEntity==null||TextUtils.isEmpty(rsp.mEntity.BMID)){
+					showToast("用户名密码错误");
+				}
 				showToast("登录成功");
 				LoginController.getInstance().updateLoginInfo(rsp.mEntity);
 //				SharePreLoginUtil.saveLoginInfo(rsp.mEntity);
@@ -114,6 +117,10 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 	private void login() {
 		String userName=etUserName.getText().toString();
 		String pwd=etPwd.getText().toString();
+		if(TextUtils.isEmpty(userName)||TextUtils.isEmpty(pwd)){
+			showToast("用户名密码不能为空！");
+			return;
+		}
 		VReadPwdEntity entity=new VReadPwdEntity();
 		entity.isChecked=ischecked;
 		entity.pwd=pwd;

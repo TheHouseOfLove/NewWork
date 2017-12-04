@@ -44,7 +44,7 @@ public class RWDApp extends Application{
 			public void run() {
 				// TODO Auto-generated method stub
 				HttpEngine.getInstance().start();
-				PushManager.getInstance().initialize(RWDApp.this);
+//				PushManager.getInstance().initialize(RWDApp.this);
 				LoginController.getInstance().loadLoginInfo();
 			}
 			
