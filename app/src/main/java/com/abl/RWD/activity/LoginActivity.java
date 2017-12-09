@@ -88,6 +88,7 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 			if (rsp!=null&&isSucc){
 				if(rsp.mEntity==null||TextUtils.isEmpty(rsp.mEntity.BMID)){
 					showToast("用户名密码错误");
+					return;
 				}
 				showToast("登录成功");
 				LoginController.getInstance().updateLoginInfo(rsp.mEntity);

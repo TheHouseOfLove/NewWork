@@ -167,10 +167,10 @@ public class WorkDetailActivity extends BaseNormalActivity{
             String str=mBottomView.getType();
             if ("退回".equals(str)) {
                 IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 2, REQ_ACCEPTER);
-            }else if (TextUtils.isEmpty(str)){
-                showToast("请先选择提交方式！");
-            }else{
+            }else if ("同意".equals(str)){
                 IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 1, REQ_ACCEPTER);
+            }else{
+                showToast("请先选择提交方式！");
             }
         }
 
