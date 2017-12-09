@@ -117,8 +117,8 @@ public class LoginActivity extends BaseNormalActivity implements OnClickListener
 	private void login() {
 		String userName=etUserName.getText().toString();
 		String pwd=etPwd.getText().toString();
-		if(TextUtils.isEmpty(userName)||TextUtils.isEmpty(pwd)){
-			showToast("用户名密码不能为空！");
+		if(TextUtils.isEmpty(userName)){
+			showToast("用户名不能为空！");
 			return;
 		}
 		VReadPwdEntity entity=new VReadPwdEntity();

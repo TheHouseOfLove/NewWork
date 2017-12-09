@@ -165,12 +165,12 @@ public class WorkDetailActivity extends BaseNormalActivity{
         public void nextClickListener() {
             //TODO 接收人选择
             String str=mBottomView.getType();
-            if ("同意".equals(str)) {
-                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 1, REQ_ACCEPTER);
+            if ("退回".equals(str)) {
+                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 2, REQ_ACCEPTER);
             }else if (TextUtils.isEmpty(str)){
                 showToast("请先选择提交方式！");
             }else{
-                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 2, REQ_ACCEPTER);
+                IntentUtils.starNextAccepterActivity(WorkDetailActivity.this, mDetailEntity, 1, REQ_ACCEPTER);
             }
         }
 
