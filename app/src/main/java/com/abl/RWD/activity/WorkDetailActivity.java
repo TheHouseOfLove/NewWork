@@ -434,8 +434,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void openListener(final String fileName,final String path) {
             // TODO Auto-generated method stub
+            final String name = fileName.replaceAll("&amp;","&");
             try {
-                file=new File(savePath,fileName);
+                file=new File(savePath,name);
                 if(!file.exists()){
                     file.getParentFile().mkdirs();
                     file.createNewFile();
@@ -446,25 +447,23 @@ public class WorkDetailActivity extends BaseNormalActivity{
             showLoading("文件正在下载中，请稍后。。。");
             new Thread() {
                 public void run() {
-                    String str="";
-                    String name="";
                     String filePath="";
                     try {
-                        str= URLEncoder.encode("合同文件", "utf-8");
-                        name=URLEncoder.encode(fileName, "utf-8");
                         filePath=path.replaceAll("\\\\", "/");
+                        filePath = filePath.replaceAll("&amp;","&");
                         filePath=URLEncoder.encode(filePath, "utf-8");
+                        filePath = filePath.replaceAll("\\+","%20");
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-//                    String url="http://192.168.0.102/file/"+filePath;
-                    String url="http://218.17.223.19:88/file/"+filePath;
+                    String url="http://192.168.0.102/file/"+filePath;
+//                    String url="http://218.17.223.19:88/file/"+filePath;
                     boolean is= FileUtil.saveFileFromURL(url, file);
                     Message message = new Message();
                     if(is){
                         message.what=what;
-                        message.obj = fileName;
+                        message.obj = name;
                     }
                     mHandler.sendMessage(message);
                 };

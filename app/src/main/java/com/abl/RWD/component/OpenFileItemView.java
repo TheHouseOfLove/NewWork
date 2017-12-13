@@ -50,7 +50,8 @@ public class OpenFileItemView extends RelativeLayout implements OnClickListener 
 	
 	public void setData(PAttInfoItemEntity entity){
 		this.entity=entity;
-		text_desp.setText(entity.AttName);
+		String fileName=entity.AttName.replaceAll("&amp;","&");
+		text_desp.setText(fileName);
 		if (entity.isFirst){
 			text_title.setVisibility(View.VISIBLE);
 			text_title.setText(entity.FieldName);
