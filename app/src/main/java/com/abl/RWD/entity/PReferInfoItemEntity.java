@@ -14,4 +14,7 @@ public class PReferInfoItemEntity implements Serializable{
     public String userBLType;
     public String userchange;
     public String usersList;
+
+    public String MidUsers;
+    public String MidJDIDS;
 }

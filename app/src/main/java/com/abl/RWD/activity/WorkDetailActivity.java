@@ -23,6 +23,7 @@ import com.abl.RWD.component.DetailItemView;
 import com.abl.RWD.component.OpenFileItemView;
 import com.abl.RWD.entity.PAttInfoItemEntity;
 import com.abl.RWD.entity.PAttInfoSubItemEntity;
+import com.abl.RWD.entity.PReferInfoItemEntity;
 import com.abl.RWD.entity.PWorkDetailEntity;
 import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.entity.PYWInfoItemEntity;
@@ -79,6 +80,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
     private String mBLUserID;
     private SingleWheelSelectorDialog mDialog;
     private MDateSelectorDialog mDateDialog;
+    private PReferInfoItemEntity mReferInfo;
     private Handler mHandler=new Handler(){
         public void handleMessage(Message msg) {
             hideLoadingDialog();
@@ -203,6 +205,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
                 if (rsp.mEntity.ReturnInfo!=null&&rsp.mEntity.ReturnInfo.size()>0) {
                     noTag = rsp.mEntity.ReturnInfo.get(0).nodeTag;
                 }
+                if (rsp.mEntity.ReferInfo!=null&&rsp.mEntity.ReferInfo.size()>0){
+                    mReferInfo=rsp.mEntity.ReferInfo.get(0);
+                }
             }
         }else if (obj instanceof RspBanLiYiJianEntity){
             RspBanLiYiJianEntity rsp= (RspBanLiYiJianEntity) obj;
@@ -313,7 +318,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        ProtocalManager.getInstance().returnFlowBusiness(entity, BLUserID, opinion,getCallBack());
+        ProtocalManager.getInstance().returnFlowBusiness(entity,BLUserID, opinion,getCallBack());
         showLoading();
     }
     /**
@@ -328,7 +333,7 @@ public class WorkDetailActivity extends BaseNormalActivity{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        ProtocalManager.getInstance().submitFlowBusiness(entity, BLUserID, opinion,getCallBack());
+        ProtocalManager.getInstance().submitFlowBusiness(entity,mReferInfo,BLUserID, opinion,getCallBack());
         showLoading();
     }
 

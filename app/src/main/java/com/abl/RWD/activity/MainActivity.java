@@ -48,7 +48,7 @@ public class MainActivity extends BaseNormalActivity {
             if(rsp!=null&&rsp.isSucc){
                 String str=rsp.mEntity.AppVersionInfo.get(1).Android;
                 String url=rsp.mEntity.AppVersionInfo.get(1).DownloadUrl;
-                if(!"V1.0".equals(str)){
+                if(!"V1.1".equals(str)){
                     showDialog(url);
                 }
             }

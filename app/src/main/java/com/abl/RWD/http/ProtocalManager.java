@@ -2,6 +2,7 @@ package com.abl.RWD.http;
 
 import com.abl.RWD.common.MConfiger;
 import com.abl.RWD.controller.LoginController;
+import com.abl.RWD.entity.PReferInfoItemEntity;
 import com.abl.RWD.entity.PWorkItemEntity;
 import com.abl.RWD.http.req.ReqBanLiYiJianEntity;
 import com.abl.RWD.http.req.ReqContractListEntity;
@@ -242,7 +243,7 @@ public class ProtocalManager {
      * @param callBack
      * @return
      */
-    public int submitFlowBusiness(PWorkItemEntity entity,String BLUserID,String opinion,ICallBack<Object> callBack){
+    public int submitFlowBusiness(PWorkItemEntity entity, PReferInfoItemEntity mReferInfo,String BLUserID, String opinion, ICallBack<Object> callBack){
         ReqSubmitFlowBusinessEntity req=new ReqSubmitFlowBusinessEntity();
         req.YHID=LoginController.getInstance().getYHID();
         req.BLUserID=BLUserID;
@@ -263,6 +264,10 @@ public class ProtocalManager {
         String[] arr2=arr1[1].split("@");
         req.FLowBLID=arr2[0];
         req.mVisitType=ReqBaseEntity.TYPE_JAVA_POST;
+        if (mReferInfo!=null){
+            req.MidUsers=mReferInfo.MidUsers;
+            req.MidJDIDS=mReferInfo.MidJDIDS;
+        }
         return addTask(req,callBack);
     }
 

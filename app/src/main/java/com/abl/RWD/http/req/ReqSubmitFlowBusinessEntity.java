@@ -19,6 +19,8 @@ public class ReqSubmitFlowBusinessEntity extends ReqBaseEntity {
 	public String opinion;
 	public String UrlParam;
 	public String YHID;
+	public String MidUsers;
+	public String MidJDIDS;
 	@Override
 	public String getReqUrl() {
 		// TODO Auto-generated method stub
@@ -39,6 +41,8 @@ public class ReqSubmitFlowBusinessEntity extends ReqBaseEntity {
 		mMap.put("opinion", opinion);
 		mMap.put("UrlParam", UrlParam);
 		mMap.put("YHID", YHID);
+		mMap.put("MidUsers", MidUsers);
+		mMap.put("MidJDIDS", MidJDIDS);
 		return mMap;
 	}
 
