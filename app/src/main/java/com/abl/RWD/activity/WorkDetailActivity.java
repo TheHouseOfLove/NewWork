@@ -88,21 +88,28 @@ public class WorkDetailActivity extends BaseNormalActivity{
                 case what:
                     String fileName=(String) msg.obj;
                     WorkDetailActivity.this.filename=fileName;
-                    String[] strs=fileName.split("\\.");
-                    String str=strs[strs.length-1];
-                    str=str.toLowerCase();
-                    if(!new File(savePath+"/"+fileName).exists()){
+//                    String[] strs=fileName.split("\\.");
+//                    String str=strs[strs.length-1];
+//                    str=str.toLowerCase();
+                    File file=new File(savePath+"/"+fileName);
+                    if(!file.exists()){
                         showToast("文件下载失败！");
                     }else {
-                        if("doc".equals(str)||"docx".equals(str)){
-                            Intent intent= FileUtil.getWordFileIntent(savePath + "/" + fileName);
+//                        if("doc".equals(str)||"docx".equals(str)){
+//                            Intent intent= FileUtil.getWordFileIntent(savePath + "/" + fileName);
+//                            startActivity(intent);
+//                        }else if("xls".equals(str)||"xlsx".equals(str)){
+//                            Intent intent=FileUtil.getExcelFileIntent(savePath+"/"+fileName);
+//                            startActivity(intent);
+//                        }else if("pdf".equals(str)){
+//                            Intent intent=FileUtil.getPdfFileIntent(savePath+"/"+fileName);
+//                            startActivity(intent);
+//                        }
+                        try {
+                            Intent intent= FileUtil.openFile(file);
                             startActivity(intent);
-                        }else if("xls".equals(str)||"xlsx".equals(str)){
-                            Intent intent=FileUtil.getExcelFileIntent(savePath+"/"+fileName);
-                            startActivity(intent);
-                        }else if("pdf".equals(str)){
-                            Intent intent=FileUtil.getPdfFileIntent(savePath+"/"+fileName);
-                            startActivity(intent);
+                        }catch (Exception e){
+                            showToast("为安装支持该文件格式的应用！");
                         }
                     }
                     break;
@@ -432,8 +439,9 @@ public class WorkDetailActivity extends BaseNormalActivity{
         @Override
         public void openListener(final String fileName,final String path) {
             // TODO Auto-generated method stub
+            final String name = fileName.replaceAll("&amp;","&");
             try {
-                file=new File(savePath,fileName);
+                file=new File(savePath,name);
                 if(!file.exists()){
                     file.getParentFile().mkdirs();
                     file.createNewFile();
@@ -444,24 +452,23 @@ public class WorkDetailActivity extends BaseNormalActivity{
             showLoading("文件正在下载中，请稍后。。。");
             new Thread() {
                 public void run() {
-                    String str="";
-                    String name="";
                     String filePath="";
                     try {
-                        str= URLEncoder.encode("合同文件", "utf-8");
-                        name=URLEncoder.encode(fileName, "utf-8");
                         filePath=path.replaceAll("\\\\", "/");
+                        filePath = filePath.replaceAll("&amp;","&");
                         filePath=URLEncoder.encode(filePath, "utf-8");
+                        filePath = filePath.replaceAll("\\+","%20");
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     String url="http://192.168.0.102/file/"+filePath;
+//                    String url="http://218.17.223.19:88/file/"+filePath;
                     boolean is= FileUtil.saveFileFromURL(url, file);
                     Message message = new Message();
                     if(is){
                         message.what=what;
-                        message.obj = fileName;
+                        message.obj = name;
                     }
                     mHandler.sendMessage(message);
                 };
