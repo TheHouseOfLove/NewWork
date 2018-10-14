@@ -462,8 +462,8 @@ public class WorkDetailActivity extends BaseNormalActivity{
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    String url="http://192.168.0.102/file/"+filePath;
-//                    String url="http://218.17.223.19:88/file/"+filePath;
+//                    String url="http://192.168.0.102/file/"+filePath;
+                    String url="http://219.133.197.18:88/file/"+filePath;
                     boolean is= FileUtil.saveFileFromURL(url, file);
                     Message message = new Message();
                     if(is){
